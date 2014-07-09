@@ -26,7 +26,7 @@ public class GameView extends View {
 			};
 	HashMap<String, String[]> GetClass = new HashMap<String,String[]>();
 	Paint red = new Paint();
-	Paint white = new Paint();
+	Paint black = new Paint();
 	boolean load = false;
 	boolean touch = false;
 	int screenW,screenH;
@@ -36,8 +36,8 @@ public class GameView extends View {
 	public GameView(Context context) {
 		super(context);
 		red.setColor(Color.RED);
-		white.setColor(Color.WHITE);
-		white.setTextSize(20);
+		black.setColor(Color.BLACK);
+		black.setTextSize(20);
 		wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		screenW = display.getWidth();
@@ -58,6 +58,7 @@ public class GameView extends View {
 	String Print;
 	String[] recieve = new String[3];
 	MoveBar move1 = new MoveBar(0,1000,300,10,100,200,40);
+	Weapon testWep = new Weapon("TestWeapon", "Scythe", "Scythe Wielder",10, 0, 50, 10, 40, 40, 32,"None", "None", "None", "None");
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
@@ -66,10 +67,22 @@ public class GameView extends View {
 		/*
 		 * recieve = GetClass.get("Base");
 		 * Print = Arrays.toString(recieve);
-		 * canvas.drawText(Print,100,100,white)
+		 * canvas.drawText(Print,100,100,black)
 		 */
-		move1.Draw(canvas);
-		move1.Update();
+		/*move1.Draw(canvas);
+		move1.Update();*/
+		
+		canvas.drawText(""+testWep.getName(), 100, 100, black);
+		canvas.drawText(""+testWep.getHolder(), 100, 130, black);
+		canvas.drawText(""+testWep.getType(), 100, 160, black);
+		canvas.drawText(""+testWep.getRarity(), 100, 190, black);
+		canvas.drawText(""+testWep.getDamage(), 100, 210, black);
+		canvas.drawText(""+testWep.getSpellPower(), 100, 240, black);
+		canvas.drawText(""+testWep.getSpeed(), 100, 270, black);
+		canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
+		canvas.drawText(""+testWep.getDefence(), 100, 330, black);
+		canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);
+		
 		invalidate();
 	}
 	public boolean onTouchEvent(MotionEvent e){
@@ -143,7 +156,7 @@ public class GameView extends View {
 			Eff2 = eff2;
 			Eff3 = eff3;
 			Eff4 = eff4;
-			if(Rarity == 0){}Rarity = rand.nextInt(10)+1;
+			if(Rarity == 0){Rarity = rand.nextInt(10)+1;}
 			int RandClass = 0;
 			if(Holder == "rand"){
 				RandClass = rand.nextInt(3);
@@ -160,6 +173,21 @@ public class GameView extends View {
 				Dmg = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
 			}
 		}
+		
+		String getName(){return Name;}
+		String getType(){return Type;}
+		String getHolder(){return Holder;}
+		int getRarity(){return Rarity;}
+		int getDamage(){return Dmg;}
+		int getSpellPower(){return Spellp;}
+		int getSpeed(){return Speed;}
+		int getAttackSpeed(){return Attsp;}
+		float getDefence(){return Def;}
+		float getMagicDefence(){return MDef;}
+		String getEffect1(){return Eff1;}
+		String getEffect2(){return Eff2;}
+		String getEffect3(){return Eff3;}
+		String getEffect4(){return Eff4;}
 	}
 
 }
