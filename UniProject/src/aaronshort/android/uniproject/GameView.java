@@ -58,7 +58,7 @@ public class GameView extends View {
 	String Print;
 	String[] recieve = new String[3];
 	MoveBar move1 = new MoveBar(0,1000,300,10,100,200,40);
-	Weapon testWep = new Weapon("TestWeapon", "Scythe", "Scythe Wielder",10, 0, 50, 10, 40, 40, 32,"None", "None", "None", "None");
+	Weapon testWep = new Weapon("TestWeapon", "rand", "rand",10, 0, 50, 10, 40, 40, 32,"None", "None", "None", "None");
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
