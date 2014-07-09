@@ -19,6 +19,11 @@ public class GameView extends View {
 			{"Orb","Book","Staff","Rod","Sword","Scythe"},
 			{"LongBow","ShortBow","Crossbow","Sniper","Pistol","Energy","Throwing"}
 	};
+	String[][] ClassTypes = {
+			{"Swordsman","LightSword","Warrior","Sentinal","Assassin","Duelist","Thief","Beserker","Valkyrie","ScytheWielder","Mutant","Paladin","Brute"},
+			{"Mage","LightMage","DarkMage","GreyMage","Healer","HolyMage","Sorcerer","CursedMage","BloodMage","Necromancer","Geomancer","WarriorMage","BioMorphMage"},
+			{"Ranger","Marksman","LightArcher","DarkArcher","PiercingArcher","SharpShooter","Techmaturgist","Hunter","Frost","DaggerThrower","CorruptedArcher","NightArcher","StealthArcher"}
+			};
 	HashMap<String, String[]> GetClass = new HashMap<String,String[]>();
 	Paint red = new Paint();
 	Paint white = new Paint();
@@ -39,19 +44,7 @@ public class GameView extends View {
 		screenH = display.getHeight();
 		xOffset = 0;
 		yOffset = 0;
-		GetClass.put("Base", SetMap("Swordsman","Mage","Ranger"));
-		GetClass.put("Swordsman",SetMap("LightSword","Warrior","Sentinal"));
-		GetClass.put("Mage",SetMap("LightMage","DarkMage","GreyMage"));
-		GetClass.put("Ranger",SetMap("Marksman","LightArcher","DarkArcher"));
-		GetClass.put("LightSword",SetMap("Assassin","Duelist","Thief"));
-		GetClass.put("Warrior",SetMap("Beserker","Valkyrie","ScytheWielder"));
-		GetClass.put("Sentinal",SetMap("Mutant","Paladin","Brute"));
-		GetClass.put("LightMage",SetMap("Healer","HolyMage","Sorcerer"));
-		GetClass.put("DarkMage",SetMap("CursedMage","BloodMage","Necromancer"));
-		GetClass.put("GreyMage",SetMap("Geomancer","WarriorMage","BioMorphMage"));
-		GetClass.put("Marksman",SetMap("PiercingArcher","SharpShooter","Techmaturgist"));
-		GetClass.put("LightArcher",SetMap("Hunter","Frost","DaggerThrower"));
-		GetClass.put("DarkArcher",SetMap("CorruptedArcher","NightArcher","StealthArcher"));
+		
 		
 	}
 	public String[] SetMap(String one, String two, String three){
@@ -151,11 +144,15 @@ public class GameView extends View {
 			Eff3 = eff3;
 			Eff4 = eff4;
 			if(Rarity == 0){}Rarity = rand.nextInt(10)+1;
-			if(Holder == "rand"){}
+			int RandClass = 0;
+			if(Holder == "rand"){
+				RandClass = rand.nextInt(3);
+				int w = rand.nextInt(ClassTypes[RandClass].length);
+				Holder = ClassTypes[RandClass][w];
+			}
 			if(Type == "rand"){
-				int nd = rand.nextInt(3);
-				int[] nd2 = {9,6,7};
-				Type = WepTypes[nd][rand.nextInt(nd2[nd])];
+				int[] nd = {9,6,7};
+				Type = WepTypes[RandClass][rand.nextInt(nd[RandClass])];
 			}
 			if(Dmg == 0){
 				int r1 = rand.nextInt(10)+1;
