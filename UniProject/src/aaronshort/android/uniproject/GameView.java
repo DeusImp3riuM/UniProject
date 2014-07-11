@@ -134,6 +134,21 @@ public class GameView extends View {
 		boolean canMove(){if(Offset>= Max){return true;}else{return false;}}
 		void Reset(){Offset = 0;}
 	}
+	
+	class Map{
+		HashMap<String,int[]> MapList = new HashMap<String,int[]>();
+		private String currentMap;
+		Map(){
+			
+		}
+		void setCurrentMap(){
+			
+		}
+		void getCurrentMap(){
+			
+		}
+	}
+	
 	class Weapon{
 		private String Name,Type,Holder;
 		private int Rarity;
