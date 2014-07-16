@@ -163,12 +163,18 @@ public class GameView extends View {
 	public Bitmap combineTiles(int[][] tiles, int tileSize){
 		Bitmap bit = null;
 		int height = tiles.length;
-		int width = tiles[0].length;
+		int width = 0;
+		for(int y=0;y<height;y++){
+			if(tiles[y].length > width){
+				width = tiles[y].length;
+			}
+		}
 		int cWidth = width*tileSize;
 		int cHeight = height*tileSize;
 		bit = Bitmap.createBitmap(cWidth, cHeight, Bitmap.Config.ARGB_8888);
 		Canvas MapTile = new Canvas(bit);
 		for(int i=0;i<height;i++){
+			width = tiles[i].length;
 			for(int j=0;j<width;j++){
 				MapTile.drawRect(j*tileSize,i*tileSize,(j+1)*tileSize,(i+1)*tileSize,getPaint(tiles[i][j]));
 			}
@@ -317,7 +323,7 @@ public class GameView extends View {
 			};
 			MapList.put("Start",combineTiles(setMap,tileSize));
 			setMap = new int[][]{
-				{1,2,1,2,1,2,1,2,1,2,1},
+				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
