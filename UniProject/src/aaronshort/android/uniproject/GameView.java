@@ -85,24 +85,24 @@ public class GameView extends View {
 		super.onDraw(canvas);
 		canvas.translate(xOffset, yOffset);
 		if(load==false){load=true;}
-		/*
+		/* 
 		 * recieve = GetClass.get("Base");
 		 * Print = Arrays.toString(recieve);
 		 * canvas.drawText(Print,100,100,black)
-		 */
-		/*move1.Draw(canvas);
-		move1.Update();*/
-		
-		/*canvas.drawText(""+testWep.getName(), 100, 100, black);
-		canvas.drawText(""+testWep.getHolder(), 100, 130, black);
-		canvas.drawText(""+testWep.getType(), 100, 160, black);
-		canvas.drawText(""+testWep.getRarity(), 100, 190, black);
-		canvas.drawText(""+testWep.getDamage(), 100, 210, black);
-		canvas.drawText(""+testWep.getSpellPower(), 100, 240, black);
-		canvas.drawText(""+testWep.getSpeed(), 100, 270, black);
-		canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
-		canvas.drawText(""+testWep.getDefence(), 100, 330, black);
-		canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
+		 * 
+		 * move1.Draw(canvas);
+		 * move1.Update();
+		 * 
+		 * canvas.drawText(""+testWep.getName(), 100, 100, black);
+		 * canvas.drawText(""+testWep.getHolder(), 100, 130, black);
+		 * canvas.drawText(""+testWep.getType(), 100, 160, black);
+		 * canvas.drawText(""+testWep.getRarity(), 100, 190, black);
+		 * canvas.drawText(""+testWep.getDamage(), 100, 210, black);
+		 * canvas.drawText(""+testWep.getSpellPower(), 100, 240, black);
+		 * canvas.drawText(""+testWep.getSpeed(), 100, 270, black);
+		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
+		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
+		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
 		map.setCurrentMap("Level2");
 		map.drawMap(canvas);
 		controls.drawButtons(canvas);
@@ -114,22 +114,15 @@ public class GameView extends View {
 		float xx = e.getX();
 		float yy = e.getY();
 		touch = true;
-		switch(e.getAction()){
-			case MotionEvent.ACTION_DOWN:
-				touch = true;
-				touchY = (int) yy;
-				touchX = (int) xx;
-			case MotionEvent.ACTION_UP:
-				touch = false;
-				break;
-			case MotionEvent.ACTION_MOVE:
-				touch = true;
-				touchY = (int) yy;
-				touchX = (int) xx;
-				break;
-			default:
-				break;
+		if(e.getAction() == MotionEvent.ACTION_DOWN || e.getAction() == MotionEvent.ACTION_MOVE){
+			touch = true;
+			touchY = (int) yy;
+			touchX = (int) xx;
 		}
+		else if(e.getAction() == MotionEvent.ACTION_UP){
+			touch = false;
+		}
+		else{}
 		return true;
 	}
 	public int Perc(int current,int max){
@@ -141,17 +134,17 @@ public class GameView extends View {
 	public Paint getPaint(int tile){
 		Paint paint = new Paint();
 		switch(tile){
-			case 0:
-				paint.setColor(Color.rgb(255,0,0));
-				break;
 			case 1:
-				paint.setColor(Color.rgb(100,100,100));
+				paint.setColor(Color.rgb(50,150,50));
 				break;
 			case 2:
-				paint.setColor(Color.rgb(0,255,0));
+				paint.setColor(Color.rgb(100,100,100));
 				break;
 			case 3:
-				paint.setColor(Color.rgb(0,0,255));
+				paint.setColor(Color.rgb(0,255,0));
+				break;
+			case 4:
+				paint.setColor(Color.rgb(255,0,0));
 				break;
 			default:
 				paint.setColor(Color.rgb(0,0,0));
@@ -281,19 +274,45 @@ public class GameView extends View {
 			ddr.offset(x, y);
 		}
 		void getPress(int x, int y){
-			if(up.contains(x, y)){yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
-			else if(down.contains(x, y)){yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
-			else if(right.contains(x, y)){xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}
-			else if(left.contains(x, y)){xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}
-			else if(ul.contains(x, y)){xOffset += mapSpeed;yOffset += mapSpeed;offsetButtons(-mapSpeed,-mapSpeed);}
-			else if(ur.contains(x, y)){xOffset -= mapSpeed;yOffset += mapSpeed;offsetButtons(mapSpeed,-mapSpeed);}
-			else if(dl.contains(x, y)){xOffset += mapSpeed;yOffset -= mapSpeed;offsetButtons(-mapSpeed,mapSpeed);}
-			else if(dr.contains(x, y)){xOffset -= mapSpeed;yOffset -= mapSpeed;offsetButtons(mapSpeed,mapSpeed);}
+			int [][] cMap = map.getCurrentMapArray();
+			if(up.contains(x, y)){
+				if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+				else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}}
+			else if(down.contains(x, y)){
+				if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
+				else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}}
+			else if(right.contains(x, y)){
+				if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
+				else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+			else if(left.contains(x, y)){
+				if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
+				else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+			else if(ul.contains(x, y)){
+				if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+				else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
+				if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
+				else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+			else if(ur.contains(x, y)){
+				if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+				else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
+				if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
+				else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+			else if(dl.contains(x, y)){
+				if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
+				else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
+				if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
+				else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+			else if(dr.contains(x, y)){
+				if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
+				else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
+				if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
+				else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
 			else{}
 		}
 	}
 	class Map{
 		HashMap<String,Bitmap> MapList = new HashMap<String,Bitmap>();
+		HashMap<String,int[][]> MapListArray = new HashMap<String,int[][]>();
 		private String currentMap;
 		private int tileSize;
 		private int mapScale = 10;
@@ -322,10 +341,11 @@ public class GameView extends View {
 				{1,1,1,1,1,1,1,1,1,1}
 			};
 			MapList.put("Start",combineTiles(setMap,tileSize));
+			MapListArray.put("Start", setMap);
 			setMap = new int[][]{
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
-				{1,2,1,2,1,2,1,2,1,2},
+				{1,2,0,0,1,2,0,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
@@ -335,12 +355,16 @@ public class GameView extends View {
 				{2,1,2,1,2,1,2,1,2,1}
 			};
 			MapList.put("Level2",combineTiles(setMap,tileSize));
+			MapListArray.put("Level2", setMap);
 		}
 		void setCurrentMap(String nextMap){
 			currentMap = nextMap;
 		}
 		String getCurrentMap(){
 			return currentMap;
+		}
+		int[][] getCurrentMapArray(){
+			return MapListArray.get(currentMap);
 		}
 		void drawMap(Canvas canvas){
 			Bitmap map = MapList.get(currentMap);
@@ -413,6 +437,7 @@ public class GameView extends View {
 		private Rect drawPlayer = new Rect();
 		private Paint playerpaint = new Paint();
 		private int sWidth, sHeight;
+		private int playerSize;
 		PlayerCharacter(){
 			wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
 			Display display = wm.getDefaultDisplay();
@@ -426,6 +451,7 @@ public class GameView extends View {
 				sWidth = size.x;
 				sHeight = size.y;
 			}
+			playerSize = sWidth/10;
 			drawPlayer.set(0, 0, sWidth/10, sWidth/10);
 			drawPlayer.offsetTo((sWidth/2)-drawPlayer.width()/2, (sHeight/2)-drawPlayer.height()/2);
 			playerPos.set(0, 0, sWidth/10, sWidth/10);
@@ -434,7 +460,43 @@ public class GameView extends View {
 		}
 		void draw(Canvas canvas){
 			drawPlayer.offsetTo(((sWidth/2)-drawPlayer.width()/2)-xOffset, ((sHeight/2)-drawPlayer.height()/2)-yOffset);
+			canvas.drawText(""+(drawPlayer.centerX()/playerSize)+"..."+(drawPlayer.centerY()/playerSize), 0, 0, black);
+			canvas.drawText(""+playerL()+","+playerR(), 100, 0, black);
+			
 			canvas.drawRect(drawPlayer, playerpaint);
+		}
+		int playerSize(){
+			return playerSize;
+		}
+		int playerCenterX(){
+			return drawPlayer.centerX()/playerSize;
+		}
+		int playerCenterY(){
+			return drawPlayer.centerY()/playerSize;
+		}
+		int playerL(){
+			return drawPlayer.left/playerSize;
+		}
+		int playerR(){
+			return drawPlayer.right/playerSize;
+		}
+		int playerT(){
+			return drawPlayer.top/playerSize;
+		}
+		int playerB(){
+			return drawPlayer.bottom/playerSize;
+		}
+		int playerLn(){
+			return (drawPlayer.left-mapSpeed)/playerSize;
+		}
+		int playerRn(){
+			return (drawPlayer.right+mapSpeed)/playerSize;
+		}
+		int playerTn(){
+			return (drawPlayer.top-mapSpeed)/playerSize;
+		}
+		int playerBn(){
+			return (drawPlayer.bottom+mapSpeed)/playerSize;
 		}
 	}
 }
