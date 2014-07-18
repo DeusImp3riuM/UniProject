@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,18 +47,8 @@ public class GameView extends View {
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
 		black.setTextSize(20);
-		wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 13){
-			screenW = display.getWidth();
-			screenH = display.getHeight();
-		}
-		else{
-			Point size = new Point();
-			display.getSize(size);
-			screenW = size.x;
-			screenH = size.y;
-		}
+		screenW = getScreenWidth();
+		screenH = getScreenHeight();
 		xOffset = 0;
 		yOffset = 0;
 		
@@ -80,12 +69,17 @@ public class GameView extends View {
 	Map map = new Map();
 	Controls controls = new Controls();
 	PlayerCharacter player = new PlayerCharacter();
+	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1);
+	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1);
+	String State = "Map";
+	String goingTo = "";
+	boolean isTrans = false;
+	boolean isTransIn = false;
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-		canvas.translate(xOffset, yOffset);
-		if(load==false){load=true;}
-		/* 
+		/*if(load==false){load=true;}
+		 * 
 		 * recieve = GetClass.get("Base");
 		 * Print = Arrays.toString(recieve);
 		 * canvas.drawText(Print,100,100,black)
@@ -103,12 +97,72 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
 		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
-		map.setCurrentMap("Level2");
-		map.drawMap(canvas);
-		controls.drawButtons(canvas);
-		player.draw(canvas);
-		if(touch == true){controls.getPress(touchX, touchY);}
+		if(State == "MainMenu"){
+			back.draw(canvas);
+			if(isTransIn == false && isTrans == false){
+				if(back.getPressed(touchX, touchY) == true){
+					goingTo = back.getState();
+					isTrans = true;
+				}
+			}
+			else if(isTransIn == true){transitionIn(15,canvas);}
+			else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+		}
+		else if(State == "Map"){
+			canvas.translate(xOffset, yOffset);
+			map.setCurrentMap("Level2");
+			map.drawMap(canvas);
+			controls.drawButtons(canvas);
+			player.draw(canvas);
+			settings.draw(canvas);
+			if(isTrans == false && isTransIn == false){
+				if(touch == true){controls.getPress(touchX, touchY);}
+				if(settings.getPressed(touchX, touchY) == true){
+					goingTo = settings.getState();
+					isTrans = true;
+				}
+			}
+			else if(isTransIn == true){transitionIn(15,canvas);}
+			else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+		}
 		invalidate();
+	}
+	float tCounter = 0;
+	public void transitionOut(float speed,Canvas canvas,String To){
+		int Max = 255;
+		Rect Cover = new Rect();
+		Paint coverP = new Paint();
+		Cover.set(0, 0, getScreenWidth(), getScreenHeight());
+		coverP.setColor(Color.argb((int)tCounter,0,0,0));
+		if(State == "Map"){Cover.offsetTo(-xOffset,-yOffset);}		
+		canvas.drawRect(Cover, coverP);
+		if(tCounter < Max){
+			tCounter += speed;
+		}
+		else{
+			State = To;
+			isTrans = false;
+			isTransIn = true;
+			touchX = 0;
+			touchY = 0;
+		}
+	}
+	public void transitionIn(float speed,Canvas canvas){
+		Rect Cover = new Rect();
+		Paint coverP = new Paint();
+		Cover.set(0,0, getScreenWidth(), getScreenHeight());
+		if(tCounter > 0){
+			tCounter -= speed;
+		}
+		else{
+			isTrans = false;
+			isTransIn = false;
+			touchX = 0;
+			touchY = 0;
+		}
+		coverP.setColor(Color.argb((int)tCounter,0,0,0));
+		canvas.drawRect(Cover, coverP);
+		
 	}
 	public boolean onTouchEvent(MotionEvent e){
 		float xx = e.getX();
@@ -124,6 +178,34 @@ public class GameView extends View {
 		}
 		else{}
 		return true;
+	}
+	public int getScreenWidth(){
+		int screenWidth;
+		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 13){
+			screenWidth = display.getWidth();
+		}
+		else{
+			Point size = new Point();
+			display.getSize(size);
+			screenWidth = size.x;
+		}
+		return screenWidth;
+	}
+	public int getScreenHeight(){
+		int screenHeight;
+		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 13){
+			screenHeight = display.getHeight();
+		}
+		else{
+			Point size = new Point();
+			display.getSize(size);
+			screenHeight = size.y;
+		}
+		return screenHeight;
 	}
 	public int Perc(int current,int max){
 		float Value = 0;
@@ -152,7 +234,7 @@ public class GameView extends View {
 		}
 		return paint;
 	}
-	/*-------------------------------------------*/
+
 	public Bitmap combineTiles(int[][] tiles, int tileSize){
 		Bitmap bit = null;
 		int height = tiles.length;
@@ -174,7 +256,7 @@ public class GameView extends View {
 		}
 		return bit;
 	}
-	/*-------------------------------------------*/
+
 	class MoveBar{
 		private int Offset,Max,BarWidth,Speed,barX,barY;
 		private Paint barPaint = new Paint();
@@ -219,22 +301,12 @@ public class GameView extends View {
 		private Rect dr = new Rect();
 		private Rect ddr = new Rect();
 		private int butScale = 9;
+		private int sWidth, sHeight;
 		Controls(){
-			WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-			Display display = wm.getDefaultDisplay();
-			int sWidth, sHeight;
-			if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 13){
-				buttonSize = display.getWidth()/butScale;
-				sWidth = display.getWidth();
-				sHeight = display.getHeight();
-			}
-			else{
-				Point size = new Point();
-				display.getSize(size);
-				buttonSize = size.x/butScale;
-				sWidth = size.x;
-				sHeight = size.y;
-			}
+			buttonSize = getScreenWidth()/butScale;
+			sWidth = getScreenWidth();
+			sHeight = getScreenHeight();
+			
 			up.set(sWidth-(buttonSize*2)-buttonSize/2,sHeight-(buttonSize*3)-buttonSize/2,sWidth-(buttonSize*1)-buttonSize/2,sHeight-(buttonSize*2)-buttonSize/2);
 			dup.set(sWidth-(buttonSize*2)-buttonSize/2,sHeight-(buttonSize*3)-buttonSize/2,sWidth-(buttonSize*1)-buttonSize/2,sHeight-(buttonSize*2)-buttonSize/2);
 			down.set(sWidth-(buttonSize*2)-buttonSize/2,sHeight-(buttonSize*1)-buttonSize/2,sWidth-(buttonSize*1)-buttonSize/2,sHeight-(buttonSize*0)-buttonSize/2);
@@ -317,16 +389,7 @@ public class GameView extends View {
 		private int tileSize;
 		private int mapScale = 10;
 		Map(){
-			wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
-			Display display = wm.getDefaultDisplay();
-			if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 13){
-				tileSize = display.getWidth()/mapScale;
-			}
-			else{
-				Point size = new Point();
-				display.getSize(size);
-				tileSize = size.x/mapScale;
-			}
+			tileSize = getScreenWidth()/mapScale;
 			int[][] setMap;
 			setMap = new int[][]{
 				{1,1,1,1,1,1,1,1,1,1},
@@ -345,7 +408,7 @@ public class GameView extends View {
 			setMap = new int[][]{
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
-				{1,2,0,0,1,2,0,2,1,2},
+				{1,2,0,0,1,0,0,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
@@ -433,7 +496,7 @@ public class GameView extends View {
 		String getEffect4(){return Eff4;}
 	}
 	class PlayerCharacter{
-		private Rect playerPos = new Rect();
+
 		private Rect drawPlayer = new Rect();
 		private Paint playerpaint = new Paint();
 		private int sWidth, sHeight;
@@ -452,10 +515,8 @@ public class GameView extends View {
 				sHeight = size.y;
 			}
 			playerSize = sWidth/10;
-			drawPlayer.set(0, 0, sWidth/10, sWidth/10);
-			drawPlayer.offsetTo((sWidth/2)-drawPlayer.width()/2, (sHeight/2)-drawPlayer.height()/2);
-			playerPos.set(0, 0, sWidth/10, sWidth/10);
-			playerPos.offsetTo((sWidth/2)-drawPlayer.width()/2, (sHeight/2)-drawPlayer.height()/2);
+			drawPlayer.set(0, 0, playerSize, playerSize);
+			drawPlayer.offsetTo(playerSize-drawPlayer.width()/2, (sHeight/2)-drawPlayer.height()/2);
 			playerpaint.setColor(Color.RED);
 		}
 		void draw(Canvas canvas){
@@ -497,6 +558,42 @@ public class GameView extends View {
 		}
 		int playerBn(){
 			return (drawPlayer.bottom+mapSpeed)/playerSize;
+		}
+	}
+	class Button{
+		private Rect button = new Rect();
+		private Rect press = new Rect();
+		private int x,y,width,height;
+		private int screenW = getScreenWidth();
+		private int screenH = getScreenHeight();
+		private String image,to;
+		private Paint test = new Paint();
+		Button(int a, int b, String c, String d,int e, int f){
+			x = a;
+			y = b;
+			image = c;
+			to = d;
+			height = screenW/e;
+			width = height*f;
+			button.set(0, 0, width, height);
+			button.offsetTo(x, y);
+			press.set(button);
+			test.setColor(Color.BLACK);
+		}
+		void draw(Canvas canvas){
+			if(State == "Map"){button.offsetTo(x-xOffset, y-yOffset);}
+			canvas.drawRect(button, test);
+		}
+		boolean getPressed(int x2, int y2){
+			if(press.contains(x2, y2)){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		String getState(){
+			return to;
 		}
 	}
 }
