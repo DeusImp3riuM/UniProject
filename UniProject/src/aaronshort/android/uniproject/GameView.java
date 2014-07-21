@@ -40,6 +40,7 @@ public class GameView extends View {
 	int xOffset,yOffset;
 	int touchX,touchY;
 	final int sdk = android.os.Build.VERSION.SDK_INT;
+	Weapon[] InvWeapon = new Weapon[50];
 	
 	public GameView(Context context) {
 		super(context);
@@ -49,8 +50,16 @@ public class GameView extends View {
 		black.setTextSize(20);
 		screenW = getScreenWidth();
 		screenH = getScreenHeight();
+		for(int f=0;f<50;f++){InvWeapon[f]=null;}
 		xOffset = 0;
 		yOffset = 0;
+		GetClass.put("Base", SetMap("Swordsman","Ranger","Mage"));
+		GetClass.put("Swordsman", SetMap("Light","Warrior","Sentinal"));
+		GetClass.put("Ranger", SetMap("Marksman","Dark","Light"));
+		GetClass.put("Mage", SetMap("Light","Dark","Grey"));
+		GetClass.put("Light", SetMap("","",""));
+		GetClass.put("Warrior", SetMap("","",""));
+		GetClass.put("Sentinal", SetMap("","",""));
 		
 		
 	}
@@ -59,9 +68,8 @@ public class GameView extends View {
 		Temp[0] = one;
 		Temp[1] = two;
 		Temp[2] = three;
-		return Temp;
+		return Temp; 
 	}
-	
 	
 	String Print;
 	String[] recieve = new String[3];
@@ -114,9 +122,16 @@ public class GameView extends View {
 					goingTo = back.getState();
 					isTrans = true;
 				}
+				else if(inventory.getPressed(touchX, touchY) == true){
+					goingTo = inventory.getState();
+					isTrans = true;
+				}
 			}
 			else if(isTransIn == true){transitionIn(15,canvas);}
 			else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+		}
+		else if(State == "Inventory"){
+			
 		}
 		else if(State == "Map"){
 			canvas.translate(xOffset, yOffset);
@@ -264,6 +279,11 @@ public class GameView extends View {
 			}
 		}
 		return bit;
+	}
+	public boolean insideArea(int x,int y,int h,int w){
+		Rect Area = new Rect();
+		Area.set(x, y, x+w, y+h);
+		return Area.contains(touchX, touchX);
 	}
 	class MoveBar{
 		private int Offset,Max,BarWidth,Speed,barX,barY;
