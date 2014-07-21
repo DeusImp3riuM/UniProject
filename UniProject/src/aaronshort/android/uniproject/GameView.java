@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.graphics.*;
+import android.graphics.PorterDuff.Mode;
 
 public class GameView extends View {
 	
@@ -612,6 +613,14 @@ public class GameView extends View {
 		}
 		String getState(){
 			return to;
+		}
+	}
+	class Inventory{
+		Inventory(){
+			
+		}
+		void draw(Canvas canvas){
+			//canvas.draw
 		}
 	}
 }
