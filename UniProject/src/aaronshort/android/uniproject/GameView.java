@@ -62,6 +62,7 @@ public class GameView extends View {
 		return Temp;
 	}
 	
+	
 	String Print;
 	String[] recieve = new String[3];
 	MoveBar move1 = new MoveBar(0,1000,300,10,100,200,40);
@@ -69,8 +70,12 @@ public class GameView extends View {
 	Map map = new Map();
 	Controls controls = new Controls();
 	PlayerCharacter player = new PlayerCharacter();
-	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1);
-	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1);
+	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1,"yellow");
+	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1,"blue");
+	Button inventory = new Button(getScreenWidth()/4,getScreenHeight()/10,"Inventory","Inventory",7,4,"cyan");
+	Button equip = new Button(getScreenWidth()/4,(getScreenHeight()/10)*2,"Equip","Equiptment",7,4,"red");
+	Button skills = new Button(getScreenWidth()/4,(getScreenHeight()/10)*3,"Skill","SkillTree",7,4,"#CB00FF");
+	Button characters = new Button(getScreenWidth()/4,(getScreenHeight()/10)*4,"Characters","Characters",7,4,"#00A552");
 	String State = "Map";
 	String goingTo = "";
 	boolean isTrans = false;
@@ -99,7 +104,12 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
 		if(State == "MainMenu"){
 			back.draw(canvas);
+			inventory.draw(canvas);
+			equip.draw(canvas);
+			skills.draw(canvas);
+			characters.draw(canvas);
 			if(isTransIn == false && isTrans == false){
+				
 				if(back.getPressed(touchX, touchY) == true){
 					goingTo = back.getState();
 					isTrans = true;
@@ -234,7 +244,6 @@ public class GameView extends View {
 		}
 		return paint;
 	}
-
 	public Bitmap combineTiles(int[][] tiles, int tileSize){
 		Bitmap bit = null;
 		int height = tiles.length;
@@ -256,7 +265,6 @@ public class GameView extends View {
 		}
 		return bit;
 	}
-
 	class MoveBar{
 		private int Offset,Max,BarWidth,Speed,barX,barY;
 		private Paint barPaint = new Paint();
@@ -502,18 +510,8 @@ public class GameView extends View {
 		private int sWidth, sHeight;
 		private int playerSize;
 		PlayerCharacter(){
-			wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
-			Display display = wm.getDefaultDisplay();
-			if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) < 13){
-				sWidth = display.getWidth();
-				sHeight = display.getHeight();
-			}
-			else{
-				Point size = new Point();
-				display.getSize(size);
-				sWidth = size.x;
-				sHeight = size.y;
-			}
+			sWidth = getScreenWidth();
+			sHeight = getScreenHeight();
 			playerSize = sWidth/10;
 			drawPlayer.set(0, 0, playerSize, playerSize);
 			drawPlayer.offsetTo(playerSize-drawPlayer.width()/2, (sHeight/2)-drawPlayer.height()/2);
@@ -568,7 +566,7 @@ public class GameView extends View {
 		private int screenH = getScreenHeight();
 		private String image,to;
 		private Paint test = new Paint();
-		Button(int a, int b, String c, String d,int e, int f){
+		Button(int a, int b, String c, String d,int e, int f,String color){
 			x = a;
 			y = b;
 			image = c;
@@ -578,7 +576,7 @@ public class GameView extends View {
 			button.set(0, 0, width, height);
 			button.offsetTo(x, y);
 			press.set(button);
-			test.setColor(Color.BLACK);
+			test.setColor(Color.parseColor(color));
 		}
 		void draw(Canvas canvas){
 			if(State == "Map"){button.offsetTo(x-xOffset, y-yOffset);}
