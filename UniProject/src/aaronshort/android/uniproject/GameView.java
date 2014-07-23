@@ -78,6 +78,7 @@ public class GameView extends View {
 	Weapon testWep = new Weapon("TestWeapon", "rand", "rand",10, 0, 50, 10, 40, 40, 32,"None", "None", "None", "None");
 	Map map = new Map();
 	Controls controls = new Controls();
+	Inventory inv = new Inventory();
 	PlayerCharacter player = new PlayerCharacter();
 	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1,"yellow");
 	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1,"blue");
@@ -132,7 +133,7 @@ public class GameView extends View {
 			else if(isTrans == true){transitionOut(15,canvas,goingTo);}
 		}
 		else if(State == "Inventory"){
-			
+			inv.draw(canvas);
 		}
 		else if(State == "Map"){
 			canvas.translate(xOffset, yOffset);
@@ -540,8 +541,7 @@ public class GameView extends View {
 		}
 		void draw(Canvas canvas){
 			drawPlayer.offsetTo(((sWidth/2)-drawPlayer.width()/2)-xOffset, ((sHeight/2)-drawPlayer.height()/2)-yOffset);
-			canvas.drawText(""+(drawPlayer.centerX()/playerSize)+"..."+(drawPlayer.centerY()/playerSize), 0, 0, black);
-			canvas.drawText(""+playerL()+","+playerR(), 100, 0, black);
+			canvas.drawText(""+getScreenWidth()+".."+getScreenHeight(), 0, 0, black);
 			
 			canvas.drawRect(drawPlayer, playerpaint);
 		}
@@ -616,11 +616,53 @@ public class GameView extends View {
 		}
 	}
 	class Inventory{
+		private Rect top = new Rect();
+		private Rect down = new Rect();
+		private Rect left = new Rect();
+		private Rect right = new Rect();
+		private Rect space = new Rect();
+		private Rect info = new Rect();
+		private int tabSize = (int)(getScreenWidth()/8.6);
+		private int offset = (int)(getScreenWidth()/8.33);
+		private int counter = 0;
+		private Rect wep = new Rect(); //Weapons
+		private Rect arm = new Rect(); //Armour
+		private Rect acc = new Rect(); //Accessories
+		
 		Inventory(){
-			
+			space.set((int)(getScreenWidth()/19.5), (int)(getScreenHeight()/10.57), (int)(getScreenWidth()/1.85),(int)(getScreenHeight()/1.16));
+			top.set(0,0,getScreenWidth(),space.top);
+			down.set(0,space.bottom,getScreenWidth(),getScreenHeight());
+			left.set(0, space.top, space.left, space.bottom);
+			right.set(space.right, space.top, getScreenWidth(), space.bottom);
+			info.set((int)(getScreenWidth()/1.56),(int)(getScreenHeight()/9.34),(int)(getScreenWidth()/1.045),(int)(getScreenHeight()/1.5));
+			wep.set((int)(getScreenWidth()/18.6)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/18.6)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+			counter++;
+			arm.set((int)(getScreenWidth()/18.6)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/18.6)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+			counter++;
+			acc.set((int)(getScreenWidth()/18.6)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/18.6)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 		}
 		void draw(Canvas canvas){
-			//canvas.draw
+			canvas.drawRect(top,red);
+			canvas.drawRect(down,red);
+			canvas.drawRect(left,red);
+			canvas.drawRect(right,red);
+			canvas.drawRect(info, blue);
+			canvas.drawRect(wep, blue);
+			canvas.drawRect(arm, blue);
+			canvas.drawRect(acc, blue);
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
