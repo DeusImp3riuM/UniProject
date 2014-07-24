@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.graphics.*;
-import android.graphics.PorterDuff.Mode;
 
 public class GameView extends View {
 	
@@ -441,7 +440,7 @@ public class GameView extends View {
 				{1,2,0,0,1,0,0,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
-				{2,1,2,1,2,1,2,1,0,1},
+				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
