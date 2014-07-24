@@ -16,8 +16,8 @@ import android.graphics.*;
 public class GameView extends View {
 	
 	int mapSpeed = 3;
-	
-	
+
+
 	Random rand = new Random();
 	String[][] WepTypes={
 			{"LongSword","Rapier","TwoHanded","Dagger","Club","Axe","TwoHandedAxe","Scythe","DualScythe"},
@@ -40,8 +40,7 @@ public class GameView extends View {
 	int xOffset,yOffset;
 	int touchX,touchY;
 	final int sdk = android.os.Build.VERSION.SDK_INT;
-	Weapon[] InvWeapon = new Weapon[50];
-	
+
 	public GameView(Context context) {
 		super(context);
 		red.setColor(Color.RED);
@@ -50,7 +49,6 @@ public class GameView extends View {
 		black.setTextSize(20);
 		screenW = getScreenWidth();
 		screenH = getScreenHeight();
-		for(int f=0;f<50;f++){InvWeapon[f]=null;}
 		xOffset = 0;
 		yOffset = 0;
 		GetClass.put("Base", SetMap("Swordsman","Ranger","Mage"));
@@ -60,21 +58,21 @@ public class GameView extends View {
 		GetClass.put("Light", SetMap("","",""));
 		GetClass.put("Warrior", SetMap("","",""));
 		GetClass.put("Sentinal", SetMap("","",""));
-		
-		
+
+
 	}
 	public String[] SetMap(String one, String two, String three){
 		String[] Temp = new String[3];
 		Temp[0] = one;
 		Temp[1] = two;
 		Temp[2] = three;
-		return Temp; 
+		return Temp;
 	}
-	
+
 	String Print;
 	String[] recieve = new String[3];
 	MoveBar move1 = new MoveBar(0,1000,300,10,100,200,40);
-	Weapon testWep = new Weapon("TestWeapon", "rand", "rand",10, 0, 50, 10, 40, 40, 32,"None", "None", "None", "None");
+
 	Map map = new Map();
 	Controls controls = new Controls();
 	Inventory inv = new Inventory();
@@ -93,14 +91,14 @@ public class GameView extends View {
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
 		/*if(load==false){load=true;}
-		 * 
+		 *
 		 * recieve = GetClass.get("Base");
 		 * Print = Arrays.toString(recieve);
 		 * canvas.drawText(Print,100,100,black)
-		 * 
+		 *
 		 * move1.Draw(canvas);
 		 * move1.Update();
-		 * 
+		 *
 		 * canvas.drawText(""+testWep.getName(), 100, 100, black);
 		 * canvas.drawText(""+testWep.getHolder(), 100, 130, black);
 		 * canvas.drawText(""+testWep.getType(), 100, 160, black);
@@ -118,7 +116,7 @@ public class GameView extends View {
 			skills.draw(canvas);
 			characters.draw(canvas);
 			if(isTransIn == false && isTrans == false){
-				
+
 				if(back.getPressed(touchX, touchY) == true){
 					goingTo = back.getState();
 					isTrans = true;
@@ -449,7 +447,7 @@ public class GameView extends View {
 			MapList.put("Level2",combineTiles(setMap,tileSize));
 			MapListArray.put("Level2", setMap);
 		}
-		void setCurrentMap(String nextMap){
+        void setCurrentMap(String nextMap){
 			currentMap = nextMap;
 		}
 		String getCurrentMap(){
@@ -493,12 +491,12 @@ public class GameView extends View {
 			Eff4 = eff4;
 			if(Rarity == 0){Rarity = rand.nextInt(10)+1;}
 			int RandClass = 0;
-			if(Holder == "rand"){
+			if(Holder.equals("rand")){
 				RandClass = rand.nextInt(3);
 				int w = rand.nextInt(ClassTypes[RandClass].length);
 				Holder = ClassTypes[RandClass][w];
 			}
-			if(Type == "rand"){
+			if(Type.equals("rand")){
 				int[] nd = {9,6,7};
 				Type = WepTypes[RandClass][rand.nextInt(nd[RandClass])];
 			}
@@ -599,16 +597,11 @@ public class GameView extends View {
 			test.setColor(Color.parseColor(color));
 		}
 		void draw(Canvas canvas){
-			if(State == "Map"){button.offsetTo(x-xOffset, y-yOffset);}
+			if(State.equals("Map")){button.offsetTo(x-xOffset, y-yOffset);}
 			canvas.drawRect(button, test);
 		}
 		boolean getPressed(int x2, int y2){
-			if(press.contains(x2, y2)){
-				return true;
-			}
-			else{
-				return false;
-			}
+			return press.contains(x2, y2);
 		}
 		String getState(){
 			return to;
@@ -621,27 +614,55 @@ public class GameView extends View {
 		private Rect right = new Rect();
 		private Rect space = new Rect();
 		private Rect info = new Rect();
+        private Rect mdown = new Rect();
+        private Rect mup = new Rect();
 		private int tabSize = (int)(getScreenWidth()/8.6);
 		private int offset = (int)(getScreenWidth()/8.33);
 		private int counter = 0;
 		private Rect wep = new Rect(); //Weapons
 		private Rect arm = new Rect(); //Armour
 		private Rect acc = new Rect(); //Accessories
-		
+        HashMap<String,Weapon> slot = new HashMap<String, Weapon>();
+        //private Weapon[] slot;
+        private Rect slotSize = new Rect();
+        private Rect slotTemp = new Rect();
+        private int slotHeight;
+        private Paint slotText = new Paint();
+
 		Inventory(){
+            slotText.setColor(Color.BLACK);
+            slotText.setTextSize(getScreenWidth()/25);
 			space.set((int)(getScreenWidth()/19.5), (int)(getScreenHeight()/10.57), (int)(getScreenWidth()/1.85),(int)(getScreenHeight()/1.16));
 			top.set(0,0,getScreenWidth(),space.top);
 			down.set(0,space.bottom,getScreenWidth(),getScreenHeight());
 			left.set(0, space.top, space.left, space.bottom);
 			right.set(space.right, space.top, getScreenWidth(), space.bottom);
 			info.set((int)(getScreenWidth()/1.56),(int)(getScreenHeight()/9.34),(int)(getScreenWidth()/1.045),(int)(getScreenHeight()/1.5));
+            mup.set((int)(getScreenWidth()/1.81),(int)(getScreenHeight()/10.75),(int)(getScreenWidth()/1.64),(int)(getScreenHeight()/2.68));
+            mdown.set(mup);
+            mdown.offsetTo(mup.left,getScreenHeight()/2);
 			wep.set((int)(getScreenWidth()/18.6)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/18.6)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 			counter++;
 			arm.set((int)(getScreenWidth()/18.6)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/18.6)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 			counter++;
 			acc.set((int)(getScreenWidth()/18.6)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/18.6)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
-		}
+            slot.put("0", new Weapon("Scythe of Holy Destiny", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
+            slot.put("1", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
+            slot.put("-1", null);
+            slotSize.set(space.left, space.top, space.right, getScreenHeight() / 6);
+            slotHeight = getScreenHeight()/6;
+            slotHeight -= space.top;
+            slotTemp = slotSize;
+        }
 		void draw(Canvas canvas){
+            for(int f=0;slot.get(Integer.toString(f))!= slot.get("-1");f++){
+                int top = (space.top)+(f*slotHeight);
+                slotTemp.set(space.left,top,space.bottom,top+slotHeight);
+                Weapon temp = slot.get(Integer.toString(f));
+                canvas.drawRect(slotTemp,blue);
+                canvas.drawText(temp.getName(), slotTemp.left+getScreenWidth()/80, top+slotHeight/2, slotText);
+            }
+
 			canvas.drawRect(top,red);
 			canvas.drawRect(down,red);
 			canvas.drawRect(left,red);
@@ -650,18 +671,8 @@ public class GameView extends View {
 			canvas.drawRect(wep, blue);
 			canvas.drawRect(arm, blue);
 			canvas.drawRect(acc, blue);
+            canvas.drawRect(mup,blue);
+            canvas.drawRect(mdown,blue);
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
