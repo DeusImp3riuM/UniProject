@@ -85,7 +85,7 @@ public class GameView extends View {
 	Button equip = new Button(getScreenWidth()/4,(getScreenHeight()/10)*2,"Equip","Equiptment",7,4,"red");
 	Button skills = new Button(getScreenWidth()/4,(getScreenHeight()/10)*3,"Skill","SkillTree",7,4,"#CB00FF");
 	Button characters = new Button(getScreenWidth()/4,(getScreenHeight()/10)*4,"Characters","Characters",7,4,"#00A552");
-	String State = "Map";
+	String State = "Inventory";
 	String goingTo = "";
 	boolean isTrans = false;
 	boolean isTransIn = false;
@@ -136,6 +136,7 @@ public class GameView extends View {
             inv.upDownButton();
             inv.slotPressed();
             backMenu.draw(canvas);
+            inv.checkEquip(canvas);
 
             if(isTransIn == false && isTrans == false){
 
@@ -545,6 +546,7 @@ public class GameView extends View {
 		private Paint playerpaint = new Paint();
 		private int sWidth, sHeight;
 		private int playerSize;
+        private Weapon personalWep = null;
 		PlayerCharacter(){
 			sWidth = getScreenWidth();
 			sHeight = getScreenHeight();
@@ -592,6 +594,12 @@ public class GameView extends View {
 		int playerBn(){
 			return (drawPlayer.bottom+mapSpeed)/playerSize;
 		}
+        void unequipWeapon(){
+            personalWep = null;
+        }
+        void equipWeapon(Weapon weapon){
+            personalWep = weapon;
+        }
 	}
 	class Button{
 		private Rect button = new Rect();
@@ -641,18 +649,26 @@ public class GameView extends View {
 		private Rect wep = new Rect(); //Weapons
 		private Rect arm = new Rect(); //Armour
 		private Rect acc = new Rect(); //Accessories
+        private Rect equipt = new Rect();
+        private Rect unequipt = new Rect();
         HashMap<String,Weapon> slot = new HashMap<String, Weapon>();
         HashMap<String,Rect> allSlots = new HashMap<String, Rect>();
-        //private Weapon[] slot;
         private Rect slotSize = new Rect();
 
         private int slotHeight;
         private Paint slotText = new Paint();
         private int slotOffset;
         private int slotCount;
+        private int selected;
+        private Paint selectedCol = new Paint();
+        private int infoW,infoH,rowSpacing,colSpacing;
 
 		Inventory(){
+            colSpacing = 25;
+            rowSpacing = 12;
+            selectedCol.setARGB(100,0,0,0);
             slotOffset = 0;
+            selected = -1;
             slotText.setColor(Color.BLACK);
             slotText.setTextSize(getScreenWidth()/25);
 			space.set((int)(getScreenWidth()/33.33), (int)(getScreenHeight()/10.21), (int)(getScreenWidth()/1.15),(int)(getScreenHeight()/1.99));
@@ -661,9 +677,15 @@ public class GameView extends View {
 			left.set(0, space.top, space.left, space.bottom);
 			right.set(space.right, space.top, getScreenWidth(), space.bottom);
 			info.set((int)(getScreenWidth()/33.33),(int)(getScreenHeight()/1.82),(int)(getScreenWidth()/1.15),(int)(getScreenHeight()/1.04));
+            infoW = info.width();
+            infoH = info.height();
             mup.set((int)(getScreenWidth()/1.14),(int)(getScreenHeight()/8.48),(int)(getScreenWidth()/1.01),(int)(getScreenHeight()/5.04));
             mdown.set(mup);
             mdown.offsetTo(mup.left,(int)(getScreenHeight()/2.52));
+            int butSize = (int)(getScreenWidth()/1.14) - (int)(getScreenWidth()/1.01);
+            equipt.set((int)(getScreenWidth()/1.14),(int)(getScreenHeight()/1.5),(int)(getScreenWidth()/1.01),info.top+(info.height()/2-10));
+            unequipt.set(equipt);
+            unequipt.offset(0,equipt.height()+10);
 			wep.set((int)(getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 			counter++;
 			arm.set((int)(getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
@@ -695,6 +717,7 @@ public class GameView extends View {
                 slotTemp.set(space.left,top+slotOffset,space.right,top+slotHeight+slotOffset);
                 Weapon temp = slot.get(Integer.toString(f));
                 canvas.drawRect(slotTemp,blue);
+                if(f == selected){canvas.drawRect(slotTemp,selectedCol);}
                 canvas.drawText(temp.getName(), slotTemp.left+getScreenWidth()/80, (top+slotHeight/2)+slotOffset, slotText);
                 Rect rtemp = new Rect();
                 rtemp.set(slotTemp);
@@ -711,6 +734,26 @@ public class GameView extends View {
 			canvas.drawRect(acc, blue);
             canvas.drawRect(mup,blue);
             canvas.drawRect(mdown,blue);
+            canvas.drawRect(equipt,blue);
+            canvas.drawRect(unequipt,blue);
+            if(selected != -1){
+                Weapon temp = slot.get(Integer.toString(selected));
+                canvas.drawText("Name: "+temp.getName(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*1),slotText);
+                canvas.drawText("Class: "+temp.getHolder(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*3),slotText);
+                canvas.drawText("Type: "+temp.getType(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*4),slotText);
+                canvas.drawText("Rarity: "+temp.getRarity(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*5),slotText);
+                canvas.drawText("Damage: "+temp.getDamage(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*6),slotText);
+                canvas.drawText("Defence: "+temp.getDefence(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*7),slotText);
+                canvas.drawText("Spell Power: "+temp.getSpellPower(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*8),slotText);
+                canvas.drawText("Magic Defence: "+temp.getMagicDefence(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*9),slotText);
+                canvas.drawText("Speed: "+temp.getSpeed(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*10),slotText);
+                canvas.drawText("Attack Speed: "+temp.getAttackSpeed(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*11),slotText);
+
+                canvas.drawText("Effect 1: "+temp.getEffect1(),info.left+((infoW/colSpacing)*1)+(info.width()/2),info.top+((infoH/rowSpacing)*3),slotText);
+                canvas.drawText("Effect 2: "+temp.getEffect2(),info.left+((infoW/colSpacing)*1)+(info.width()/2),info.top+((infoH/rowSpacing)*4),slotText);
+                canvas.drawText("Effect 3: "+temp.getEffect3(),info.left+((infoW/colSpacing)*1+(info.width()/2)),info.top+((infoH/rowSpacing)*5),slotText);
+                canvas.drawText("Effect 4: "+temp.getEffect4(),info.left+((infoW/colSpacing)*1)+(info.width()/2),info.top+((infoH/rowSpacing)*6),slotText);
+            }
 		}
         void upDownButton(){
             if(mdown.contains(touchX,touchY)){
@@ -724,14 +767,57 @@ public class GameView extends View {
                 }
             }
         }
-        void slotPressed(){
-                if(allSlots.get("0").contains(touchX, touchY) && space.contains(touchX,touchY)){
-                    Toast toast = Toast.makeText(getContext(),"tset",Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+        void checkEquip(Canvas canvas){
+            if(equipt.contains(touchX,touchY) && touch){
+                String[] s = new String[10];
+                s[0] = "slot 1";
+                s[1] = "slot 2";
+                s[2] = "slot 3";
+                s[3] = "slot 4";
+                DialogSelectionBox dsb = new DialogSelectionBox("test",s);
+                dsb.draw(canvas);
+            }
         }
-        boolean inSlots(){
-            return space.contains(touchX,touchY);
+        void slotPressed(){
+            for(int r=0;r<slotCount+1;r++) {
+                if (allSlots.get(Integer.toString(r)).contains(touchX, touchY) && space.contains(touchX, touchY)) {
+                    selected = r;
+                }
+            }
+        }
+        Weapon equip(){
+            return slot.get(Integer.toString(selected));
         }
 	}
+    class DialogSelectionBox{
+        private Rect title = new Rect();
+        private Rect body = new Rect();
+        private Rect bottom = new Rect();
+        private String titleText = "";
+        private String[] selections = new String[5];
+        private Paint white = new Paint();
+        private Paint purple = new Paint();
+        private Paint font = new Paint();
+
+        DialogSelectionBox(String t, String[] s){
+            white.setColor(Color.WHITE);
+            purple.setColor(Color.rgb(255,0,255));
+            font.setColor(Color.BLUE);
+
+            titleText = t;
+            selections = s;
+            int count = 0;
+            for(int y=0;selections[y]!=null;y++){count=y;};
+            count++;
+            body.set(0,0,getScreenWidth()/2,count*(getScreenHeight()/16));
+            body.offsetTo((getScreenWidth()/2)-(body.width()/2),(getScreenHeight()/2)-(body.height()/2));
+            font.setTextSize(body.height()/count);
+            title.set(body.left,body.top-(body.height()/count),body.right,body.top);
+        }
+        void draw(Canvas canvas){
+            canvas.drawRect(body,white);
+            canvas.drawRect(title,black);
+            canvas.drawRect(bottom,purple);
+        }
+    }
 }
