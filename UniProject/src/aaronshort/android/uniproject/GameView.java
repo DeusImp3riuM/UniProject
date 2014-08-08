@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.renderscript.Sampler;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -486,14 +488,15 @@ public class GameView extends View {
 		}*/
 	}
 	class Weapon{
-		private String Name,Type,Holder;
+		private String Name,Type,Holder,MainType;
 		private int Rarity;
 		private int Dmg,Spellp;
 		private int Speed, Attsp;
 		private float Def,MDef;
 		private String Eff1,Eff2,Eff3,Eff4;
-		Weapon(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,float def, float mdef, String eff1, String eff2, String eff3,String eff4){
+		Weapon(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,float def, float mdef, String eff1, String eff2, String eff3,String eff4,String mainType){
 			Name = name;
+            MainType = mainType;
 			Type = type;
 			Holder = holder;
 			Rarity = rarity;
@@ -522,9 +525,16 @@ public class GameView extends View {
 				int r1 = rand.nextInt(10)+1;
 				int r2 = rand.nextInt(10)+1;
 				Dmg = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
+                if(MainType.equals("SP")){Dmg=Dmg/3;}
 			}
+            if(Spellp == 0){
+                int r1 = rand.nextInt(10)+1;
+                int r2 = rand.nextInt(10)+1;
+                Spellp = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
+                if(MainType.equals("AD")){Spellp=Spellp/3;}
+            }
 		}
-		
+
 		String getName(){return Name;}
 		String getType(){return Type;}
 		String getHolder(){return Holder;}
@@ -540,6 +550,69 @@ public class GameView extends View {
 		String getEffect3(){return Eff3;}
 		String getEffect4(){return Eff4;}
 	}
+    class Armour{
+        private String Name,Type,Holder,MainType;
+        private int Rarity;
+        private int Dmg,Spellp;
+        private int Speed, Attsp;
+        private float Def,MDef;
+        private String Eff1,Eff2,Eff3,Eff4;
+        Armour(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,float def, float mdef, String eff1, String eff2, String eff3,String eff4,String mainType){
+            Name = name;
+            MainType = mainType;
+            Type = type;
+            Holder = holder;
+            Rarity = rarity;
+            Dmg = dmg;
+            Spellp = spellp;
+            Speed = speed;
+            Attsp = attsp;
+            Def = def;
+            MDef = mdef;
+            Eff1 = eff1;
+            Eff2 = eff2;
+            Eff3 = eff3;
+            Eff4 = eff4;
+            if(Rarity == 0){Rarity = rand.nextInt(10)+1;}
+            int RandClass = 0;
+            if(Holder.equals("rand")){
+                RandClass = rand.nextInt(3);
+                int w = rand.nextInt(ClassTypes[RandClass].length);
+                Holder = ClassTypes[RandClass][w];
+            }
+            if(Type.equals("rand")){
+                int[] nd = {9,6,7};
+                Type = WepTypes[RandClass][rand.nextInt(nd[RandClass])];
+            }
+            if(Dmg == 0){
+                int r1 = rand.nextInt(10)+1;
+                int r2 = rand.nextInt(10)+1;
+                Dmg = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
+                if(MainType.equals("SP")){Dmg=Dmg/3;}
+            }
+            if(Spellp == 0){
+                int r1 = rand.nextInt(10)+1;
+                int r2 = rand.nextInt(10)+1;
+                Spellp = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
+                if(MainType.equals("AD")){Spellp=Spellp/3;}
+            }
+        }
+
+        String getName(){return Name;}
+        String getType(){return Type;}
+        String getHolder(){return Holder;}
+        int getRarity(){return Rarity;}
+        int getDamage(){return Dmg;}
+        int getSpellPower(){return Spellp;}
+        int getSpeed(){return Speed;}
+        int getAttackSpeed(){return Attsp;}
+        float getDefence(){return Def;}
+        float getMagicDefence(){return MDef;}
+        String getEffect1(){return Eff1;}
+        String getEffect2(){return Eff2;}
+        String getEffect3(){return Eff3;}
+        String getEffect4(){return Eff4;}
+    }
 	class PlayerCharacter{
 
 		private Rect drawPlayer = new Rect();
@@ -547,6 +620,7 @@ public class GameView extends View {
 		private int sWidth, sHeight;
 		private int playerSize;
         private Weapon personalWep = null;
+        private Armour personalArm = null;
 		PlayerCharacter(){
 			sWidth = getScreenWidth();
 			sHeight = getScreenHeight();
@@ -561,45 +635,20 @@ public class GameView extends View {
 			
 			canvas.drawRect(drawPlayer, playerpaint);
 		}
-		int playerSize(){
-			return playerSize;
-		}
-		int playerCenterX(){
-			return drawPlayer.centerX()/playerSize;
-		}
-		int playerCenterY(){
-			return drawPlayer.centerY()/playerSize;
-		}
-		int playerL(){
-			return drawPlayer.left/playerSize;
-		}
-		int playerR(){
-			return drawPlayer.right/playerSize;
-		}
-		int playerT(){
-			return drawPlayer.top/playerSize;
-		}
-		int playerB(){
-			return drawPlayer.bottom/playerSize;
-		}
-		int playerLn(){
-			return (drawPlayer.left-mapSpeed)/playerSize;
-		}
-		int playerRn(){
-			return (drawPlayer.right+mapSpeed)/playerSize;
-		}
-		int playerTn(){
-			return (drawPlayer.top-mapSpeed)/playerSize;
-		}
-		int playerBn(){
-			return (drawPlayer.bottom+mapSpeed)/playerSize;
-		}
-        void unequipWeapon(){
-            personalWep = null;
-        }
-        void equipWeapon(Weapon weapon){
-            personalWep = weapon;
-        }
+		int playerCenterX(){return drawPlayer.centerX()/playerSize;}
+		int playerCenterY(){return drawPlayer.centerY()/playerSize;}
+		int playerL(){return drawPlayer.left/playerSize;}
+		int playerR(){return drawPlayer.right/playerSize;}
+		int playerT(){return drawPlayer.top/playerSize;}
+		int playerB(){return drawPlayer.bottom/playerSize;}
+		int playerLn(){return (drawPlayer.left-mapSpeed)/playerSize;}
+		int playerRn(){return (drawPlayer.right+mapSpeed)/playerSize;}
+		int playerTn(){return (drawPlayer.top-mapSpeed)/playerSize;}
+		int playerBn(){return (drawPlayer.bottom+mapSpeed)/playerSize;}
+        void unequipWeapon(){personalWep = null;}
+        void equipWeapon(Weapon weapon){personalWep = weapon;}
+        void unequipArmour(){personalArm = null;}
+        void equipArmour(Armour armour){personalArm = armour;}
 	}
 	class Button{
 		private Rect button = new Rect();
@@ -626,9 +675,7 @@ public class GameView extends View {
 			canvas.drawRect(button, test);
 		}
 		boolean getPressed(int x2, int y2){
-            if(touch == true){
-			return press.contains(x2, y2);}
-            else{return false;}
+            return touch && !inv.getDsbOpen() && press.contains(x2,y2);
 		}
 		String getState(){
 			return to;
@@ -652,6 +699,7 @@ public class GameView extends View {
         private Rect equipt = new Rect();
         private Rect unequipt = new Rect();
         HashMap<String,Weapon> slot = new HashMap<String, Weapon>();
+        HashMap<String,Armour> slotA = new HashMap<String, Armour>();
         HashMap<String,Rect> allSlots = new HashMap<String, Rect>();
         private Rect slotSize = new Rect();
 
@@ -662,6 +710,9 @@ public class GameView extends View {
         private int selected;
         private Paint selectedCol = new Paint();
         private int infoW,infoH,rowSpacing,colSpacing;
+        private String[] tempArray = {"e",null,null,null,null,null,null,null,null,null};
+        private DialogSelectionBox dsb = new DialogSelectionBox("test",tempArray,"none");
+        private String Displaying = "Weapon";
 
 		Inventory(){
             colSpacing = 25;
@@ -682,47 +733,73 @@ public class GameView extends View {
             mup.set((int)(getScreenWidth()/1.14),(int)(getScreenHeight()/8.48),(int)(getScreenWidth()/1.01),(int)(getScreenHeight()/5.04));
             mdown.set(mup);
             mdown.offsetTo(mup.left,(int)(getScreenHeight()/2.52));
-            int butSize = (int)(getScreenWidth()/1.14) - (int)(getScreenWidth()/1.01);
+            //int butSize = (int)(getScreenWidth()/1.14) - (int)(getScreenWidth()/1.01);
             equipt.set((int)(getScreenWidth()/1.14),(int)(getScreenHeight()/1.5),(int)(getScreenWidth()/1.01),info.top+(info.height()/2-10));
             unequipt.set(equipt);
             unequipt.offset(0,equipt.height()+10);
-			wep.set((int)(getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+			wep.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 			counter++;
-			arm.set((int)(getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+			arm.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 			counter++;
-			acc.set((int)(getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(int)(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
-            slot.put("0", new Weapon("Scythe of Holy Destiny", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("1", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("2", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("3", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("4", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("5", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("6", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("7", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("8", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("9", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("10", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
-            slot.put("11", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
+			acc.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+            slot.put("0", new Weapon("Scythe of Holy Destiny", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","AD"));
+            slot.put("1", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("2", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("3", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("4", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("5", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("6", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("7", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("8", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("9", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("10", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slot.put("11", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
+            slotA.put("0", new Armour("Chest Plate of Fire", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","AR"));
+            slotA.put("1", new Armour("Chest Plate of Ice", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","MR"));
             slot.put("-1", null);
+            slotA.put("-1", null);
             slotSize.set(space.left, space.top, space.right, getScreenHeight() / 6);
             slotHeight = getScreenHeight()/6;
             slotHeight -= space.top;
         }
 		void draw(Canvas canvas){
+            canvas.drawRect(space,blue);
             Rect slotTemp = new Rect();
             slotTemp.setEmpty();
             int f;
-            for(f=0;slot.get(Integer.toString(f))!= null;f++){
-                int top = (space.top)+(f*slotHeight);
-                slotTemp.set(space.left,top+slotOffset,space.right,top+slotHeight+slotOffset);
-                Weapon temp = slot.get(Integer.toString(f));
-                canvas.drawRect(slotTemp,blue);
-                if(f == selected){canvas.drawRect(slotTemp,selectedCol);}
-                canvas.drawText(temp.getName(), slotTemp.left+getScreenWidth()/80, (top+slotHeight/2)+slotOffset, slotText);
-                Rect rtemp = new Rect();
-                rtemp.set(slotTemp);
-                slotCount = f;
-                allSlots.put(""+f,rtemp);
+            //for(f=0;slot.get(Integer.toString(f))!= null;f++){
+            if(Displaying.equals("Weapon")) {
+                for (f = 0; slot.get(Integer.toString(f)) != null; f++) {
+                    int top = (space.top) + (f * slotHeight);
+                    slotTemp.set(space.left, top + slotOffset, space.right, top + slotHeight + slotOffset);
+                    canvas.drawRect(slotTemp, blue);
+                    if (f == selected) {
+                        canvas.drawRect(slotTemp, selectedCol);
+                    }
+                    Weapon temp = slot.get(Integer.toString(f));
+                    canvas.drawText(temp.getName(), slotTemp.left + getScreenWidth() / 80, (top + slotHeight / 2) + slotOffset, slotText);
+                    Rect rtemp = new Rect();
+                    rtemp.set(slotTemp);
+                    slotCount = f;
+                    allSlots.put("" + f, rtemp);
+                    if(temp == player.personalWep){canvas.drawRect(slotTemp.right-slotTemp.height(),slotTemp.top,slotTemp.right,slotTemp.bottom,black);}
+                }
+            } else if (Displaying.equals("Armour")) {
+                for (f = 0; slotA.get(Integer.toString(f)) != null; f++) {
+                    int top = (space.top) + (f * slotHeight);
+                    slotTemp.set(space.left, top + slotOffset, space.right, top + slotHeight + slotOffset);
+                    canvas.drawRect(slotTemp, blue);
+                    if (f == selected) {
+                        canvas.drawRect(slotTemp, selectedCol);
+                    }
+                    Armour temp = slotA.get(Integer.toString(f));
+                    canvas.drawText(temp.getName(), slotTemp.left + getScreenWidth() / 80, (top + slotHeight / 2) + slotOffset, slotText);
+                    Rect rtemp = new Rect();
+                    rtemp.set(slotTemp);
+                    slotCount = f;
+                    allSlots.put("" + f, rtemp);
+                    if(temp == player.personalArm){canvas.drawRect(slotTemp.right-slotTemp.height(),slotTemp.top,slotTemp.right,slotTemp.bottom,black);}
+                }
             }
 			canvas.drawRect(top,red);
 			canvas.drawRect(down,red);
@@ -737,87 +814,197 @@ public class GameView extends View {
             canvas.drawRect(equipt,blue);
             canvas.drawRect(unequipt,blue);
             if(selected != -1){
-                Weapon temp = slot.get(Integer.toString(selected));
-                canvas.drawText("Name: "+temp.getName(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*1),slotText);
-                canvas.drawText("Class: "+temp.getHolder(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*3),slotText);
-                canvas.drawText("Type: "+temp.getType(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*4),slotText);
-                canvas.drawText("Rarity: "+temp.getRarity(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*5),slotText);
-                canvas.drawText("Damage: "+temp.getDamage(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*6),slotText);
-                canvas.drawText("Defence: "+temp.getDefence(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*7),slotText);
-                canvas.drawText("Spell Power: "+temp.getSpellPower(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*8),slotText);
-                canvas.drawText("Magic Defence: "+temp.getMagicDefence(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*9),slotText);
-                canvas.drawText("Speed: "+temp.getSpeed(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*10),slotText);
-                canvas.drawText("Attack Speed: "+temp.getAttackSpeed(),info.left+((infoW/colSpacing)*1),info.top+((infoH/rowSpacing)*11),slotText);
+                if(Displaying.equals("Weapon")) {
+                    Weapon temp = slot.get(Integer.toString(selected));
+                    canvas.drawText("Name: " + temp.getName(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing)), slotText);
+                    canvas.drawText("Class: " + temp.getHolder(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 3), slotText);
+                    canvas.drawText("Type: " + temp.getType(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 4), slotText);
+                    canvas.drawText("Rarity: " + temp.getRarity(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 5), slotText);
+                    canvas.drawText("Damage: " + temp.getDamage(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 6), slotText);
+                    canvas.drawText("Defence: " + temp.getDefence(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 7), slotText);
+                    canvas.drawText("Spell Power: " + temp.getSpellPower(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 8), slotText);
+                    canvas.drawText("Magic Defence: " + temp.getMagicDefence(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 9), slotText);
+                    canvas.drawText("Speed: " + temp.getSpeed(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 10), slotText);
+                    canvas.drawText("Attack Speed: " + temp.getAttackSpeed(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 11), slotText);
 
-                canvas.drawText("Effect 1: "+temp.getEffect1(),info.left+((infoW/colSpacing)*1)+(info.width()/2),info.top+((infoH/rowSpacing)*3),slotText);
-                canvas.drawText("Effect 2: "+temp.getEffect2(),info.left+((infoW/colSpacing)*1)+(info.width()/2),info.top+((infoH/rowSpacing)*4),slotText);
-                canvas.drawText("Effect 3: "+temp.getEffect3(),info.left+((infoW/colSpacing)*1+(info.width()/2)),info.top+((infoH/rowSpacing)*5),slotText);
-                canvas.drawText("Effect 4: "+temp.getEffect4(),info.left+((infoW/colSpacing)*1)+(info.width()/2),info.top+((infoH/rowSpacing)*6),slotText);
+                    canvas.drawText("Effect 1: " + temp.getEffect1(), info.left + ((infoW / colSpacing)) + (info.width() / 2), info.top + ((infoH / rowSpacing) * 3), slotText);
+                    canvas.drawText("Effect 2: " + temp.getEffect2(), info.left + ((infoW / colSpacing)) + (info.width() / 2), info.top + ((infoH / rowSpacing) * 4), slotText);
+                    canvas.drawText("Effect 3: " + temp.getEffect3(), info.left + ((infoW / colSpacing) + (info.width() / 2)), info.top + ((infoH / rowSpacing) * 5), slotText);
+                    canvas.drawText("Effect 4: " + temp.getEffect4(), info.left + ((infoW / colSpacing)) + (info.width() / 2), info.top + ((infoH / rowSpacing) * 6), slotText);
+                }
+                else if(Displaying.equals("Armour")) {
+                    Armour temp = slotA.get(Integer.toString(selected));
+                    canvas.drawText("Name: " + temp.getName(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing)), slotText);
+                    canvas.drawText("Class: " + temp.getHolder(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 3), slotText);
+                    canvas.drawText("Type: " + temp.getType(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 4), slotText);
+                    canvas.drawText("Rarity: " + temp.getRarity(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 5), slotText);
+                    canvas.drawText("Damage: " + temp.getDamage(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 6), slotText);
+                    canvas.drawText("Defence: " + temp.getDefence(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 7), slotText);
+                    canvas.drawText("Spell Power: " + temp.getSpellPower(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 8), slotText);
+                    canvas.drawText("Magic Defence: " + temp.getMagicDefence(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 9), slotText);
+                    canvas.drawText("Speed: " + temp.getSpeed(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 10), slotText);
+                    canvas.drawText("Attack Speed: " + temp.getAttackSpeed(), info.left + ((infoW / colSpacing)), info.top + ((infoH / rowSpacing) * 11), slotText);
+
+                    canvas.drawText("Effect 1: " + temp.getEffect1(), info.left + ((infoW / colSpacing)) + (info.width() / 2), info.top + ((infoH / rowSpacing) * 3), slotText);
+                    canvas.drawText("Effect 2: " + temp.getEffect2(), info.left + ((infoW / colSpacing)) + (info.width() / 2), info.top + ((infoH / rowSpacing) * 4), slotText);
+                    canvas.drawText("Effect 3: " + temp.getEffect3(), info.left + ((infoW / colSpacing) + (info.width() / 2)), info.top + ((infoH / rowSpacing) * 5), slotText);
+                    canvas.drawText("Effect 4: " + temp.getEffect4(), info.left + ((infoW / colSpacing)) + (info.width() / 2), info.top + ((infoH / rowSpacing) * 6), slotText);
+                }
             }
 		}
         void upDownButton(){
-            if(mdown.contains(touchX,touchY)){
+            if(mdown.contains(touchX,touchY) && !dsb.open){
                 if(allSlots.get(Integer.toString(slotCount)).bottom > space.bottom) {
                     slotOffset -= 10;
                 }
             }
-            else if(mup.contains(touchX,touchY)){
+            else if(mup.contains(touchX,touchY) && !dsb.open){
                 if(allSlots.get("0").top < space.top) {
                     slotOffset += 10;
                 }
             }
+            else if(wep.contains(touchX,touchY) && !dsb.open){
+                Displaying = "Weapon";
+            }
+            else if(arm.contains(touchX,touchY) && !dsb.open){
+                Displaying = "Armour";
+            }
         }
         void checkEquip(Canvas canvas){
-            if(equipt.contains(touchX,touchY) && touch){
+            if(equipt.contains(touchX,touchY) && touch && selected != -1 || dsb.open){
                 String[] s = new String[10];
                 s[0] = "slot 1";
                 s[1] = "slot 2";
                 s[2] = "slot 3";
                 s[3] = "slot 4";
-                DialogSelectionBox dsb = new DialogSelectionBox("test",s);
+                if(!dsb.open){dsb = new DialogSelectionBox("Select a Character",s,Displaying);dsb.open = true;}
                 dsb.draw(canvas);
+                dsb.buttonPress();
             }
         }
         void slotPressed(){
-            for(int r=0;r<slotCount+1;r++) {
-                if (allSlots.get(Integer.toString(r)).contains(touchX, touchY) && space.contains(touchX, touchY)) {
-                    selected = r;
+            if(!dsb.open) {
+                for (int r = 0; r < slotCount + 1; r++) {
+                    if (allSlots.get(Integer.toString(r)).contains(touchX, touchY) && space.contains(touchX, touchY)) {
+                        selected = r;
+                    }
                 }
             }
         }
-        Weapon equip(){
+        Weapon getSelectedWeapon(){
             return slot.get(Integer.toString(selected));
+        }
+        Armour getSelectedArmour(){
+            return slotA.get(Integer.toString(selected));
+        }
+        boolean getDsbOpen(){
+            return dsb.open;
         }
 	}
     class DialogSelectionBox{
         private Rect title = new Rect();
         private Rect body = new Rect();
         private Rect bottom = new Rect();
-        private String titleText = "";
+        private Rect cancel = new Rect();
+        private Rect confirm = new Rect();
+        private Rect selHighlight = new Rect();
+        private Rect checkRect = new Rect();
+
+        private String titleText;
+        private String Type;
         private String[] selections = new String[5];
         private Paint white = new Paint();
         private Paint purple = new Paint();
+        private Paint red = new Paint();
+        private Paint green = new Paint();
         private Paint font = new Paint();
+        private Paint selColor = new Paint();
+        private Paint titleFont = new Paint();
+        public boolean open;
+        private int count = 0;
+        int selectionMade = 0;
 
-        DialogSelectionBox(String t, String[] s){
+        DialogSelectionBox(String t, String[] s, String type){
+            Type = type;
             white.setColor(Color.WHITE);
             purple.setColor(Color.rgb(255,0,255));
-            font.setColor(Color.BLUE);
-
+            red.setColor(Color.RED);
+            green.setColor(Color.GREEN);
+            selColor.setColor(Color.DKGRAY);
+            open = false;
             titleText = t;
             selections = s;
-            int count = 0;
-            for(int y=0;selections[y]!=null;y++){count=y;};
+            for(int y=0;selections[y]!=null;y++){count=y;}
             count++;
-            body.set(0,0,getScreenWidth()/2,count*(getScreenHeight()/16));
-            body.offsetTo((getScreenWidth()/2)-(body.width()/2),(getScreenHeight()/2)-(body.height()/2));
-            font.setTextSize(body.height()/count);
+            body.set(0, 0, getScreenWidth() / 2, count * (getScreenHeight() / 16));
+            body.offsetTo((getScreenWidth() / 2) - (body.width() / 2), (getScreenHeight() / 2) - (body.height() / 2));
+            font.setTextSize(((body.height() / count) / 3) * 2);
+            font.setColor(Color.RED);
+            titleFont.setTextSize(((body.height()/count)/3)*2);
+            titleFont.setColor(Color.RED);
             title.set(body.left,body.top-(body.height()/count),body.right,body.top);
+            bottom.set(body.left,body.bottom,body.right,body.bottom+title.height());
+            cancel.set(bottom.right-(bottom.width()/3),bottom.top,bottom.right,bottom.bottom);
+            confirm.set(bottom.left,bottom.top,bottom.left+(bottom.width()/3),bottom.bottom);
+            selHighlight.set(0,0,title.width(),title.height());
+            selHighlight.offsetTo(body.left,body.top);
+            checkRect.set(0,0,title.width(),title.height());
+            checkRect.offsetTo(body.left, body.top);
         }
         void draw(Canvas canvas){
+            slotPress();
             canvas.drawRect(body,white);
             canvas.drawRect(title,black);
             canvas.drawRect(bottom,purple);
+            canvas.drawRect(cancel,red);
+            canvas.drawRect(confirm,green);
+            canvas.drawRect(selHighlight,selColor);
+
+            for(int t =0;t<count;t++){
+                canvas.drawText(selections[t],body.left,(body.top+((body.height()/count)*(t+1)))-(font.getTextSize()/3),font);
+            }
+            if(titleFont.measureText(titleText,0,titleText.length()) > title.width()){
+                titleFont.setTextSize(title.width()/(titleText.length()/2));
+            }
+            canvas.drawText(titleText,title.left+(titleFont.getTextSize()/2),title.bottom-(titleFont.getTextSize()/2),titleFont);
+        }
+        void buttonPress(){
+            if(cancel.contains(touchX,touchY)){
+                open = false;
+            }
+            else if(confirm.contains(touchX,touchY)){
+                switch(selectionMade){
+                    case 0:
+                        if(Type.equals("Weapon")) {
+                            player.equipWeapon(inv.getSelectedWeapon());
+                            Toast toast = Toast.makeText(getContext(),inv.getSelectedWeapon().getName(),Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        else if(Type.equals("Armour")){
+                            player.equipArmour(inv.getSelectedArmour());
+                            Toast toast = Toast.makeText(getContext(),inv.getSelectedArmour().getName(),Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+                open = false;
+            }
+        }
+        void slotPress(){
+            checkRect.offsetTo(body.left,body.top);
+            for(int s=0;s<count;s++){
+                checkRect.offsetTo(body.left,body.top+(title.height()*s));
+                if(checkRect.contains(touchX,touchY)){
+                    selHighlight.offsetTo(body.left,body.top+(title.height()*(s)));
+                    selectionMade=s;
+                }
+           }
         }
     }
 }
