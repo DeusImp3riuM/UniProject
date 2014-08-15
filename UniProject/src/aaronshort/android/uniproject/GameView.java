@@ -19,6 +19,7 @@ import android.widget.Toast;
 public class GameView extends View {
 	
 	int mapSpeed = 3;
+	Toast toast = Toast.makeText(getContext(),"Test",Toast.LENGTH_SHORT);
 
 
 	Random rand = new Random();
@@ -33,6 +34,7 @@ public class GameView extends View {
 			{"Ranger","Marksman","LightArcher","DarkArcher","PiercingArcher","SharpShooter","Techmaturgist","Hunter","Frost","DaggerThrower","CorruptedArcher","NightArcher","StealthArcher"}
 			};
 	HashMap<String, String[]> GetClass = new HashMap<String,String[]>();
+	HashMap<String,Spell> getSpell = new HashMap<String,Spell>();
 	Paint red = new Paint();
 	Paint blue = new Paint();
 	Paint black = new Paint();
@@ -46,6 +48,7 @@ public class GameView extends View {
 
 	public GameView(Context context) {
 		super(context);
+		getSpell.put("fire",new Spell("fire",100,100,50));
 		red.setColor(Color.RED);
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
@@ -79,15 +82,16 @@ public class GameView extends View {
 	Map map = new Map();
 	Controls controls = new Controls();
 	Inventory inv = new Inventory();
+	Battle battle = new Battle();
 	PlayerCharacter player = new PlayerCharacter();
 	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1,"yellow");
 	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1,"blue");
-    Button backMenu = new Button(0,0,"Back","MainMenu",7,1,"yellow");
+  Button backMenu = new Button(0,0,"Back","MainMenu",7,1,"yellow");
 	Button inventory = new Button(getScreenWidth()/4,getScreenHeight()/10,"Inventory","Inventory",7,4,"cyan");
 	Button equip = new Button(getScreenWidth()/4,(getScreenHeight()/10)*2,"Equip","Equiptment",7,4,"red");
 	Button skills = new Button(getScreenWidth()/4,(getScreenHeight()/10)*3,"Skill","SkillTree",7,4,"#CB00FF");
 	Button characters = new Button(getScreenWidth()/4,(getScreenHeight()/10)*4,"Characters","Characters",7,4,"#00A552");
-	String State = "Inventory";
+	String State = "Map";
 	String goingTo = "";
 	boolean isTrans = false;
 	boolean isTransIn = false;
@@ -157,7 +161,9 @@ public class GameView extends View {
 			controls.drawButtons(canvas);
 			player.draw(canvas);
 			settings.draw(canvas);
+			
 			if(isTrans == false && isTransIn == false){
+				if(controls.triggerBattle()){goingTo = "Battle";isTrans = true;}
 				if(touch == true){controls.getPress(touchX, touchY);}
 				if(settings.getPressed(touchX, touchY) == true){
 					goingTo = settings.getState();
@@ -166,6 +172,9 @@ public class GameView extends View {
 			}
 			else if(isTransIn == true){transitionIn(15,canvas);}
 			else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+		}
+		else if(State == "Battle"){
+			battle.draw(canvas);
 		}
 		invalidate();
 	}
@@ -349,6 +358,8 @@ public class GameView extends View {
 		private Rect ddr = new Rect();
 		private int butScale = 9;
 		private int sWidth, sHeight;
+		private int chance = 0;
+		
 		Controls(){
 			buttonSize = getScreenWidth()/butScale;
 			sWidth = getScreenWidth();
@@ -392,6 +403,18 @@ public class GameView extends View {
 			ddl.offset(x, y);
 			ddr.offset(x, y);
 		}
+		boolean triggerBattle(){
+			if(touch && map.getTag() == "Wild"){
+				if(up.contains(touchX,touchY) || down.contains(touchX,touchY) || left.contains(touchX,touchY) || right.contains(touchX,touchY) || ul.contains(touchX,touchY) || ur.contains(touchX,touchY)|| dl.contains(touchX,touchY) || dr.contains(touchX,touchY)){
+					chance++;
+					if (chance == 50){
+						return true;
+					}
+					else{return false;}
+				}
+			}
+			return false;
+		}
 		void getPress(int x, int y){
 			int [][] cMap = map.getCurrentMapArray();
 			if(up.contains(x, y)){
@@ -432,6 +455,7 @@ public class GameView extends View {
 	class Map{
 		HashMap<String,Bitmap> MapList = new HashMap<String,Bitmap>();
 		HashMap<String,int[][]> MapListArray = new HashMap<String,int[][]>();
+		HashMap<String,String> MapTag = new HashMap<String,String>();
 		private String currentMap;
 		private int tileSize;
 		private int mapScale = 10;
@@ -452,6 +476,7 @@ public class GameView extends View {
 			};
 			MapList.put("Start",combineTiles(setMap,tileSize));
 			MapListArray.put("Start", setMap);
+			MapTag.put("Start","Wild");
 			setMap = new int[][]{
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
@@ -466,12 +491,16 @@ public class GameView extends View {
 			};
 			MapList.put("Level2",combineTiles(setMap,tileSize));
 			MapListArray.put("Level2", setMap);
+			MapTag.put("Level2","Wild");
 		}
-        void setCurrentMap(String nextMap){
+    void setCurrentMap(String nextMap){
 			currentMap = nextMap;
 		}
 		String getCurrentMap(){
 			return currentMap;
+		}
+		String getTag(){
+			return MapTag.get(getCurrentMap());
 		}
 		int[][] getCurrentMapArray(){
 			return MapListArray.get(currentMap);
@@ -631,7 +660,7 @@ public class GameView extends View {
 		}
 		void draw(Canvas canvas){
 			drawPlayer.offsetTo(((sWidth/2)-drawPlayer.width()/2)-xOffset, ((sHeight/2)-drawPlayer.height()/2)-yOffset);
-			canvas.drawText(""+getScreenWidth()+".."+getScreenHeight(), 0, 0, black);
+			canvas.drawText(""+controls.chance, 0, 0, black);
 			
 			canvas.drawRect(drawPlayer, playerpaint);
 		}
@@ -1007,4 +1036,167 @@ public class GameView extends View {
            }
         }
     }
+    class Battle{
+    	private Rect bg = new Rect();
+    	private Rect menuButton = new Rect();
+    	private Rect attack = new Rect();
+    	private Rect spells = new Rect();
+    	private Rect classSpells = new Rect();
+    	private Rect items = new Rect();
+    	private Rect flee = new Rect();
+    	private Rect subMenu = new Rect();
+    	private Rect subMenuButton = new Rect();
+    	private Rect up = new Rect();
+    	private Rect down = new Rect();
+    	
+    	private Paint back = new Paint();//background
+    	private Paint subBack = new Paint();
+    	private Paint buttonFont = new Paint();
+    	
+    	private String display = "none";
+    	private Rect battlePlayer1 = new Rect();
+    	private boolean drawTooltip = false;
+    	private int subtouchX,subtouchY;
+    	private Tooltip spellTip = new Tooltip();
+    	private CastSpell castSpell = null;
+    	Battle(){
+    		bg.set(0,(getScreenHeight()/2),getScreenWidth(),getScreenHeight());
+    		subMenu.set((getScreenWidth()/2)-(bg.right/16),bg.top+(bg.right/32),bg.right-(bg.right/16),bg.bottom-((bg.right/12)));
+    		menuButton.set(0,0,(int)(getScreenWidth()/3.5),(getScreenWidth()/4)/3);
+    		menuButton.offset(menuButton.height()/2,bg.top+(menuButton.height()/2));
+    		attack.set(menuButton);
+    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		spells.set(menuButton);
+    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		classSpells.set(menuButton);
+    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		items.set(menuButton);
+    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		flee.set(menuButton);
+    		
+    		subMenuButton.set(subMenu.left,subMenu.top,subMenu.left+subMenu.width(),subMenu.top+(subMenu.height()/8));
+    		
+    		buttonFont.setColor(Color.BLACK);
+    		buttonFont.setTextSize((menuButton.height()/4)*3);
+    		buttonFont.setTextAlign(Paint.Align.CENTER);
+    		back.setColor(Color.DKGRAY);
+    		subBack.setColor(Color.LTGRAY);
+    	}
+    	void draw(Canvas canvas){
+    		canvas.drawRect(bg,back);
+    		canvas.drawRect(subMenu,subBack);
+    		canvas.drawRect(attack,red);
+    		canvas.drawText("attack",attack.centerX(),attack.centerY()+(buttonFont.getTextSize()/2),buttonFont);
+    		canvas.drawRect(spells,blue);
+    		canvas.drawText("spells",spells.centerX(),spells.centerY()+(buttonFont.getTextSize()/2),buttonFont);
+    		canvas.drawRect(classSpells,red);
+    		canvas.drawText("class",classSpells.centerX(),classSpells.centerY()+(buttonFont.getTextSize()/2),buttonFont);
+    		canvas.drawRect(items,blue);
+    		canvas.drawText("items",items.centerX(),items.centerY()+(buttonFont.getTextSize()/2),buttonFont);
+    		canvas.drawRect(flee,red);
+    		canvas.drawText("flee",flee.centerX(),flee.centerY()+(buttonFont.getTextSize()/2),buttonFont);
+   
+    		
+    		getPress();
+    		if(display.equals("spells")){
+    			subMenuButton.offsetTo(subMenu.left,subMenu.top);
+    			drawTooltip = false;
+    			for(int u=0;u<3;u++){
+    				canvas.drawRect(subMenuButton,blue);
+    				canvas.drawText(""+u,subMenuButton.centerX(),subMenuButton.bottom,buttonFont);
+    				if(touch){
+    				subtouchX = touchX;
+    				subtouchY = touchY;
+    				}
+    				if(subMenuButton.contains(subtouchX,subtouchY) && !touch){
+    					subtouchX =0;
+    					subtouchY = 0;
+    					castSpell = new CastSpell("fire",300);
+    				}
+    				if(subMenuButton.contains(touchX,touchY) && touch){
+    					drawTooltip = true;
+    				}
+    				
+    				subMenuButton.offset(0,subMenuButton.height());
+    			}
+    			if(drawTooltip){spellTip.draw(canvas);}
+    		}
+    		//-------------------
+    		if(!castSpell.spellComplete && castSpell != null){
+    			castSpell.draw(canvas);
+    		}
+    	}
+    	void getPress(){
+    		if(flee.contains(touchX,touchY)){
+    			//battleEnd("flee");
+    		}
+    		else if(attack.contains(touchX,touchY)){
+    			toast.show();
+    		}
+    		else if(spells.contains(touchX,touchY)){
+    			display = "spells";
+    		}
+    		else if(classSpells.contains(touchX,touchY)){
+    			display = "class";
+    		}
+    		else if(items.contains(touchX,touchY)){
+    			display = "items";
+    		}
+    	}
+   }
+   class CastSpell{
+   	private String Name;
+   	private Spell spell;
+   	private Rect spellBox = new Rect();
+   	private int Total,current;
+   	private boolean spellComplete = false;
+   	private int[] spellLoc = new int[2];
+   	CastSpell(String name,int total){
+   		Name = name;
+   		Total = total;
+   		current = 0;
+   		spell = getSpell.get(Name);
+   		spellBox.set(0,0,spell.W,spell.H);
+   	}
+   	void draw(Canvas canvas){
+   		spellLoc = getLocation(100,600,700,900,Total,current); 
+   		spellBox.offsetTo(spellLoc[0],spellLoc[1]);
+   		canvas.drawRect(spellBox,red);
+   		current++;
+   	}
+   	int[] getLocation(int startX, int startY,int endX,int endY,int totalSteps, int currentStep){
+   		int xInterval = (startX-endX)/totalSteps;
+   		int yInterval = (startY-endY)/totalSteps;
+   		int[] returning = {
+   			startX+(xInterval*currentStep),
+   			startY+(yInterval*currentStep)
+   		};
+   		if(returning[0] >= endX){spellComplete = true;}
+   		return returning;
+   	}
+   }
+   class Spell{
+   	private int Dmg,W,H;
+   	private String Name;
+   	Spell(String name, int w, int h, int dmg){
+   		Name = name;
+   		//Image=
+   		W = w;
+   		H=h;
+   		Dmg=dmg;
+   	}
+   }
+   class Tooltip{
+   	private Rect box = new Rect();
+   	public boolean boxShow = false;
+   	Tooltip(){
+   		box.set(touchX,touchY,touchX+(getScreenWidth()/3),touchY+(getScreenWidth()/3));
+   		//box.set(0,0,100,100);
+   	}
+   	void draw(Canvas canvas){
+   		box.offsetTo(touchX,touchY);
+   		box.offset(0-box.width(),0-box.height());
+   		canvas.drawRect(box,red);
+   	}
+   }
 }
