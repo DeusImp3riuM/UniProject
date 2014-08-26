@@ -17,9 +17,10 @@ import android.graphics.*;
 import android.widget.Toast;
 
 public class GameView extends View {
-	
+
 	int mapSpeed = 3;
 	Toast toast = Toast.makeText(getContext(),"Test",Toast.LENGTH_SHORT);
+    HashMap<String,Spell> getSpell = new HashMap<String,Spell>();
 
 
 	Random rand = new Random();
@@ -34,7 +35,7 @@ public class GameView extends View {
 			{"Ranger","Marksman","LightArcher","DarkArcher","PiercingArcher","SharpShooter","Techmaturgist","Hunter","Frost","DaggerThrower","CorruptedArcher","NightArcher","StealthArcher"}
 			};
 	HashMap<String, String[]> GetClass = new HashMap<String,String[]>();
-	HashMap<String,Spell> getSpell = new HashMap<String,Spell>();
+
 	Paint red = new Paint();
 	Paint blue = new Paint();
 	Paint black = new Paint();
@@ -48,7 +49,7 @@ public class GameView extends View {
 
 	public GameView(Context context) {
 		super(context);
-		getSpell.put("fire",new Spell("fire",100,100,50));
+
 		red.setColor(Color.RED);
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
@@ -77,8 +78,6 @@ public class GameView extends View {
 
 	String Print;
 	String[] recieve = new String[3];
-	MoveBar move1 = new MoveBar(0,1000,300,10,100,200,40);
-
 	Map map = new Map();
 	Controls controls = new Controls();
 	Inventory inv = new Inventory();
@@ -86,7 +85,7 @@ public class GameView extends View {
 	PlayerCharacter player = new PlayerCharacter();
 	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1,"yellow");
 	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1,"blue");
-  Button backMenu = new Button(0,0,"Back","MainMenu",7,1,"yellow");
+    Button backMenu = new Button(0,0,"Back","MainMenu",7,1,"yellow");
 	Button inventory = new Button(getScreenWidth()/4,getScreenHeight()/10,"Inventory","Inventory",7,4,"cyan");
 	Button equip = new Button(getScreenWidth()/4,(getScreenHeight()/10)*2,"Equip","Equiptment",7,4,"red");
 	Button skills = new Button(getScreenWidth()/4,(getScreenHeight()/10)*3,"Skill","SkillTree",7,4,"#CB00FF");
@@ -103,9 +102,6 @@ public class GameView extends View {
 		 * recieve = GetClass.get("Base");
 		 * Print = Arrays.toString(recieve);
 		 * canvas.drawText(Print,100,100,black)
-		 *
-		 * move1.Draw(canvas);
-		 * move1.Update();
 		 *
 		 * canvas.drawText(""+testWep.getName(), 100, 100, black);
 		 * canvas.drawText(""+testWep.getHolder(), 100, 130, black);
@@ -316,6 +312,7 @@ public class GameView extends View {
 	class MoveBar{
 		private int Offset,Max,BarWidth,Speed,barX,barY;
 		private Paint barPaint = new Paint();
+		private Paint movePaint = new Paint();
 		private Paint textPaint = new Paint();
 		MoveBar(int a, int b, int c, int d, int e, int f,int g){
 			Offset = a;
@@ -325,6 +322,7 @@ public class GameView extends View {
 			barX = e;
 			barY = f;
 			barPaint.setColor(Color.rgb(255, 0, 0));
+			movePaint.setColor(Color.rgb(255, 157, 0));
 			textPaint.setColor(Color.rgb(200, 200, 200));
 			textPaint.setTextSize(g);
 		}
@@ -332,7 +330,8 @@ public class GameView extends View {
 			if(Offset < Max){Offset+=Speed;}else{Offset=Max;}
 		}
 		void Draw(Canvas canvas){
-			canvas.drawRect(barX, barY, barX+(Perc(Offset,Max))*(BarWidth/100), barY+50, barPaint);
+			if(!canMove()){canvas.drawRect(barX, barY, barX+(Perc(Offset,Max))*(BarWidth/100), barY+(BarWidth/10), barPaint);}
+            else{canvas.drawRect(barX, barY, barX+(Perc(Offset,Max))*(BarWidth/100), barY+(BarWidth/10), movePaint);}
 			canvas.drawText(""+Perc(Offset,Max), barX, barY, textPaint);
 		}
 		boolean canMove(){if(Offset>= Max){return true;}else{return false;}}
@@ -407,7 +406,7 @@ public class GameView extends View {
 			if(touch && map.getTag() == "Wild"){
 				if(up.contains(touchX,touchY) || down.contains(touchX,touchY) || left.contains(touchX,touchY) || right.contains(touchX,touchY) || ul.contains(touchX,touchY) || ur.contains(touchX,touchY)|| dl.contains(touchX,touchY) || dr.contains(touchX,touchY)){
 					chance++;
-					if (chance == 50){
+					if (chance == 20){
 						return true;
 					}
 					else{return false;}
@@ -740,7 +739,7 @@ public class GameView extends View {
         private Paint selectedCol = new Paint();
         private int infoW,infoH,rowSpacing,colSpacing;
         private String[] tempArray = {"e",null,null,null,null,null,null,null,null,null};
-        private DialogSelectionBox dsb = new DialogSelectionBox("test",tempArray,"none");
+        private DialogSelectionBox dsb = new DialogSelectionBox("test",tempArray,"none","none");
         private String Displaying = "Weapon";
 
 		Inventory(){
@@ -906,7 +905,7 @@ public class GameView extends View {
                 s[1] = "slot 2";
                 s[2] = "slot 3";
                 s[3] = "slot 4";
-                if(!dsb.open){dsb = new DialogSelectionBox("Select a Character",s,Displaying);dsb.open = true;}
+                if(!dsb.open){dsb = new DialogSelectionBox("Select a Character",s,Displaying,"Inv");dsb.open = true;}
                 dsb.draw(canvas);
                 dsb.buttonPress();
             }
@@ -939,8 +938,7 @@ public class GameView extends View {
         private Rect selHighlight = new Rect();
         private Rect checkRect = new Rect();
 
-        private String titleText;
-        private String Type;
+        private String titleText,Function,Type;
         private String[] selections = new String[5];
         private Paint white = new Paint();
         private Paint purple = new Paint();
@@ -953,8 +951,9 @@ public class GameView extends View {
         private int count = 0;
         int selectionMade = 0;
 
-        DialogSelectionBox(String t, String[] s, String type){
+        DialogSelectionBox(String t, String[] s, String type,String function){
             Type = type;
+            Function = function;
             white.setColor(Color.WHITE);
             purple.setColor(Color.rgb(255,0,255));
             red.setColor(Color.RED);
@@ -1002,25 +1001,45 @@ public class GameView extends View {
                 open = false;
             }
             else if(confirm.contains(touchX,touchY)){
-                switch(selectionMade){
-                    case 0:
-                        if(Type.equals("Weapon")) {
-                            player.equipWeapon(inv.getSelectedWeapon());
-                            Toast toast = Toast.makeText(getContext(),inv.getSelectedWeapon().getName(),Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                        else if(Type.equals("Armour")){
-                            player.equipArmour(inv.getSelectedArmour());
-                            Toast toast = Toast.makeText(getContext(),inv.getSelectedArmour().getName(),Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
+                if(Function.equals("Inv")) {
+                    switch (selectionMade) {
+                        case 0:
+                            if (Type.equals("Weapon")) {
+                                player.equipWeapon(inv.getSelectedWeapon());
+                                Toast toast = Toast.makeText(getContext(), inv.getSelectedWeapon().getName(), Toast.LENGTH_SHORT);
+                                toast.show();
+                            } else if (Type.equals("Armour")) {
+                                player.equipArmour(inv.getSelectedArmour());
+                                Toast toast = Toast.makeText(getContext(), inv.getSelectedArmour().getName(), Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                    }
+                }
+                else if(Function.equals("Battle")){
+                    switch (selectionMade){
+                        case 0:
+                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P1.Reset();}
+                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P2.Reset();}
+                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P3.Reset();}
+                            break;
+                        case 1:
+                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P1.Reset();}
+                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P2.Reset();}
+                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P3.Reset();}
+                            break;
+                        case 2:
+                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P1.Reset();}
+                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P2.Reset();}
+                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P3.Reset();}
+                            break;
+                    }
                 }
                 open = false;
             }
@@ -1037,50 +1056,66 @@ public class GameView extends View {
         }
     }
     class Battle{
-    	private Rect bg = new Rect();
-    	private Rect menuButton = new Rect();
-    	private Rect attack = new Rect();
-    	private Rect spells = new Rect();
-    	private Rect classSpells = new Rect();
-    	private Rect items = new Rect();
-    	private Rect flee = new Rect();
-    	private Rect subMenu = new Rect();
-    	private Rect subMenuButton = new Rect();
-    	private Rect up = new Rect();
-    	private Rect down = new Rect();
-    	
-    	private Paint back = new Paint();//background
-    	private Paint subBack = new Paint();
-    	private Paint buttonFont = new Paint();
-    	
+    	private Rect bg = new Rect(), menuButton = new Rect(),attack = new Rect(),spells = new Rect();
+    	private Rect classSpells = new Rect(),items = new Rect(),flee = new Rect(),subMenu = new Rect();
+    	private Rect subMenuButton = new Rect(),up = new Rect(),down = new Rect();
+    	private Paint back = new Paint(),subBack = new Paint(),buttonFont = new Paint(),fade = new Paint();
     	private String display = "none";
-    	private Rect battlePlayer1 = new Rect();
+    	public Rect battlePlayer1 = new Rect(),battlePlayer2 = new Rect(),battlePlayer3 = new Rect();
+    	private Rect battleEnemy1 = new Rect(),battleEnemy2 = new Rect(),battleEnemy3 = new Rect();
     	private boolean drawTooltip = false;
     	private int subtouchX,subtouchY;
     	private Tooltip spellTip = new Tooltip();
-    	private CastSpell castSpell = null;
+    	private CastSpell castSpell = new CastSpell("none",1,new Point(0,0),new Point(0,0));
+        private DialogSelectionBox dsb = new DialogSelectionBox("Select Target",new String[]{"1","2",null},"none","Battle");
+        public boolean Standby = false;
+        private int slotSelected;
+        //               MoveBar(Offset,Max,     Width,       Speed,  X,                 Y,  TextSize)
+        public MoveBar P1,P2,P3;
+        //MoveBar E1 = new MoveBar(0,1000,300,10,100,200,40);
+        //MoveBar E2 = new MoveBar(0,1000,300,10,100,200,40);
+        //MoveBar E3 = new MoveBar(0,1000,300,10,100,200,40);
+        private String[] Player1Spells = {"Fire","Fire"};
     	Battle(){
     		bg.set(0,(getScreenHeight()/2),getScreenWidth(),getScreenHeight());
     		subMenu.set((getScreenWidth()/2)-(bg.right/16),bg.top+(bg.right/32),bg.right-(bg.right/16),bg.bottom-((bg.right/12)));
     		menuButton.set(0,0,(int)(getScreenWidth()/3.5),(getScreenWidth()/4)/3);
-    		menuButton.offset(menuButton.height()/2,bg.top+(menuButton.height()/2));
+    		menuButton.offset(menuButton.height() / 2, bg.top + (menuButton.height() / 2));
     		attack.set(menuButton);
-    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		menuButton.offset(0, (int) (menuButton.height() * 1.5));
     		spells.set(menuButton);
-    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		menuButton.offset(0, (int) (menuButton.height() * 1.5));
     		classSpells.set(menuButton);
-    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		menuButton.offset(0, (int) (menuButton.height() * 1.5));
     		items.set(menuButton);
-    		menuButton.offset(0,(int)(menuButton.height()*1.5));
+    		menuButton.offset(0, (int) (menuButton.height() * 1.5));
     		flee.set(menuButton);
-    		
     		subMenuButton.set(subMenu.left,subMenu.top,subMenu.left+subMenu.width(),subMenu.top+(subMenu.height()/8));
-    		
+
+            battlePlayer1.set(50,100,150,200);
+            battlePlayer2.set(battlePlayer1);
+            battlePlayer2.offset(0, 200);
+            battlePlayer3.set(battlePlayer2);
+            battlePlayer3.offset(0,200);
+            battleEnemy1.set(getScreenWidth()-150,100,getScreenWidth()-50,200);
+            battleEnemy2.set(battleEnemy1);
+            battleEnemy2.offset(0,200);
+            battleEnemy3.set(battleEnemy2);
+            battleEnemy3.offset(0,200);
+
     		buttonFont.setColor(Color.BLACK);
     		buttonFont.setTextSize((menuButton.height()/4)*3);
     		buttonFont.setTextAlign(Paint.Align.CENTER);
+            fade.setColor(Color.DKGRAY);
+            fade.setAlpha(150);
     		back.setColor(Color.DKGRAY);
     		subBack.setColor(Color.LTGRAY);
+            P1 = new MoveBar(0,1000,getScreenWidth()/4,2,battlePlayer1.left,battlePlayer1.top-(getScreenHeight()/24),40);
+            P2 = new MoveBar(0,1000,getScreenWidth()/4,4,battlePlayer2.left,battlePlayer2.top-(getScreenHeight()/24),40);
+            P3 = new MoveBar(0,1000,getScreenWidth()/4,6,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
+            //MoveBar E1 = new MoveBar(0,1000,300,10,100,200,40);
+            //MoveBar E2 = new MoveBar(0,1000,300,10,100,200,40);
+            //MoveBar E3 = new MoveBar(0,1000,300,10,100,200,40);
     	}
     	void draw(Canvas canvas){
     		canvas.drawRect(bg,back);
@@ -1095,37 +1130,65 @@ public class GameView extends View {
     		canvas.drawText("items",items.centerX(),items.centerY()+(buttonFont.getTextSize()/2),buttonFont);
     		canvas.drawRect(flee,red);
     		canvas.drawText("flee",flee.centerX(),flee.centerY()+(buttonFont.getTextSize()/2),buttonFont);
-   
-    		
-    		getPress();
+            canvas.drawRect(battlePlayer1, red);
+            canvas.drawRect(battlePlayer2, red);
+            canvas.drawRect(battlePlayer3, red);
+            canvas.drawRect(battleEnemy1, red);
+            canvas.drawRect(battleEnemy2, red);
+            canvas.drawRect(battleEnemy3, red);
+            P1.Draw(canvas);
+            P2.Draw(canvas);
+            P3.Draw(canvas);
+            if(!Standby){
+                P1.Update();
+                P2.Update();
+                P3.Update();
+            }
+            else{getPress();}
+
+            if(P1.canMove()||P2.canMove()||P3.canMove()){Standby = true;}
     		if(display.equals("spells")){
     			subMenuButton.offsetTo(subMenu.left,subMenu.top);
     			drawTooltip = false;
-    			for(int u=0;u<3;u++){
+                if(castSpell.Name.equals("none")){castSpell.spellComplete = true;}
+    			for(int u=0;u<Player1Spells.length;u++){
     				canvas.drawRect(subMenuButton,blue);
-    				canvas.drawText(""+u,subMenuButton.centerX(),subMenuButton.bottom,buttonFont);
+    				canvas.drawText(Player1Spells[u],subMenuButton.centerX(),subMenuButton.bottom,buttonFont);
     				if(touch){
     				subtouchX = touchX;
     				subtouchY = touchY;
     				}
-    				if(subMenuButton.contains(subtouchX,subtouchY) && !touch){
-    					subtouchX =0;
-    					subtouchY = 0;
-    					castSpell = new CastSpell("fire",300);
-    				}
-    				if(subMenuButton.contains(touchX,touchY) && touch){
-    					drawTooltip = true;
-    				}
-    				
+                    if(P1.canMove()||P2.canMove()||P3.canMove()) {
+                        if (subMenuButton.contains(subtouchX, subtouchY) && !touch && castSpell.completed()) {
+                            subtouchX = 0;
+                            subtouchY = 0;
+                            if(!dsb.open){dsb = new DialogSelectionBox("Select a Target",new String[]{"Enemy1","Enemy2","Enemy3",null},"none","Battle");dsb.open = true;}
+                            slotSelected = u;
+                        }
+                        if (subMenuButton.contains(touchX, touchY) && touch && !dsb.open) {
+                            drawTooltip = true;
+                        }
+                    }
     				subMenuButton.offset(0,subMenuButton.height());
     			}
+                if(dsb.open){
+                    dsb.draw(canvas);
+                    dsb.buttonPress();
+                }
     			if(drawTooltip){spellTip.draw(canvas);}
     		}
     		//-------------------
-    		if(!castSpell.spellComplete && castSpell != null){
+    		if(!castSpell.completed() && !castSpell.Name.equals("none")){
     			castSpell.draw(canvas);
     		}
+            if(!P1.canMove()&&!P2.canMove()&&!P3.canMove()){
+                display = "none";
+                canvas.drawRect(bg,fade);
+            }
     	}
+        int getSlot(){
+            return slotSelected;
+        }
     	void getPress(){
     		if(flee.contains(touchX,touchY)){
     			//battleEnd("flee");
@@ -1141,6 +1204,7 @@ public class GameView extends View {
     		}
     		else if(items.contains(touchX,touchY)){
     			display = "items";
+
     		}
     	}
    }
@@ -1149,43 +1213,68 @@ public class GameView extends View {
    	private Spell spell;
    	private Rect spellBox = new Rect();
    	private int Total,current;
-   	private boolean spellComplete = false;
+    private Point From,To;
+   	public boolean spellComplete = false;
    	private int[] spellLoc = new int[2];
-   	CastSpell(String name,int total){
+   	CastSpell(String name,int total,Point from,Point to){
+        setSpells();
+        From = from;
+        To = to;
+        spellComplete=false;
    		Name = name;
    		Total = total;
    		current = 0;
    		spell = getSpell.get(Name);
-   		spellBox.set(0,0,spell.W,spell.H);
+        //spell = new Spell("none",100,100,10);
+   		spellBox.set(0,0,spell.getWidth(),spell.getHeight());
    	}
+    boolean completed(){
+        return spellComplete;
+    }
    	void draw(Canvas canvas){
-   		spellLoc = getLocation(100,600,700,900,Total,current); 
-   		spellBox.offsetTo(spellLoc[0],spellLoc[1]);
-   		canvas.drawRect(spellBox,red);
-   		current++;
+        if(Name.equals("none")){spellComplete=true;}
+        if(!Name.equals("none")) {
+            spellLoc = getLocation(From.x, From.y, To.x, To.y, Total, current);
+            spellBox.offsetTo(spellLoc[0]-(spellBox.width()/2), spellLoc[1]-(spellBox.height()/2));
+            canvas.drawRect(spellBox, red);
+            current++;
+        }
    	}
+       void setSpells(){
+           getSpell.put("Fire", new Spell("Fire", 100, 100, 50));
+           getSpell.put("none",new Spell("none",100,100,10));
+       }
    	int[] getLocation(int startX, int startY,int endX,int endY,int totalSteps, int currentStep){
-   		int xInterval = (startX-endX)/totalSteps;
-   		int yInterval = (startY-endY)/totalSteps;
+   		int xInterval = (endX-startX)/totalSteps;
+   		int yInterval = (endY-startY)/totalSteps;
    		int[] returning = {
    			startX+(xInterval*currentStep),
    			startY+(yInterval*currentStep)
    		};
-   		if(returning[0] >= endX){spellComplete = true;}
+   		if(xInterval > 0 &&returning[0] >= endX){spellComplete = true;spell = getSpell.get("none");battle.Standby=false;}
+   		if(xInterval < 0 &&returning[0] <= endX){spellComplete = true;spell = getSpell.get("none");battle.Standby=false;}
    		return returning;
    	}
    }
-   class Spell{
-   	private int Dmg,W,H;
-   	private String Name;
-   	Spell(String name, int w, int h, int dmg){
-   		Name = name;
-   		//Image=
-   		W = w;
-   		H=h;
-   		Dmg=dmg;
-   	}
-   }
+    class Spell{
+        private int Dmg;
+   	    private int W,H;
+   	    private String Name;
+   	    Spell(String name, int w, int h, int dmg){
+
+   		    Name = name;
+   		    //Image=
+   		    W = w;
+   		    H=h;
+          Dmg=dmg;
+   	    }
+        int getWidth(){
+            return W;
+        }
+        int getHeight(){
+            return H;
+        }
+    }
    class Tooltip{
    	private Rect box = new Rect();
    	public boolean boxShow = false;
