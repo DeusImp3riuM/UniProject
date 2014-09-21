@@ -1025,19 +1025,19 @@ public class GameView extends View {
                 else if(Function.equals("Battle")){
                     switch (selectionMade){
                         case 0:
-                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P1.Reset();}
-                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P2.Reset();}
-                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P3.Reset();}
+                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P1.Reset();}
+                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P2.Reset();}
+                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P3.Reset();}
                             break;
                         case 1:
-                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P1.Reset();}
-                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P2.Reset();}
-                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P3.Reset();}
+                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P1.Reset();}
+                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P2.Reset();}
+                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P3.Reset();}
                             break;
                         case 2:
-                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P1.Reset();}
-                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P2.Reset();}
-                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], 25,new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P3.Reset();}
+                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P1.Reset();}
+                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P2.Reset();}
+                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P3.Reset();}
                             break;
                     }
                 }
@@ -1071,10 +1071,7 @@ public class GameView extends View {
         public boolean Standby = false;
         private int slotSelected;
         //               MoveBar(Offset,Max,     Width,       Speed,  X,                 Y,  TextSize)
-        public MoveBar P1,P2,P3;
-        //MoveBar E1 = new MoveBar(0,1000,300,10,100,200,40);
-        //MoveBar E2 = new MoveBar(0,1000,300,10,100,200,40);
-        //MoveBar E3 = new MoveBar(0,1000,300,10,100,200,40);
+        public MoveBar P1,P2,P3,E1,E2,E3;
         private String[] Player1Spells = {"Fire","Fire"};
     	Battle(){
     		bg.set(0,(getScreenHeight()/2),getScreenWidth(),getScreenHeight());
@@ -1113,6 +1110,9 @@ public class GameView extends View {
             P1 = new MoveBar(0,1000,getScreenWidth()/4,2,battlePlayer1.left,battlePlayer1.top-(getScreenHeight()/24),40);
             P2 = new MoveBar(0,1000,getScreenWidth()/4,4,battlePlayer2.left,battlePlayer2.top-(getScreenHeight()/24),40);
             P3 = new MoveBar(0,1000,getScreenWidth()/4,6,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
+			E1 = new MoveBar(0,1000,getScreenWidth()/4,6,battleEnemy1.left-(battleEnemy1.width()),battleEnemy1.top-(getScreenHeight()/24),40);
+			E2 = new MoveBar(0,1000,getScreenWidth()/4,10,battleEnemy2.left-(battleEnemy2.width()),battleEnemy2.top-(getScreenHeight()/24),40);
+			E3 = new MoveBar(0,1000,getScreenWidth()/4,1,battleEnemy3.left-(battleEnemy3.width()),battleEnemy3.top-(getScreenHeight()/24),40);
             //MoveBar E1 = new MoveBar(0,1000,300,10,100,200,40);
             //MoveBar E2 = new MoveBar(0,1000,300,10,100,200,40);
             //MoveBar E3 = new MoveBar(0,1000,300,10,100,200,40);
@@ -1139,14 +1139,20 @@ public class GameView extends View {
             P1.Draw(canvas);
             P2.Draw(canvas);
             P3.Draw(canvas);
+			E1.Draw(canvas);
+			E2.Draw(canvas);
+			E3.Draw(canvas);
             if(!Standby){
-                P1.Update();
+             	P1.Update();
                 P2.Update();
-                P3.Update();
+               	P3.Update();
+			    //E1.Update();
+			    //E2.Update();
+			    //E3.Update();
             }
             else{getPress();}
 
-            if(P1.canMove()||P2.canMove()||P3.canMove()){Standby = true;}
+            if(P1.canMove()||P2.canMove()||P3.canMove()||E1.canMove()||E2.canMove()||E3.canMove()){Standby = true;}
     		if(display.equals("spells")){
     			subMenuButton.offsetTo(subMenu.left,subMenu.top);
     			drawTooltip = false;
@@ -1171,6 +1177,9 @@ public class GameView extends View {
                     }
     				subMenuButton.offset(0,subMenuButton.height());
     			}
+                    if(E1.canMove()){E1.Reset();}
+                    if(E2.canMove()){E2.Reset();}
+                    if(E3.canMove()){E3.Reset();}
                 if(dsb.open){
                     dsb.draw(canvas);
                     dsb.buttonPress();
@@ -1207,72 +1216,146 @@ public class GameView extends View {
 
     		}
     	}
-   }
-   class CastSpell{
-   	private String Name;
-   	private Spell spell;
-   	private Rect spellBox = new Rect();
-   	private int Total,current;
-    private Point From,To;
-   	public boolean spellComplete = false;
-   	private int[] spellLoc = new int[2];
-   	CastSpell(String name,int total,Point from,Point to){
-        setSpells();
-        From = from;
-        To = to;
-        spellComplete=false;
-   		Name = name;
-   		Total = total;
-   		current = 0;
-   		spell = getSpell.get(Name);
-        //spell = new Spell("none",100,100,10);
-   		spellBox.set(0,0,spell.getWidth(),spell.getHeight());
-   	}
-    boolean completed(){
-        return spellComplete;
     }
-   	void draw(Canvas canvas){
-        if(Name.equals("none")){spellComplete=true;}
-        if(!Name.equals("none")) {
-            spellLoc = getLocation(From.x, From.y, To.x, To.y, Total, current);
-            spellBox.offsetTo(spellLoc[0]-(spellBox.width()/2), spellLoc[1]-(spellBox.height()/2));
-            canvas.drawRect(spellBox, red);
-            current++;
+    class CastSpell{
+        private String Name;
+        private Spell spell;
+        private Rect spellBox = new Rect();
+        private int Total,current;
+        private Point From,To;
+        public boolean spellComplete = false;
+        private int[] spellLoc = new int[2];
+        private int Phase;
+        private int pre,during,post,preC,postC;
+
+        CastSpell(String name,int total,Point from,Point to){
+            setSpells();
+            Phase = 0;
+            From = from;
+            To = to;
+            spellComplete=false;
+            Name = name;
+            Total = total;
+            current = 0;
+            spell = getSpell.get(Name);
+            //spell = new Spell("none",100,100,10);
+            spellBox.set(0,0,spell.getWidth(),spell.getHeight());
+            pre = spell.getPre();
+            during = spell.getDuring();
+            post = spell.getPost();
+            preC = 0;
+            postC = 0;
+   	    }
+        boolean completed(){
+            return spellComplete;
         }
-   	}
+        void draw(Canvas canvas){
+            if(Name.equals("none")){spellComplete=true;}
+            if(!Name.equals("none")) {
+                if(spell.Type.equals("Projectile")){
+                    switch(Phase){
+                        case 0:
+                            if(preC == pre) {
+                                Phase++;
+                            }
+                            else {
+                                preC++;
+                            }
+                            break;
+                        case 1:
+                            spellLoc = getLocation(From.x, From.y, To.x, To.y, during, current);
+                            spellBox.offsetTo(spellLoc[0]-(spellBox.width()/2), spellLoc[1]-(spellBox.height()/2));
+                            canvas.drawRect(spellBox, red);
+                            current++;
+                            break;
+                        case 2:
+                            if(postC == post) {
+                                Phase++;
+                            }
+                            else {
+                                postC++;
+                            }
+                            break;
+                        case 3:
+                            spellComplete=true;
+                            spell = getSpell.get("none");
+                            battle.Standby=false;
+                            break;
+                    }
+                }
+                else if(spell.Type.equals("Beam")){
+                /*
+                *   public static Bitmap RotateBitmap(Bitmap source, float angle)
+                    {
+                        Matrix matrix = new Matrix();
+                        matrix.postRotate(angle);
+                        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+                    } Rotates an image and returns it
+
+                    public static double GetAngleOfLineBetweenTwoPoints(Point.Double p1, Point.Double p2) {
+                        double xDiff = p2.x - p1.x;
+                        double yDiff = p2.y - p1.y;
+                        return Math.toDegrees(Math.atan2(yDiff, xDiff));
+                    } Gets the angle between two points
+                    */
+                }
+            }
+     	}
        void setSpells(){
-           getSpell.put("Fire", new Spell("Fire", 100, 100, 50));
-           getSpell.put("none",new Spell("none",100,100,10));
+           getSpell.put("Fire", new Spell("Fire", 100, 100, 50,"Projectile",25,25,25));
+           getSpell.put("none",new Spell("none",100,100,10,"Blank",0,0,0));
        }
-   	int[] getLocation(int startX, int startY,int endX,int endY,int totalSteps, int currentStep){
-   		int xInterval = (endX-startX)/totalSteps;
-   		int yInterval = (endY-startY)/totalSteps;
-   		int[] returning = {
-   			startX+(xInterval*currentStep),
-   			startY+(yInterval*currentStep)
-   		};
-   		if(xInterval > 0 &&returning[0] >= endX){spellComplete = true;spell = getSpell.get("none");battle.Standby=false;}
-   		if(xInterval < 0 &&returning[0] <= endX){spellComplete = true;spell = getSpell.get("none");battle.Standby=false;}
-   		return returning;
-   	}
+       int[] getLocation(int startX, int startY,int endX,int endY,int totalSteps, int currentStep){
+           int xInterval = (endX-startX)/totalSteps;
+           int yInterval = (endY-startY)/totalSteps;
+           int[] returning = {
+                   startX+(xInterval*currentStep),
+                   startY+(yInterval*currentStep)
+           };
+           if(xInterval > 0 &&returning[0] >= endX){Phase++;}
+           if(xInterval < 0 &&returning[0] <= endX){Phase++;}
+           return returning;
+       }
+
    }
     class Spell{
         private int Dmg;
    	    private int W,H;
    	    private String Name;
-   	    Spell(String name, int w, int h, int dmg){
-
+        private String Type;
+        private int Pre, During ,Post;
+   	    Spell(String name, int w, int h, int dmg, String t, int pre, int during, int post){
    		    Name = name;
+            Type = t;
    		    //Image=
    		    W = w;
    		    H=h;
-          Dmg=dmg;
+            Dmg=dmg;
+            Pre = pre;
+            During = during;
+            Post = post;
    	    }
         int getWidth(){
             return W;
         }
         int getHeight(){
             return H;
+        }
+
+        public int getPre() {
+            return Pre;
+        }
+
+        public int getDuring() {
+            return During;
+        }
+
+        public int getPost() {
+            return Post;
+        }
+
+        public int getDmg() {
+            return Dmg;
         }
     }
    class Tooltip{
