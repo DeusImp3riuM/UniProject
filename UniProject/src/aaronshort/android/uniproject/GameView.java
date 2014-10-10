@@ -1021,27 +1021,57 @@ public class GameView extends View {
                         case 3:
                             break;
                     }
+                    open = false;
                 }
                 else if(Function.equals("Battle")){
                     switch (selectionMade){
                         case 0:
-                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P1.Reset();}
-                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P2.Reset();}
-                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy1.centerX(),battle.battleEnemy1.centerY()));battle.P3.Reset();}
+                            if(battle.slot1.isAlive()) {
+                                if (battle.P1.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer1.centerX(), battle.battlePlayer1.centerY()), new Point(battle.battleEnemy1.centerX(), battle.battleEnemy1.centerY()), battle.slot1);
+                                    battle.P1.Reset();
+                                } else if (battle.P2.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer2.centerX(), battle.battlePlayer2.centerY()), new Point(battle.battleEnemy1.centerX(), battle.battleEnemy1.centerY()), battle.slot1);
+                                    battle.P2.Reset();
+                                } else if (battle.P3.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer3.centerX(), battle.battlePlayer3.centerY()), new Point(battle.battleEnemy1.centerX(), battle.battleEnemy1.centerY()), battle.slot1);
+                                    battle.P3.Reset();
+                                }
+                                open = false;
+                            }
                             break;
                         case 1:
-                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P1.Reset();}
-                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P2.Reset();}
-                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy2.centerX(),battle.battleEnemy2.centerY()));battle.P3.Reset();}
+                            if(battle.slot2.isAlive()) {
+                                if (battle.P1.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer1.centerX(), battle.battlePlayer1.centerY()), new Point(battle.battleEnemy2.centerX(), battle.battleEnemy2.centerY()), battle.slot2);
+                                    battle.P1.Reset();
+                                } else if (battle.P2.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer2.centerX(), battle.battlePlayer2.centerY()), new Point(battle.battleEnemy2.centerX(), battle.battleEnemy2.centerY()), battle.slot2);
+                                    battle.P2.Reset();
+                                } else if (battle.P3.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer3.centerX(), battle.battlePlayer3.centerY()), new Point(battle.battleEnemy2.centerX(), battle.battleEnemy2.centerY()), battle.slot2);
+                                    battle.P3.Reset();
+                                }
+                                open = false;
+                            }
                             break;
                         case 2:
-                            if(battle.P1.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer1.centerX(),battle.battlePlayer1.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P1.Reset();}
-                            else if(battle.P2.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer2.centerX(),battle.battlePlayer2.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P2.Reset();}
-                            else if(battle.P3.canMove()){battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(),new Point(battle.battlePlayer3.centerX(),battle.battlePlayer3.centerY()),new Point(battle.battleEnemy3.centerX(),battle.battleEnemy3.centerY()));battle.P3.Reset();}
+                            if(battle.slot3.isAlive()) {
+                                if (battle.P1.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer1.centerX(), battle.battlePlayer1.centerY()), new Point(battle.battleEnemy3.centerX(), battle.battleEnemy3.centerY()), battle.slot3);
+                                    battle.P1.Reset();
+                                } else if (battle.P2.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer2.centerX(), battle.battlePlayer2.centerY()), new Point(battle.battleEnemy3.centerX(), battle.battleEnemy3.centerY()), battle.slot3);
+                                    battle.P2.Reset();
+                                } else if (battle.P3.canMove()) {
+                                    battle.castSpell = new CastSpell(battle.Player1Spells[battle.getSlot()], getSpell.get(battle.Player1Spells[battle.getSlot()]).getDuring(), new Point(battle.battlePlayer3.centerX(), battle.battlePlayer3.centerY()), new Point(battle.battleEnemy3.centerX(), battle.battleEnemy3.centerY()), battle.slot3);
+                                    battle.P3.Reset();
+                                }
+                                open = false;
+                            }
                             break;
                     }
                 }
-                open = false;
             }
         }
         void slotPress(){
@@ -1066,10 +1096,13 @@ public class GameView extends View {
     	private boolean drawTooltip = false;
     	private int subtouchX,subtouchY;
     	private Tooltip spellTip = new Tooltip();
-    	private CastSpell castSpell = new CastSpell("none",1,new Point(0,0),new Point(0,0));
+    	private CastSpell castSpell = new CastSpell("none",1,new Point(0,0),new Point(0,0),null);
         private DialogSelectionBox dsb = new DialogSelectionBox("Select Target",new String[]{"1","2",null},"none","Battle");
         public boolean Standby = false;
         private int slotSelected;
+        private Enemy slot1 = null;
+        private Enemy slot2 = null;
+        private Enemy slot3 = null;
         //               MoveBar(Offset,Max,     Width,       Speed,  X,                 Y,  TextSize)
         public MoveBar P1,P2,P3,E1,E2,E3;
         private String[] Player1Spells = {"Fire","Fire"};
@@ -1093,13 +1126,15 @@ public class GameView extends View {
             battlePlayer2.set(battlePlayer1);
             battlePlayer2.offset(0, 200);
             battlePlayer3.set(battlePlayer2);
-            battlePlayer3.offset(0,200);
-            battleEnemy1.set(getScreenWidth()-150,100,getScreenWidth()-50,200);
+            battlePlayer3.offset(0, 200);
+            battleEnemy1.set(getScreenWidth() - 150, 100, getScreenWidth() - 50, 200);
             battleEnemy2.set(battleEnemy1);
-            battleEnemy2.offset(0,200);
+            battleEnemy2.offset(0, 200);
             battleEnemy3.set(battleEnemy2);
-            battleEnemy3.offset(0,200);
-
+            battleEnemy3.offset(0, 200);
+            slot1 = new Enemy(10,5,"debug",5,5,5,battleEnemy1,10);
+            slot2 = new Enemy(10,5,"debug",5,5,5,battleEnemy2,10);
+            slot3 = new Enemy(10,5,"debug",5,5,5,battleEnemy3,10);
     		buttonFont.setColor(Color.BLACK);
     		buttonFont.setTextSize((menuButton.height()/4)*3);
     		buttonFont.setTextAlign(Paint.Align.CENTER);
@@ -1133,26 +1168,31 @@ public class GameView extends View {
             canvas.drawRect(battlePlayer1, red);
             canvas.drawRect(battlePlayer2, red);
             canvas.drawRect(battlePlayer3, red);
-            canvas.drawRect(battleEnemy1, red);
-            canvas.drawRect(battleEnemy2, red);
-            canvas.drawRect(battleEnemy3, red);
+            slot1.draw(canvas);
+            slot2.draw(canvas);
+            slot3.draw(canvas);
             P1.Draw(canvas);
             P2.Draw(canvas);
             P3.Draw(canvas);
-			E1.Draw(canvas);
-			E2.Draw(canvas);
-			E3.Draw(canvas);
+			if(slot1.isAlive()){E1.Draw(canvas);}
+			if(slot2.isAlive()){E2.Draw(canvas);}
+			if(slot3.isAlive()){E3.Draw(canvas);}
             if(!Standby){
              	P1.Update();
                 P2.Update();
                	P3.Update();
-			    //E1.Update();
-			    //E2.Update();
-			    //E3.Update();
+			    if(slot1.isAlive()){E1.Update();}
+			    if(slot2.isAlive()){E2.Update();}
+			    if(slot3.isAlive()){E3.Update();}
             }
-            else{getPress();}
+            else{getPress(canvas);}
 
             if(P1.canMove()||P2.canMove()||P3.canMove()||E1.canMove()||E2.canMove()||E3.canMove()){Standby = true;}
+
+            if(E1.canMove()){E1.Reset();Standby=false;}
+            else if(E2.canMove()){E2.Reset();Standby=false;}
+            else if(E3.canMove()){E3.Reset();Standby=false;}
+
     		if(display.equals("spells")){
     			subMenuButton.offsetTo(subMenu.left,subMenu.top);
     			drawTooltip = false;
@@ -1177,14 +1217,12 @@ public class GameView extends View {
                     }
     				subMenuButton.offset(0,subMenuButton.height());
     			}
-                    if(E1.canMove()){E1.Reset();}
-                    if(E2.canMove()){E2.Reset();}
-                    if(E3.canMove()){E3.Reset();}
                 if(dsb.open){
                     dsb.draw(canvas);
                     dsb.buttonPress();
                 }
     			if(drawTooltip){spellTip.draw(canvas);}
+
     		}
     		//-------------------
     		if(!castSpell.completed() && !castSpell.Name.equals("none")){
@@ -1194,13 +1232,17 @@ public class GameView extends View {
                 display = "none";
                 canvas.drawRect(bg,fade);
             }
+            if(!slot1.isAlive()&&!slot2.isAlive()&&!slot3.isAlive()){
+                Standby=true;
+                battleEnd(1,canvas);
+            }
     	}
         int getSlot(){
             return slotSelected;
         }
-    	void getPress(){
+    	void getPress(Canvas canvas){
     		if(flee.contains(touchX,touchY)){
-    			//battleEnd("flee");
+    			battleEnd(0,canvas);
     		}
     		else if(attack.contains(touchX,touchY)){
     			toast.show();
@@ -1216,6 +1258,55 @@ public class GameView extends View {
 
     		}
     	}
+        void battleEnd(int Condition, Canvas canvas){
+            switch(Condition){
+                case 0:
+                    break;
+                case 1:
+                    canvas.drawRect(0,0,getScreenWidth(),getScreenHeight(),blue);
+                    break;
+                case 2:
+                    break;
+            }
+        }
+    }
+    class Enemy{
+        private int HP;
+        private int Damage;
+        private String Name;
+        private int SpellP;
+        private int Def;
+        private int mDef;
+        private int Exp;
+        private Rect Space;
+        private boolean Alive;
+        Enemy(int a,int b, String c,int d, int e, int f,Rect g,int h){
+            HP=a;
+            Damage=b;
+            Name=c;
+            SpellP=d;
+            Def=e;
+            mDef=f;
+            Space = g;
+            Alive = true;
+            Exp=h;
+        }
+        void draw(Canvas canvas){
+            if(Alive){
+                canvas.drawRect(Space,red);
+                canvas.drawText(Integer.toString(HP),Space.left,Space.top,black);
+            }
+
+        }
+        boolean isAlive(){
+            return Alive;
+        }
+        void applyDamage(int Receive){
+            HP=HP-Receive;
+            if(HP <= 0){
+                Alive=false;
+            }
+        }
     }
     class CastSpell{
         private String Name;
@@ -1227,8 +1318,9 @@ public class GameView extends View {
         private int[] spellLoc = new int[2];
         private int Phase;
         private int pre,during,post,preC,postC;
+        private Enemy Target = null;
 
-        CastSpell(String name,int total,Point from,Point to){
+        CastSpell(String name,int total,Point from,Point to,Enemy target){
             setSpells();
             Phase = 0;
             From = from;
@@ -1245,10 +1337,12 @@ public class GameView extends View {
             post = spell.getPost();
             preC = 0;
             postC = 0;
+            Target = target;
    	    }
         boolean completed(){
             return spellComplete;
         }
+
         void draw(Canvas canvas){
             if(Name.equals("none")){spellComplete=true;}
             if(!Name.equals("none")) {
@@ -1271,9 +1365,19 @@ public class GameView extends View {
                         case 2:
                             if(postC == post) {
                                 Phase++;
+                                if(Target == battle.slot1){
+                                    battle.slot1.applyDamage(spell.getDmg());
+                                }
+                                else if(Target == battle.slot2){
+                                    battle.slot2.applyDamage(spell.getDmg());
+                                }
+                                else if(Target == battle.slot3){
+                                    battle.slot3.applyDamage(spell.getDmg());
+                                }
                             }
                             else {
                                 postC++;
+
                             }
                             break;
                         case 3:
