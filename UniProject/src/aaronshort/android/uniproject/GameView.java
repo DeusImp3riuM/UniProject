@@ -1,6 +1,7 @@
 package aaronshort.android.uniproject;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Random;
 
 import android.content.Context;
@@ -46,10 +47,10 @@ public class GameView extends View {
 	int xOffset,yOffset;
 	int touchX,touchY;
 	final int sdk = android.os.Build.VERSION.SDK_INT;
+    final static HashMap<String,Enemy> EnemyDatabase = new HashMap<String, Enemy>();
 
 	public GameView(Context context) {
 		super(context);
-
 		red.setColor(Color.RED);
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
@@ -65,8 +66,10 @@ public class GameView extends View {
 		GetClass.put("Light", SetMap("","",""));
 		GetClass.put("Warrior", SetMap("","",""));
 		GetClass.put("Sentinal", SetMap("","",""));
-
-
+        EnemyDatabase.put("Empty",new Enemy(0,0,"empty",0,0,0,new Rect(0,0,1,1),0));
+        EnemyDatabase.put("debug1",new Enemy(10,5,"debug",5,5,5,new Rect(0,0,100,100),10));
+        EnemyDatabase.put("debug2",new Enemy(10,5,"debug",5,5,5,new Rect(0,0,100,100),10));
+        EnemyDatabase.put("test",new Enemy(10,5,"debug2",5,5,5,new Rect(0,0,200,200),10));
 	}
 	public String[] SetMap(String one, String two, String three){
 		String[] Temp = new String[3];
@@ -81,7 +84,7 @@ public class GameView extends View {
 	Map map = new Map();
 	Controls controls = new Controls();
 	Inventory inv = new Inventory();
-	Battle battle = new Battle();
+	Battle battle = null;
 	PlayerCharacter player = new PlayerCharacter();
 	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1,"yellow");
 	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1,"blue");
@@ -159,7 +162,7 @@ public class GameView extends View {
 			settings.draw(canvas);
 			
 			if(isTrans == false && isTransIn == false){
-				if(controls.triggerBattle()){goingTo = "Battle";isTrans = true;}
+				if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("debug1","test","debug2");isTrans = true;}
 				if(touch == true){controls.getPress(touchX, touchY);}
 				if(settings.getPressed(touchX, touchY) == true){
 					goingTo = settings.getState();
@@ -171,6 +174,16 @@ public class GameView extends View {
 		}
 		else if(State == "Battle"){
 			battle.draw(canvas);
+            if(isTrans == false && isTransIn == false){
+                if(controls.triggerBattle()){goingTo = "Battle";isTrans = true;}
+                if(touch == true){controls.getPress(touchX, touchY);}
+                if(settings.getPressed(touchX, touchY) == true){
+                    goingTo = settings.getState();
+                    isTrans = true;
+                }
+            }
+            else if(isTransIn == true){transitionIn(15,canvas);}
+            else if(isTrans == true){transitionOut(15,canvas,goingTo);}
 		}
 		invalidate();
 	}
@@ -405,8 +418,7 @@ public class GameView extends View {
 		boolean triggerBattle(){
 			if(touch && map.getTag() == "Wild"){
 				if(up.contains(touchX,touchY) || down.contains(touchX,touchY) || left.contains(touchX,touchY) || right.contains(touchX,touchY) || ul.contains(touchX,touchY) || ur.contains(touchX,touchY)|| dl.contains(touchX,touchY) || dr.contains(touchX,touchY)){
-					chance++;
-					if (chance == 20){
+					if (rand.nextInt(10)+1 == 1){
 						return true;
 					}
 					else{return false;}
@@ -1100,13 +1112,14 @@ public class GameView extends View {
         private DialogSelectionBox dsb = new DialogSelectionBox("Select Target",new String[]{"1","2",null},"none","Battle");
         public boolean Standby = false;
         private int slotSelected;
-        private Enemy slot1 = null;
-        private Enemy slot2 = null;
-        private Enemy slot3 = null;
+        private Enemy slot1;
+        private Enemy slot2;
+        private Enemy slot3;
+        boolean send;
         //               MoveBar(Offset,Max,     Width,       Speed,  X,                 Y,  TextSize)
         public MoveBar P1,P2,P3,E1,E2,E3;
         private String[] Player1Spells = {"Fire","Fire"};
-    	Battle(){
+    	Battle(String a, String b, String c){
     		bg.set(0,(getScreenHeight()/2),getScreenWidth(),getScreenHeight());
     		subMenu.set((getScreenWidth()/2)-(bg.right/16),bg.top+(bg.right/32),bg.right-(bg.right/16),bg.bottom-((bg.right/12)));
     		menuButton.set(0,0,(int)(getScreenWidth()/3.5),(getScreenWidth()/4)/3);
@@ -1124,17 +1137,24 @@ public class GameView extends View {
 
             battlePlayer1.set(50,100,150,200);
             battlePlayer2.set(battlePlayer1);
-            battlePlayer2.offset(0, 200);
+            battlePlayer2.offset(0, getScreenHeight()/6);
             battlePlayer3.set(battlePlayer2);
-            battlePlayer3.offset(0, 200);
-            battleEnemy1.set(getScreenWidth() - 150, 100, getScreenWidth() - 50, 200);
+            battlePlayer3.offset(0, getScreenHeight()/6);
+            battleEnemy1.set(getScreenWidth() - 150, 100, getScreenWidth() - 50, getScreenHeight()/6);
             battleEnemy2.set(battleEnemy1);
-            battleEnemy2.offset(0, 200);
+            battleEnemy2.offset(0, getScreenHeight()/6);
             battleEnemy3.set(battleEnemy2);
-            battleEnemy3.offset(0, 200);
-            slot1 = new Enemy(10,5,"debug",5,5,5,battleEnemy1,10);
-            slot2 = new Enemy(10,5,"debug",5,5,5,battleEnemy2,10);
-            slot3 = new Enemy(10,5,"debug",5,5,5,battleEnemy3,10);
+            battleEnemy3.offset(0, getScreenHeight()/6);
+
+            slot1 = EnemyDatabase.get(a).get();
+            slot1.setRect(new Point(battleEnemy1.centerX(), battleEnemy1.centerY()));
+
+            slot2 = EnemyDatabase.get(b).get();
+            slot2.setRect(new Point(battleEnemy2.centerX(),battleEnemy2.centerY()));
+
+            slot3 = EnemyDatabase.get(c).get();
+            slot3.setRect(new Point(battleEnemy3.centerX(),battleEnemy3.centerY()));
+
     		buttonFont.setColor(Color.BLACK);
     		buttonFont.setTextSize((menuButton.height()/4)*3);
     		buttonFont.setTextAlign(Paint.Align.CENTER);
@@ -1144,13 +1164,11 @@ public class GameView extends View {
     		subBack.setColor(Color.LTGRAY);
             P1 = new MoveBar(0,1000,getScreenWidth()/4,2,battlePlayer1.left,battlePlayer1.top-(getScreenHeight()/24),40);
             P2 = new MoveBar(0,1000,getScreenWidth()/4,4,battlePlayer2.left,battlePlayer2.top-(getScreenHeight()/24),40);
-            P3 = new MoveBar(0,1000,getScreenWidth()/4,6,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
+            P3 = new MoveBar(0,1000,getScreenWidth()/4,50,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
 			E1 = new MoveBar(0,1000,getScreenWidth()/4,6,battleEnemy1.left-(battleEnemy1.width()),battleEnemy1.top-(getScreenHeight()/24),40);
 			E2 = new MoveBar(0,1000,getScreenWidth()/4,10,battleEnemy2.left-(battleEnemy2.width()),battleEnemy2.top-(getScreenHeight()/24),40);
 			E3 = new MoveBar(0,1000,getScreenWidth()/4,1,battleEnemy3.left-(battleEnemy3.width()),battleEnemy3.top-(getScreenHeight()/24),40);
-            //MoveBar E1 = new MoveBar(0,1000,300,10,100,200,40);
-            //MoveBar E2 = new MoveBar(0,1000,300,10,100,200,40);
-            //MoveBar E3 = new MoveBar(0,1000,300,10,100,200,40);
+            send = false;
     	}
     	void draw(Canvas canvas){
     		canvas.drawRect(bg,back);
@@ -1259,11 +1277,21 @@ public class GameView extends View {
     		}
     	}
         void battleEnd(int Condition, Canvas canvas){
+            Rect cont = new Rect(0,0,getScreenWidth()/4,getScreenWidth()/8);
+            cont.offsetTo(getScreenWidth()-(getScreenWidth()/4)-10,getScreenHeight()-(getScreenWidth()/8)-10);
             switch(Condition){
                 case 0:
                     break;
                 case 1:
                     canvas.drawRect(0,0,getScreenWidth(),getScreenHeight(),blue);
+                    canvas.drawRect(getScreenWidth()/10,getScreenWidth()/10,getScreenWidth()-(getScreenWidth()/10),getScreenHeight()/2,red);
+                    canvas.drawRect(cont,red);
+                    if(cont.contains(touchX,touchY)&&!send){
+                        send = true;
+                    }
+                    if(send){
+                        transitionOut(15,canvas,"Map");
+                    }
                     break;
                 case 2:
                     break;
@@ -1279,7 +1307,7 @@ public class GameView extends View {
         private int mDef;
         private int Exp;
         private Rect Space;
-        private boolean Alive;
+        private boolean Alive = true;
         Enemy(int a,int b, String c,int d, int e, int f,Rect g,int h){
             HP=a;
             Damage=b;
@@ -1306,6 +1334,13 @@ public class GameView extends View {
             if(HP <= 0){
                 Alive=false;
             }
+        }
+        void setRect(Point pos){
+            Space.offsetTo(pos.x,pos.y);
+            Space.offset((Space.width()/2)*-1,(Space.height()/2)*-1);
+        }
+        Enemy get(){
+            return new Enemy(HP,Damage,Name,SpellP,Def,mDef,Space,Exp);
         }
     }
     class CastSpell{
