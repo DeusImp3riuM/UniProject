@@ -13,14 +13,14 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: aaronshort.android.uniproject" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="655" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="466" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="529" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="354" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="324" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="723" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="943" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="592" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="659" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="470" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="533" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="358" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="328" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="727" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="947" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="596" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2293f926-ff13-4df8-9e03-c01695e71e0d" name="Default" comment="" />
@@ -52,38 +52,32 @@
       <file leaf-file-name="GameView.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47204968" vertical-offset="3996" max-vertical-offset="9265">
-              <caret line="1150" column="0" selection-start-line="1150" selection-start-column="0" selection-end-line="1150" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.39115646" vertical-offset="4934" max-vertical-offset="14178">
+              <caret line="424" column="38" selection-start-line="424" selection-start-column="38" selection-end-line="424" selection-end-column="38" />
               <folding>
                 <element signature="e#664#678#0" expanded="true" />
-                <element signature="e#1530#1547#0" expanded="true" />
-                <element signature="e#1880#1895#0" expanded="true" />
                 <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
                 <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
                 <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
                 <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
                 <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
                 <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-                <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-                <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
                 <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-                <element signature="e#19141#19156#0" expanded="true" />
-                <element signature="e#19277#19292#0" expanded="true" />
-                <element signature="e#28420#28436#0" expanded="true" />
-                <element signature="e#28490#28506#0" expanded="true" />
-                <element signature="e#28561#28575#0" expanded="true" />
+                <element signature="class#Map#0;class#GameView#0" expanded="true" />
+                <element signature="e#19185#19200#0" expanded="true" />
+                <element signature="e#19321#19336#0" expanded="true" />
+                <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
                 <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
                 <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-                <element signature="e#60637#60638#0" expanded="true" />
-                <element signature="e#60680#60681#0" expanded="true" />
+                <element signature="class#Battle#0;class#GameView#0" expanded="true" />
                 <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
                 <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
                 <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-                <element signature="e#63205#63206#0" expanded="true" />
-                <element signature="e#63287#63288#0" expanded="true" />
                 <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-                <element signature="e#64346#64347#0" expanded="true" />
-                <element signature="e#64390#64391#0" expanded="true" />
+                <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+                <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+                <element signature="e#69778#69779#0" expanded="true" />
+                <element signature="e#69829#69830#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -703,7 +697,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -742,7 +736,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -994,7 +988,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1007,7 +1001,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38265306" sideWeight="0.3106796" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26618123" sideWeight="0.503861" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20226537" sideWeight="0.5041322" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38265306" sideWeight="0.6893204" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1016,7 +1010,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20226537" sideWeight="0.496139" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20226537" sideWeight="0.49586776" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2857143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1081,38 +1075,96 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8838" max-vertical-offset="13549">
-          <caret line="1136" column="64" selection-start-line="1136" selection-start-column="64" selection-end-line="1136" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3384" max-vertical-offset="9163">
+          <caret line="1157" column="43" selection-start-line="1157" selection-start-column="43" selection-end-line="1157" selection-end-column="43" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3996" max-vertical-offset="9265">
+          <caret line="1150" column="0" selection-start-line="1150" selection-start-column="0" selection-end-line="1150" selection-end-column="0" />
+          <folding>
+            <element signature="e#664#678#0" expanded="true" />
+            <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
+            <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
+            <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
+            <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
+            <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
+            <element signature="method#Perc#0;class#GameView#0" expanded="false" />
+            <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
+            <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
+            <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
+            <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
+            <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
+            <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
+            <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8838" max-vertical-offset="13549">
+          <caret line="1136" column="64" selection-start-line="1136" selection-start-column="64" selection-end-line="1136" selection-end-column="64" />
+          <folding>
+            <element signature="e#664#678#0" expanded="true" />
+            <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
+            <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
+            <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
+            <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
+            <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
+            <element signature="method#Perc#0;class#GameView#0" expanded="false" />
+            <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
+            <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
+            <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
+            <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
+            <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
+            <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
+            <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1123,34 +1175,28 @@
           <caret line="1183" column="20" selection-start-line="1183" selection-start-column="20" selection-end-line="1183" selection-end-column="20" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1161,34 +1207,28 @@
           <caret line="1277" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1199,34 +1239,28 @@
           <caret line="1283" column="49" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1237,34 +1271,28 @@
           <caret line="1239" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1275,34 +1303,28 @@
           <caret line="1239" column="28" selection-start-line="1239" selection-start-column="15" selection-end-line="1239" selection-end-column="28" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1313,34 +1335,28 @@
           <caret line="265" column="34" selection-start-line="265" selection-start-column="34" selection-end-line="265" selection-end-column="34" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1351,34 +1367,28 @@
           <caret line="1112" column="72" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1389,34 +1399,28 @@
           <caret line="1252" column="10" selection-start-line="1252" selection-start-column="10" selection-end-line="1252" selection-end-column="10" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1427,34 +1431,28 @@
           <caret line="900" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1465,34 +1463,28 @@
           <caret line="1060" column="94" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1503,34 +1495,28 @@
           <caret line="1060" column="94" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1541,34 +1527,28 @@
           <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1579,34 +1559,28 @@
           <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1617,34 +1591,28 @@
           <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1655,34 +1623,28 @@
           <caret line="1129" column="13" selection-start-line="1129" selection-start-column="13" selection-end-line="1129" selection-end-column="13" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1693,34 +1655,28 @@
           <caret line="801" column="17" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1731,34 +1687,28 @@
           <caret line="801" column="17" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1769,34 +1719,28 @@
           <caret line="801" column="17" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1807,34 +1751,28 @@
           <caret line="884" column="57" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1845,34 +1783,28 @@
           <caret line="884" column="39" selection-start-line="884" selection-start-column="39" selection-end-line="884" selection-end-column="39" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1883,34 +1815,28 @@
           <caret line="803" column="50" selection-start-line="803" selection-start-column="50" selection-end-line="803" selection-end-column="50" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1921,34 +1847,28 @@
           <caret line="737" column="111" selection-start-line="737" selection-start-column="111" selection-end-line="737" selection-end-column="111" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1959,34 +1879,28 @@
           <caret line="622" column="30" selection-start-line="622" selection-start-column="30" selection-end-line="622" selection-end-column="30" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1997,34 +1911,28 @@
           <caret line="651" column="64" selection-start-line="651" selection-start-column="64" selection-end-line="651" selection-end-column="64" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2035,34 +1943,28 @@
           <caret line="707" column="42" selection-start-line="707" selection-start-column="42" selection-end-line="707" selection-end-column="42" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2073,34 +1975,28 @@
           <caret line="652" column="45" selection-start-line="652" selection-start-column="45" selection-end-line="652" selection-end-column="45" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2111,34 +2007,28 @@
           <caret line="615" column="39" selection-start-line="615" selection-start-column="39" selection-end-line="615" selection-end-column="39" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2149,34 +2039,28 @@
           <caret line="667" column="38" selection-start-line="667" selection-start-column="38" selection-end-line="667" selection-end-column="38" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2187,34 +2071,28 @@
           <caret line="667" column="38" selection-start-line="667" selection-start-column="38" selection-end-line="667" selection-end-column="38" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2225,34 +2103,28 @@
           <caret line="447" column="14" selection-start-line="447" selection-start-column="14" selection-end-line="447" selection-end-column="14" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2273,38 +2145,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47204968" vertical-offset="3996" max-vertical-offset="9265">
-          <caret line="1150" column="0" selection-start-line="1150" selection-start-column="0" selection-end-line="1150" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.39115646" vertical-offset="4934" max-vertical-offset="14178">
+          <caret line="424" column="38" selection-start-line="424" selection-start-column="38" selection-end-line="424" selection-end-column="38" />
           <folding>
             <element signature="e#664#678#0" expanded="true" />
-            <element signature="e#1530#1547#0" expanded="true" />
-            <element signature="e#1880#1895#0" expanded="true" />
             <element signature="method#transitionOut#0;class#GameView#0" expanded="false" />
             <element signature="method#transitionIn#0;class#GameView#0" expanded="false" />
             <element signature="method#onTouchEvent#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenWidth#0;class#GameView#0" expanded="false" />
             <element signature="method#getScreenHeight#0;class#GameView#0" expanded="false" />
             <element signature="method#Perc#0;class#GameView#0" expanded="false" />
-            <element signature="method#getPaint#0;class#GameView#0" expanded="false" />
-            <element signature="method#combineTiles#0;class#GameView#0" expanded="false" />
             <element signature="method#insideArea#0;class#GameView#0" expanded="false" />
-            <element signature="e#19141#19156#0" expanded="true" />
-            <element signature="e#19277#19292#0" expanded="true" />
-            <element signature="e#28420#28436#0" expanded="true" />
-            <element signature="e#28490#28506#0" expanded="true" />
-            <element signature="e#28561#28575#0" expanded="true" />
+            <element signature="class#Map#0;class#GameView#0" expanded="true" />
+            <element signature="e#19185#19200#0" expanded="true" />
+            <element signature="e#19321#19336#0" expanded="true" />
+            <element signature="class#PlayerCharacter#0;class#GameView#0" expanded="true" />
             <element signature="method#DialogSelectionBox#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
             <element signature="method#draw#0;class#DialogSelectionBox#0;class#GameView#0" expanded="false" />
-            <element signature="e#60637#60638#0" expanded="true" />
-            <element signature="e#60680#60681#0" expanded="true" />
+            <element signature="class#Battle#0;class#GameView#0" expanded="true" />
             <element signature="class#Enemy#0;class#GameView#0" expanded="true" />
             <element signature="method#Enemy#0;class#Enemy#0;class#GameView#0" expanded="false" />
             <element signature="method#applyDamage#0;class#Enemy#0;class#GameView#0" expanded="false" />
-            <element signature="e#63205#63206#0" expanded="true" />
-            <element signature="e#63287#63288#0" expanded="true" />
             <element signature="class#CastSpell#0;class#GameView#0" expanded="true" />
-            <element signature="e#64346#64347#0" expanded="true" />
-            <element signature="e#64390#64391#0" expanded="true" />
+            <element signature="class#Tooltip#0;class#GameView#0" expanded="true" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="e#69778#69779#0" expanded="true" />
+            <element signature="e#69829#69830#0" expanded="true" />
           </folding>
         </state>
       </provider>

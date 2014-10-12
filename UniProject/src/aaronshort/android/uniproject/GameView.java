@@ -97,6 +97,9 @@ public class GameView extends View {
 	String goingTo = "";
 	boolean isTrans = false;
 	boolean isTransIn = false;
+
+    Sprite sprite = new Sprite();
+
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
@@ -159,7 +162,8 @@ public class GameView extends View {
 			map.drawMap(canvas);
 			controls.drawButtons(canvas);
 			player.draw(canvas);
-			settings.draw(canvas);
+
+            sprite.draw(canvas);
 			
 			if(isTrans == false && isTransIn == false){
 				if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("debug1","test","debug2");isTrans = true;}
@@ -418,7 +422,7 @@ public class GameView extends View {
 		boolean triggerBattle(){
 			if(touch && map.getTag() == "Wild"){
 				if(up.contains(touchX,touchY) || down.contains(touchX,touchY) || left.contains(touchX,touchY) || right.contains(touchX,touchY) || ul.contains(touchX,touchY) || ur.contains(touchX,touchY)|| dl.contains(touchX,touchY) || dr.contains(touchX,touchY)){
-					if (rand.nextInt(10)+1 == 1){
+					if (rand.nextInt(30)+1 == 1){
 						return true;
 					}
 					else{return false;}
@@ -468,7 +472,7 @@ public class GameView extends View {
 		HashMap<String,int[][]> MapListArray = new HashMap<String,int[][]>();
 		HashMap<String,String> MapTag = new HashMap<String,String>();
 		private String currentMap;
-		private int tileSize;
+		public int tileSize;
 		private int mapScale = 10;
 		Map(){
 			tileSize = getScreenWidth()/mapScale;
@@ -1510,4 +1514,40 @@ public class GameView extends View {
    		canvas.drawRect(box,red);
    	}
    }
+    class Sprite{
+        private int mapX;
+        private int mapY;
+        private int sWidth;
+        private int sHeight;
+        private int worldX;
+        private int worldY;
+        private String Name;
+        private Bitmap Image;
+        private String[] dialogLib;
+        private Rect sBox;
+        Sprite(){
+            mapX = 1;
+            mapY = 1;
+            sWidth = 100;
+            sHeight = 100;
+            sBox = new Rect(mapX*map.tileSize,mapY*map.tileSize,mapX*map.tileSize+sWidth,mapY*map.tileSize+sHeight);
+        }
+        void draw(Canvas canvas){
+            canvas.drawRect(sBox,black);
+        }
+        void Move(String direction){
+            if(direction.equals("left")){
+
+            }
+            else if(direction.equals("right")){
+
+            }
+            else if(direction.equals("up")){
+
+            }
+            else if(direction.equals("down")){
+
+            }
+        }
+    }
 }
