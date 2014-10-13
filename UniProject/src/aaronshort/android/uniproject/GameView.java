@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.graphics.*;
 import android.widget.Toast;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameView extends View {
 
@@ -40,6 +43,7 @@ public class GameView extends View {
 	Paint red = new Paint();
 	Paint blue = new Paint();
 	Paint black = new Paint();
+	Paint cyan = new Paint();
 	boolean load = false;
 	boolean touch = false;
 	int screenW,screenH;
@@ -55,6 +59,7 @@ public class GameView extends View {
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
 		black.setTextSize(20);
+		cyan.setColor(Color.CYAN);
 		screenW = getScreenWidth();
 		screenH = getScreenHeight();
 		xOffset = 0;
@@ -164,6 +169,7 @@ public class GameView extends View {
 			player.draw(canvas);
 
             sprite.draw(canvas);
+			sprite.autoMove();
 			
 			if(isTrans == false && isTransIn == false){
 				if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("debug1","test","debug2");isTrans = true;}
@@ -295,7 +301,7 @@ public class GameView extends View {
 				paint.setColor(Color.rgb(255,0,0));
 				break;
 			default:
-				paint.setColor(Color.rgb(0,0,0));
+				paint.setColor(Color.CYAN);
 				break;
 		}
 		return paint;
@@ -317,6 +323,7 @@ public class GameView extends View {
 			width = tiles[i].length;
 			for(int j=0;j<width;j++){
 				MapTile.drawRect(j*tileSize,i*tileSize,(j+1)*tileSize,(i+1)*tileSize,getPaint(tiles[i][j]));
+				MapTile.drawText(Integer.toString(tiles[i][j]),j*tileSize+(tileSize/2),i*tileSize+(tileSize/2),red);
 			}
 		}
 		return bit;
@@ -422,7 +429,7 @@ public class GameView extends View {
 		boolean triggerBattle(){
 			if(touch && map.getTag() == "Wild"){
 				if(up.contains(touchX,touchY) || down.contains(touchX,touchY) || left.contains(touchX,touchY) || right.contains(touchX,touchY) || ul.contains(touchX,touchY) || ur.contains(touchX,touchY)|| dl.contains(touchX,touchY) || dr.contains(touchX,touchY)){
-					if (rand.nextInt(30)+1 == 1){
+					if (rand.nextInt(30)+1 == -1){
 						return true;
 					}
 					else{return false;}
@@ -500,7 +507,7 @@ public class GameView extends View {
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
-				{2,1,2,1,2,1,2,1,2,1},
+				{2,0,2,1,2,1,2,1,2,1},
 				{1,2,1,2,1,2,1,2,1,2},
 				{2,1,2,1,2,1,2,1,2,1}
 			};
@@ -1401,7 +1408,7 @@ public class GameView extends View {
                             canvas.drawRect(spellBox, red);
                             current++;
                             break;
-                        case 2:pp
+                        case 2:
                             if(postC == post) {
                                 Phase++;
                                 if(Target == battle.slot1){
@@ -1525,78 +1532,166 @@ public class GameView extends View {
         private Bitmap Image;
         private String[] dialogLib;
         private Rect sBox;
-		private int moveC
+		private int moveC;
+		private int sSpeed = 2;
+		private boolean sMoving;
+		private int autoC;
+		private String[] direc = {"up","down","left","right"};
+		private int direcInt;
+		private Rect sCol = new Rect();
+		private String[] route = {"left","down","right","up"};
+		private int cRoute = 0;
         Sprite(){
+			cRoute = 0;
+			sMoving = false;
+			autoC = 0;
 			moveC = 0;
-            mapX = 1;
-            mapY = 1;
-            sWidth = 100;
-            sHeight = 100;
-            sBox = new Rect(mapX*map.tileSize,mapY*map.tileSize,mapX*map.tileSize+sWidth,mapY*map.tileSize+sHeight);
+            mapX = 5;
+            mapY = 7;
+            sWidth = map.tileSize;
+            sHeight = map.tileSize;
+			worldX = mapX*map.tileSize;
+			worldY = mapY*map.tileSize;
+            sBox = new Rect(worldX,worldY,worldX+sWidth,worldY+sHeight);
         }
         void draw(Canvas canvas){
             canvas.drawRect(sBox,black);
         }
 		void MoveReset(){
-			if(moveC == 2){
-				moveC =0;
-			}
+			moveC = 0;
+			autoC = 0;
+			cRoute++;
+			if(cRoute == route.length){cRoute=0;}
 		}
 		int getMoveC(){
 			return moveC;
 		}
+		void toasty(String a){
+			Toast toast = Toast.makeText(getContext(),a,Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		void autoMove(){
+			if(sMoving == false){
+				if(autoC == 5){
+					sMoving = true;
+					direcInt = rand.nextInt(4);
+				}
+				autoC++;
+			}
+			else{
+				//Move(direc[direcInt]);
+				Move(route[cRoute]);
+			}
+		}
+		boolean checkMapCollision(int x,int y){
+			String[] array = {"1","2"};
+			List<String> walkable = Arrays.asList(array);
+			if(walkable.contains(Integer.toString(map.getCurrentMapArray()[y][x]))){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		boolean checkEntityCollision(String e){
+			if(e.equals("left")){
+				sCol.set(worldX,worldY,worldX+5,worldY+sHeight);
+				if(sCol.intersect(player.drawPlayer)){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			else if(e.equals("right")){
+				sCol.set(worldX+sWidth-5,worldY,worldX+sWidth,worldY+sHeight);
+				if(sCol.intersect(player.drawPlayer)){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			else if(e.equals("up")){
+				sCol.set(worldX,worldY,worldX+sWidth,worldY+5);
+				if(sCol.intersect(player.drawPlayer)){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			else if(e.equals("down")){
+				sCol.set(worldX,worldY+sHeight-5,worldX+sWidth,worldY+sHeight);
+				if(sCol.intersect(player.drawPlayer)){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
         void Move(String direction){
 			if(moveC == 0){
-				if(direction.equals("left")){
+				sMoving = true;
+				if(direction.equals("left")&& mapX-1 != -1 && checkMapCollision(mapX-1,mapY)){
 					mapX--;
 				}
-				else if(direction.equals("right")){
+				else if(direction.equals("right") && mapX+1 != map.MapListArray.get(map.getCurrentMap())[mapY].length && checkMapCollision(mapX+1,mapY)){
 					mapX++;
 				}
-				else if(direction.equals("up")){
+				else if(direction.equals("up")&& mapY-1 != -1 && checkMapCollision(mapX,mapY-1)){
 					mapY--;
 				}
-				else if(direction.equals("down")){
+				else if(direction.equals("down") && mapY+1 != map.MapListArray.get(map.getCurrentMap()).length && checkMapCollision(mapX,mapY+1)){
 					mapY++;
 				}
-				moveC++;
+				moveC=1;
 			}
 			else if(moveC == 1){
-				if(direction.equals("left")){
-					if(worldX < mapX*map.tileSize){
-						worldX++;
-					}
-					else if(worldX == mapX*map.tileSize){
-						moveC++;
-					}
-				}
-				else if(direction.equals("right")){
+				if(direction.equals("left") && checkEntityCollision("left")){
 					if(worldX > mapX*map.tileSize){
-						worldX--;
+						worldX -= sSpeed;
+						sBox.offsetTo(worldX,worldY);
 					}
 					else if(worldX == mapX*map.tileSize){
-						moveC++;
+						moveC=2;
 					}
 				}
-				else if(direction.equals("up")){
-					if(worldY < mapY*map.tileSize){
-						worldY++;
+				else if(direction.equals("right") && checkEntityCollision("right")){
+					if(worldX < mapX*map.tileSize){
+						worldX += sSpeed;
+						sBox.offsetTo(worldX,worldY);
 					}
-					else if(worldY == mapY*map.tileSize){
-						moveC++;
+					else if(worldX == mapX*map.tileSize){
+						moveC=2;
 					}
 				}
-				else if(direction.equals("down")){
-					if(worldY < mapY*map.tileSize){
-						worldY--;
+				else if(direction.equals("up") && checkEntityCollision("up")){
+					if(worldY > mapY*map.tileSize){
+						worldY -= sSpeed;
+						sBox.offsetTo(worldX,worldY);
 					}
 					else if(worldY == mapY*map.tileSize){
-						moveC++;
+						moveC=2;
+					}
+				}
+				else if(direction.equals("down") && checkEntityCollision("down")){
+					if(worldY < mapY*map.tileSize){
+						worldY += sSpeed;
+						sBox.offsetTo(worldX,worldY);
+					}
+					else if(worldY == mapY*map.tileSize){
+						moveC=2;
 					}
 				}
 			}
 			else if(moveC == 2){
-				
+				sMoving = false;
+				MoveReset();
 			}
         }
     }
