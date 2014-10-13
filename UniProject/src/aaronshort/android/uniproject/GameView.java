@@ -1401,7 +1401,7 @@ public class GameView extends View {
                             canvas.drawRect(spellBox, red);
                             current++;
                             break;
-                        case 2:
+                        case 2:pp
                             if(postC == post) {
                                 Phase++;
                                 if(Target == battle.slot1){
@@ -1525,7 +1525,9 @@ public class GameView extends View {
         private Bitmap Image;
         private String[] dialogLib;
         private Rect sBox;
+		private int moveC
         Sprite(){
+			moveC = 0;
             mapX = 1;
             mapY = 1;
             sWidth = 100;
@@ -1535,19 +1537,67 @@ public class GameView extends View {
         void draw(Canvas canvas){
             canvas.drawRect(sBox,black);
         }
+		void MoveReset(){
+			if(moveC == 2){
+				moveC =0;
+			}
+		}
+		int getMoveC(){
+			return moveC;
+		}
         void Move(String direction){
-            if(direction.equals("left")){
-
-            }
-            else if(direction.equals("right")){
-
-            }
-            else if(direction.equals("up")){
-
-            }
-            else if(direction.equals("down")){
-
-            }
+			if(moveC == 0){
+				if(direction.equals("left")){
+					mapX--;
+				}
+				else if(direction.equals("right")){
+					mapX++;
+				}
+				else if(direction.equals("up")){
+					mapY--;
+				}
+				else if(direction.equals("down")){
+					mapY++;
+				}
+				moveC++;
+			}
+			else if(moveC == 1){
+				if(direction.equals("left")){
+					if(worldX < mapX*map.tileSize){
+						worldX++;
+					}
+					else if(worldX == mapX*map.tileSize){
+						moveC++;
+					}
+				}
+				else if(direction.equals("right")){
+					if(worldX > mapX*map.tileSize){
+						worldX--;
+					}
+					else if(worldX == mapX*map.tileSize){
+						moveC++;
+					}
+				}
+				else if(direction.equals("up")){
+					if(worldY < mapY*map.tileSize){
+						worldY++;
+					}
+					else if(worldY == mapY*map.tileSize){
+						moveC++;
+					}
+				}
+				else if(direction.equals("down")){
+					if(worldY < mapY*map.tileSize){
+						worldY--;
+					}
+					else if(worldY == mapY*map.tileSize){
+						moveC++;
+					}
+				}
+			}
+			else if(moveC == 2){
+				
+			}
         }
     }
 }
