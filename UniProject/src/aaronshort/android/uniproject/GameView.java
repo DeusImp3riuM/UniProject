@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class GameView extends View {
 
@@ -52,9 +53,11 @@ public class GameView extends View {
 	int touchX,touchY;
 	final int sdk = android.os.Build.VERSION.SDK_INT;
     final static HashMap<String,Enemy> EnemyDatabase = new HashMap<String, Enemy>();
+	HashMap<String,Sprite> getSprite = new HashMap<String,Sprite>();
 
 	public GameView(Context context) {
 		super(context);
+		setAllSprites();
 		red.setColor(Color.RED);
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
@@ -83,6 +86,9 @@ public class GameView extends View {
 		Temp[2] = three;
 		return Temp;
 	}
+	public void setAllSprites(){
+		getSprite.put("Level2,testSprite",new Sprite("test",4,4));
+	}
 
 	String Print;
 	String[] recieve = new String[3];
@@ -102,8 +108,6 @@ public class GameView extends View {
 	String goingTo = "";
 	boolean isTrans = false;
 	boolean isTransIn = false;
-
-    Sprite sprite = new Sprite();
 
 	@Override
 	protected void onDraw(Canvas canvas){
@@ -165,12 +169,13 @@ public class GameView extends View {
 			canvas.translate(xOffset, yOffset);
 			map.setCurrentMap("Level2");
 			map.drawMap(canvas);
-			controls.drawButtons(canvas);
 			player.draw(canvas);
-
-            sprite.draw(canvas);
-			sprite.autoMove();
-			
+			if(map.getCurrentMap().equals("Level2")){
+				getSprite.get("Level2,testSprite").draw(canvas);
+				getSprite.get("Level2,testSprite").autoMove();
+			}
+			controls.drawButtons(canvas);
+			settings.draw(canvas);
 			if(isTrans == false && isTransIn == false){
 				if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("debug1","test","debug2");isTrans = true;}
 				if(touch == true){controls.getPress(touchX, touchY);}
@@ -221,6 +226,7 @@ public class GameView extends View {
 		Rect Cover = new Rect();
 		Paint coverP = new Paint();
 		Cover.set(0,0, getScreenWidth(), getScreenHeight());
+		if(State == "Map"){Cover.offsetTo(-xOffset,-yOffset);}		
 		if(tCounter > 0){
 			tCounter -= speed;
 		}
@@ -234,6 +240,10 @@ public class GameView extends View {
 		canvas.drawRect(Cover, coverP);
 		
 	}
+	public void toasty(String a){
+			Toast toast = Toast.makeText(getContext(),a,Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	public boolean onTouchEvent(MotionEvent e){
 		float xx = e.getX();
 		float yy = e.getY();
@@ -247,6 +257,7 @@ public class GameView extends View {
             touchX = 0;
             touchY = 0;
 			touch = false;
+			controls.dLock = 0;
 		}
 		else{}
 		return true;
@@ -379,9 +390,17 @@ public class GameView extends View {
 		private Rect ddl = new Rect();
 		private Rect dr = new Rect();
 		private Rect ddr = new Rect();
+		private Rect inter = new Rect();
+		private Rect dinter = new Rect();
+		private Rect Dialog = new Rect();
+		private boolean dDisplay = false;
+		private int dLock = 0;
 		private int butScale = 9;
 		private int sWidth, sHeight;
 		private int chance = 0;
+		private String[] entryKeySplit;
+		private boolean canMove = false;
+		private Rect playerHitBox = new Rect();
 		
 		Controls(){
 			buttonSize = getScreenWidth()/butScale;
@@ -404,8 +423,12 @@ public class GameView extends View {
 		   ddl.set(sWidth-(buttonSize*3)-buttonSize/2,sHeight-(buttonSize*1)-buttonSize/2,sWidth-(buttonSize*2)-buttonSize/2,sHeight-(buttonSize*0)-buttonSize/2);
 		    dr.set(sWidth-(buttonSize*1)-buttonSize/2,sHeight-(buttonSize*1)-buttonSize/2,sWidth-(buttonSize*0)-buttonSize/2,sHeight-(buttonSize*0)-buttonSize/2);
 		   ddr.set(sWidth-(buttonSize*1)-buttonSize/2,sHeight-(buttonSize*1)-buttonSize/2,sWidth-(buttonSize*0)-buttonSize/2,sHeight-(buttonSize*0)-buttonSize/2);
+		   inter.set(ul.right,ul.bottom,dr.left,dr.top);
+		   dinter.set(ul.right,ul.bottom,dr.left,dr.top);
+		   Dialog.set(10,10,getScreenWidth()-10,(getScreenHeight()/3)-10);
 			
 		}
+		
 		void drawButtons(Canvas canvas){
 			canvas.drawRect(dup,red);
 			canvas.drawRect(ddown, red);
@@ -415,6 +438,20 @@ public class GameView extends View {
 			canvas.drawRect(dur, blue);
 			canvas.drawRect(ddl, blue);
 			canvas.drawRect(ddr, blue);
+			canvas.drawRect(dinter, blue);
+			if(dDisplay){
+				for(Entry<String,Sprite> entry: getSprite.entrySet()){
+					entryKeySplit = entry.getKey().split(",");
+					if(entryKeySplit[0].equals("Level2")){
+						if(Rect.intersects(entry.getValue().sBox,player.drawPlayer)){
+							canvas.drawRect(Dialog,blue);
+							for(int t=0;t<entry.getValue().dialogText[0].length;t++){
+								canvas.drawText(entry.getValue().getText(0,t),Dialog.left+20,Dialog.top+40+(40*t),black);
+							}
+						}
+					}
+				}
+			}
 		}
 		private void offsetButtons(int x,int y){
 			dup.offset(x, y);
@@ -425,6 +462,8 @@ public class GameView extends View {
 			dur.offset(x, y);
 			ddl.offset(x, y);
 			ddr.offset(x, y);
+			dinter.offset(x, y);
+			Dialog.offset(x, y);
 		}
 		boolean triggerBattle(){
 			if(touch && map.getTag() == "Wild"){
@@ -439,39 +478,76 @@ public class GameView extends View {
 		}
 		void getPress(int x, int y){
 			int [][] cMap = map.getCurrentMapArray();
-			if(up.contains(x, y)){
-				if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
-				else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}}
-			else if(down.contains(x, y)){
-				if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
-				else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}}
-			else if(right.contains(x, y)){
-				if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
-				else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
-			else if(left.contains(x, y)){
-				if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
-				else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
-			else if(ul.contains(x, y)){
-				if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
-				else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
-				if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
-				else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
-			else if(ur.contains(x, y)){
-				if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
-				else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
-				if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
-				else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
-			else if(dl.contains(x, y)){
-				if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
-				else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
-				if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
-				else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
-			else if(dr.contains(x, y)){
-				if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
-				else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
-				if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
-				else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
-			else{}
+			if(inter.contains(x, y) && dLock == 0){
+				for(Entry<String,Sprite> entry: getSprite.entrySet()){
+					entryKeySplit = entry.getKey().split(",");
+					if(entryKeySplit[0].equals("Level2")){
+						if(Rect.intersects(entry.getValue().sBox,player.drawPlayer)){
+							dDisplay = !dDisplay;
+							if(!dDisplay){
+								entry.getValue().Speech();
+							}
+							dLock++;
+						}
+					}
+				}
+			}
+			else if(dDisplay == false){
+				canMove = true;
+				if(up.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.top,player.drawPlayer.right,player.drawPlayer.top+5);}
+				else if(down.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.bottom+5,player.drawPlayer.right,player.drawPlayer.bottom);}
+				else if(right.contains(x,y)){playerHitBox.set(player.drawPlayer.right-5,player.drawPlayer.top,player.drawPlayer.right,player.drawPlayer.bottom);}
+				else if(left.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.top,player.drawPlayer.left+5,player.drawPlayer.bottom);}
+				else if(ur.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.left+=5;playerHitBox.bottom+=5;}
+				else if(ul.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.right+=5;playerHitBox.bottom+=5;}
+				else if(dr.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.left+=5;playerHitBox.top+=5;}
+				else if(dl.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.right+=5;playerHitBox.top+=5;}
+
+				
+				for(Entry<String,Sprite> entry: getSprite.entrySet()){
+					entryKeySplit = entry.getKey().split(",");
+					if(entryKeySplit[0].equals("Level2")){
+						if(Rect.intersects(entry.getValue().sBox,playerHitBox)){
+							canMove = false;
+						}
+					}
+				}
+				if(canMove){
+					if(up.contains(x, y)){
+						if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+						else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}}
+					else if(down.contains(x, y)){
+						if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
+						else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}}
+					else if(right.contains(x, y)){
+						if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
+						else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+					else if(left.contains(x, y)){
+						if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
+						else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+					else if(ul.contains(x, y)){
+						if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+						else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
+						if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
+						else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+					else if(ur.contains(x, y)){
+						if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+						else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
+						if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
+						else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+					else if(dl.contains(x, y)){
+						if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
+						else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
+						if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
+						else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+					else if(dr.contains(x, y)){
+						if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
+						else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
+						if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
+						else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+					else{}
+				}
+			}
 		}
 	}
 	class Map{
@@ -1541,19 +1617,28 @@ public class GameView extends View {
 		private Rect sCol = new Rect();
 		private String[] route = {"left","down","right","up"};
 		private int cRoute = 0;
-        Sprite(){
+		private String[][] dialogText = {
+			{"first line","second line"},
+			{"new set of lines",":D"}
+		};
+		private int index = 0;
+        Sprite(String name,int x,int y){
+			Name =  name;
 			cRoute = 0;
 			sMoving = false;
 			autoC = 0;
 			moveC = 0;
-            mapX = 5;
-            mapY = 7;
+            mapX = x;
+            mapY = y;
             sWidth = map.tileSize;
             sHeight = map.tileSize;
 			worldX = mapX*map.tileSize;
 			worldY = mapY*map.tileSize;
             sBox = new Rect(worldX,worldY,worldX+sWidth,worldY+sHeight);
         }
+		String getText(int i, int j){
+			return dialogText[index][j];
+		}
         void draw(Canvas canvas){
             canvas.drawRect(sBox,black);
         }
@@ -1565,6 +1650,10 @@ public class GameView extends View {
 		}
 		int getMoveC(){
 			return moveC;
+		}
+		void Speech(){
+			index++;
+			if(index == dialogText.length){index=0;};
 		}
 		void toasty(String a){
 			Toast toast = Toast.makeText(getContext(),a,Toast.LENGTH_SHORT);
