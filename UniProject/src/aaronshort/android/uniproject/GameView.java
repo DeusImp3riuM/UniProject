@@ -399,7 +399,7 @@ public class GameView extends View {
 		private int sWidth, sHeight;
 		private int chance = 0;
 		private String[] entryKeySplit;
-		private boolean canMove = false;
+		private boolean canMove = true;
 		private Rect playerHitBox = new Rect();
 		
 		Controls(){
@@ -1740,7 +1740,7 @@ public class GameView extends View {
 				}
 				moveC=1;
 			}
-			else if(moveC == 1){
+			else if(moveC == 1 && controls.canMove){
 				if(direction.equals("left") && checkEntityCollision("left")){
 					if(worldX > mapX*map.tileSize){
 						worldX -= sSpeed;
