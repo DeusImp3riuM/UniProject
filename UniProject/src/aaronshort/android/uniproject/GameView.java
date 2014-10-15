@@ -30,14 +30,14 @@ public class GameView extends View {
 
 	Random rand = new Random();
 	String[][] WepTypes={
-			{"LongSword","Rapier","TwoHanded","Dagger","Club","Axe","TwoHandedAxe","Scythe","DualScythe"},
-			{"Orb","Book","Staff","Rod","Sword","Scythe"},
-			{"LongBow","ShortBow","Crossbow","Sniper","Pistol","Energy","Throwing"}
+			{"LongSword","Club","Axe","Scythe"},
+			{"Orb","Book","Staff","Rod"},
+			{"LongBow","Crossbow","Sniper","Energy"}
 	};
 	String[][] ClassTypes = {
-			{"Swordsman","LightSword","Warrior","Sentinal","Assassin","Duelist","Thief","Beserker","Valkyrie","ScytheWielder","Mutant","Paladin","Brute"},
-			{"Mage","LightMage","DarkMage","GreyMage","Healer","HolyMage","Sorcerer","CursedMage","BloodMage","Necromancer","Geomancer","WarriorMage","BioMorphMage"},
-			{"Ranger","Marksman","LightArcher","DarkArcher","PiercingArcher","SharpShooter","Techmaturgist","Hunter","Frost","DaggerThrower","CorruptedArcher","NightArcher","StealthArcher"}
+			{"Swordsman","Valkyrie","ScytheWielder","Paladin"},
+			{"Mage","DarkMage","HolyMage","BloodMage"},
+			{"Ranger","SharpShooter","Techmaturgist","CorruptedArcher"}
 			};
 	HashMap<String, String[]> GetClass = new HashMap<String,String[]>();
 
@@ -108,11 +108,15 @@ public class GameView extends View {
 	String goingTo = "";
 	boolean isTrans = false;
 	boolean isTransIn = false;
+	Chest chest = new Chest(8,8,2);
+	/**/
+		MapWarp mw001 = new MapWarp(1,1,5,5,"Level2","Start");
+	/**/
 
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-		/*if(load==false){load=true;}
+		/*
 		 *
 		 * recieve = GetClass.get("Base");
 		 * Print = Arrays.toString(recieve);
@@ -128,6 +132,7 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
 		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
+		 if(load==false){load=true;map.setCurrentMap("Level2");}
 		if(State == "MainMenu"){
 			back.draw(canvas);
 			inventory.draw(canvas);
@@ -167,12 +172,14 @@ public class GameView extends View {
 		}
 		else if(State == "Map"){
 			canvas.translate(xOffset, yOffset);
-			map.setCurrentMap("Level2");
 			map.drawMap(canvas);
 			player.draw(canvas);
 			if(map.getCurrentMap().equals("Level2")){
 				getSprite.get("Level2,testSprite").draw(canvas);
 				getSprite.get("Level2,testSprite").autoMove();
+				chest.draw(canvas);
+				chest.update();
+				mw001.update();
 			}
 			controls.drawButtons(canvas);
 			settings.draw(canvas);
@@ -401,6 +408,8 @@ public class GameView extends View {
 		private String[] entryKeySplit;
 		private boolean canMove = true;
 		private Rect playerHitBox = new Rect();
+		private Point upP,downP,leftP,rightP,ulP,urP,dlP,drP,interP;
+		private Rect test = new Rect();
 		
 		Controls(){
 			buttonSize = getScreenWidth()/butScale;
@@ -425,11 +434,32 @@ public class GameView extends View {
 		   ddr.set(sWidth-(buttonSize*1)-buttonSize/2,sHeight-(buttonSize*1)-buttonSize/2,sWidth-(buttonSize*0)-buttonSize/2,sHeight-(buttonSize*0)-buttonSize/2);
 		   inter.set(ul.right,ul.bottom,dr.left,dr.top);
 		   dinter.set(ul.right,ul.bottom,dr.left,dr.top);
+		   
+		   upP = new Point(up.left,up.top);
+		   downP = new Point(down.left,down.top);
+		   leftP = new Point(left.left,left.top);
+		   rightP = new Point(right.left,right.top);
+		   ulP = new Point(ul.left,ul.top);
+		   urP = new Point(ur.left,ur.top);
+		   dlP = new Point(dl.left,dl.top);
+		   drP = new Point(dr.left,dr.top);
+		   interP = new Point(inter.left,inter.top);
+		   
+		   
 		   Dialog.set(10,10,getScreenWidth()-10,(getScreenHeight()/3)-10);
 			
 		}
 		
 		void drawButtons(Canvas canvas){
+			dup.offsetTo(upP.x-xOffset, upP.y-yOffset);
+			ddown.offsetTo(downP.x-xOffset, downP.y-yOffset);
+			dleft.offsetTo(leftP.x-xOffset, leftP.y-yOffset);
+			dright.offsetTo(rightP.x-xOffset, rightP.y-yOffset);
+			dul.offsetTo(ulP.x-xOffset, ulP.y-yOffset);
+			dur.offsetTo(urP.x-xOffset, urP.y-yOffset);
+			ddl.offsetTo(dlP.x-xOffset, dlP.y-yOffset);
+			ddr.offsetTo(drP.x-xOffset, drP.y-yOffset);
+			dinter.offsetTo(interP.x-xOffset, interP.y-yOffset);
 			canvas.drawRect(dup,red);
 			canvas.drawRect(ddown, red);
 			canvas.drawRect(dleft, red);
@@ -439,6 +469,7 @@ public class GameView extends View {
 			canvas.drawRect(ddl, blue);
 			canvas.drawRect(ddr, blue);
 			canvas.drawRect(dinter, blue);
+			canvas.drawRect(test,black);
 			if(dDisplay){
 				for(Entry<String,Sprite> entry: getSprite.entrySet()){
 					entryKeySplit = entry.getKey().split(",");
@@ -454,15 +485,15 @@ public class GameView extends View {
 			}
 		}
 		private void offsetButtons(int x,int y){
-			dup.offset(x, y);
-			ddown.offset(x, y);
-			dleft.offset(x, y);
-			dright.offset(x, y);
-			dul.offset(x, y);
-			dur.offset(x, y);
-			ddl.offset(x, y);
-			ddr.offset(x, y);
-			dinter.offset(x, y);
+			dup.offsetTo(upP.x-xOffset, upP.y-yOffset);
+			ddown.offsetTo(downP.x-xOffset, downP.y-yOffset);
+			dleft.offsetTo(leftP.x-xOffset, leftP.y-yOffset);
+			dright.offsetTo(rightP.x-xOffset, rightP.y-yOffset);
+			dul.offsetTo(ulP.x-xOffset, ulP.y-yOffset);
+			dur.offsetTo(urP.x-xOffset, urP.y-yOffset);
+			ddl.offsetTo(dlP.x-xOffset, dlP.y-yOffset);
+			ddr.offsetTo(drP.x-xOffset, drP.y-yOffset);
+			dinter.offsetTo(interP.x-xOffset, interP.y-yOffset);
 			Dialog.offset(x, y);
 		}
 		boolean triggerBattle(){
@@ -481,7 +512,7 @@ public class GameView extends View {
 			if(inter.contains(x, y) && dLock == 0){
 				for(Entry<String,Sprite> entry: getSprite.entrySet()){
 					entryKeySplit = entry.getKey().split(",");
-					if(entryKeySplit[0].equals("Level2")){
+					if(entryKeySplit[0].equals(map.getCurrentMap())){
 						if(Rect.intersects(entry.getValue().sBox,player.drawPlayer)){
 							dDisplay = !dDisplay;
 							if(!dDisplay){
@@ -494,10 +525,10 @@ public class GameView extends View {
 			}
 			else if(dDisplay == false){
 				canMove = true;
-				if(up.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.top,player.drawPlayer.right,player.drawPlayer.top+5);}
-				else if(down.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.bottom+5,player.drawPlayer.right,player.drawPlayer.bottom);}
-				else if(right.contains(x,y)){playerHitBox.set(player.drawPlayer.right-5,player.drawPlayer.top,player.drawPlayer.right,player.drawPlayer.bottom);}
-				else if(left.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.top,player.drawPlayer.left+5,player.drawPlayer.bottom);}
+				if(up.contains(x,y)){playerHitBox.set(player.drawPlayer.left+5,player.drawPlayer.top,player.drawPlayer.right-5,player.drawPlayer.top+5);}
+				else if(down.contains(x,y)){playerHitBox.set(player.drawPlayer.left+5,player.drawPlayer.bottom+5,player.drawPlayer.right-5,player.drawPlayer.bottom);}
+				else if(right.contains(x,y)){playerHitBox.set(player.drawPlayer.right-5,player.drawPlayer.top+5,player.drawPlayer.right,player.drawPlayer.bottom-5);}
+				else if(left.contains(x,y)){playerHitBox.set(player.drawPlayer.left,player.drawPlayer.top+5,player.drawPlayer.left+5,player.drawPlayer.bottom-5);}
 				else if(ur.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.left+=5;playerHitBox.bottom+=5;}
 				else if(ul.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.right+=5;playerHitBox.bottom+=5;}
 				else if(dr.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.left+=5;playerHitBox.top+=5;}
@@ -506,7 +537,7 @@ public class GameView extends View {
 				
 				for(Entry<String,Sprite> entry: getSprite.entrySet()){
 					entryKeySplit = entry.getKey().split(",");
-					if(entryKeySplit[0].equals("Level2")){
+					if(entryKeySplit[0].equals(map.getCurrentMap())){
 						if(Rect.intersects(entry.getValue().sBox,playerHitBox)){
 							canMove = false;
 						}
@@ -563,7 +594,7 @@ public class GameView extends View {
 			setMap = new int[][]{
 				{1,1,1,1,1,1,1,1,1,1},
 				{1,1,1,1,1,1,1,1,1,1},
-				{1,1,1,1,1,1,1,1,1,1},
+				{1,1,1,1,0,1,1,1,1,1},
 				{1,1,1,1,1,1,1,1,1,1},
 				{1,1,1,1,1,1,1,1,1,1},
 				{1,1,1,1,1,1,1,1,1,1},
@@ -619,9 +650,10 @@ public class GameView extends View {
 		private int Rarity;
 		private int Dmg,Spellp;
 		private int Speed, Attsp;
-		private float Def,MDef;
+		private int Def,MDef;
+		int r1, r2;
 		private String Eff1,Eff2,Eff3,Eff4;
-		Weapon(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,float def, float mdef, String eff1, String eff2, String eff3,String eff4,String mainType){
+		Weapon(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,int def, int mdef, String eff1, String eff2, String eff3,String eff4,String mainType){
 			Name = name;
             MainType = mainType;
 			Type = type;
@@ -645,21 +677,41 @@ public class GameView extends View {
 				Holder = ClassTypes[RandClass][w];
 			}
 			if(Type.equals("rand")){
-				int[] nd = {9,6,7};
+				int[] nd = {4,4,4};
 				Type = WepTypes[RandClass][rand.nextInt(nd[RandClass])];
 			}
 			if(Dmg == 0){
-				int r1 = rand.nextInt(10)+1;
-				int r2 = rand.nextInt(10)+1;
+				r1 = rand.nextInt(10)+1;
+				r2 = rand.nextInt(10)+1;
 				Dmg = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
                 if(MainType.equals("SP")){Dmg=Dmg/3;}
 			}
             if(Spellp == 0){
-                int r1 = rand.nextInt(10)+1;
-                int r2 = rand.nextInt(10)+1;
+                r1 = rand.nextInt(10)+1;
+                r2 = rand.nextInt(10)+1;
                 Spellp = (int) (Rarity*(Rarity*40)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.7)));
                 if(MainType.equals("AD")){Spellp=Spellp/3;}
             }
+			if(Attsp == 0){
+                r1 = rand.nextInt(10)+1;
+                r2 = rand.nextInt(10)+1;
+                Attsp = (int) (Rarity*(Rarity*5)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.3)));
+            }
+			if(Def == 0){
+                r1 = rand.nextInt(10)+1;
+                r2 = rand.nextInt(10)+1;
+                Def = (int) (Rarity*(Rarity*0.1)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.3)));
+            }
+			if(MDef == 0){
+                r1 = rand.nextInt(10)+1;
+                r2 = rand.nextInt(10)+1;
+                MDef = (int) (Rarity*(Rarity*0.1)+((Rarity*r1)*(Rarity+(r2*0.4)* 0.3)));
+            }
+			if(Speed == 0){
+				r1 = rand.nextInt(10)+1;
+                r2 = rand.nextInt(10)+1;
+                Speed = (int) (Rarity*(Rarity*2)+((Rarity*(r1/10))*(Rarity+((r2/10)*0.4)* 0.3)));
+			}
 		}
 
 		String getName(){return Name;}
@@ -1784,4 +1836,48 @@ public class GameView extends View {
 			}
         }
     }
+	class MapWarp{
+		private String To,Current;
+		private int mapX,mapY,toX,toY;
+		private Rect HitBox = new Rect();
+		private Rect HitBoxCenter = new Rect();
+		MapWarp(int x, int y, int q, int w, String c, String to){
+			To = to;
+			Current = c;
+			mapX = x;
+			mapY = y;
+			toX = q;
+			toY = w;
+			HitBox.set(mapX*map.tileSize,mapY*map.tileSize,(mapX*map.tileSize)+map.tileSize,(mapY*map.tileSize)+map.tileSize);
+			HitBoxCenter.set(HitBox.centerX()-3,HitBox.centerY()-3,HitBox.centerX()+3,HitBox.centerY()+3);
+		}
+		void update(){
+			if(map.getCurrentMap().equals(Current)){
+				if(Rect.intersects(HitBoxCenter,player.drawPlayer)){
+					map.setCurrentMap(To);
+					xOffset = (getScreenWidth()/2-(map.tileSize/2))-(toX-1)*map.tileSize;
+					yOffset = (getScreenHeight()/2-(map.tileSize/2))-(toY-1)*map.tileSize;
+				}
+			}
+		}
+	}
+	class Chest{
+		private Rect sprite = new Rect();
+		private int Rarity = 1;
+		Chest(int x, int y,int r){
+			sprite.set((x-1)*map.tileSize,(y-1)*map.tileSize,x*map.tileSize,y*map.tileSize);
+			Rarity = r;
+		}
+		void draw(Canvas canvas){
+			canvas.drawRect(sprite,red);
+		}
+		void update(){
+			if(controls.inter.contains(touchX,touchY) && Rect.intersects(sprite,player.drawPlayer)){
+				toasty("Does you momma know that your round");
+			}
+		}
+		Weapon giveWeapon(){
+			return new Weapon("Scythe of Holy Destiny", "rand", "rand", Rarity, 0, 0, 0, 0, 0, 0, "None", "None", "None", "None","AD");
+		}
+	}
 }
