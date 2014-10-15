@@ -27,6 +27,19 @@ public class GameView extends View {
 	Toast toast = Toast.makeText(getContext(),"Test",Toast.LENGTH_SHORT);
     HashMap<String,Spell> getSpell = new HashMap<String,Spell>();
 
+    String[][] part1 = {
+            {"Terrible","Weak","Flimsy"},
+            {"Feeble","Light","Paper"},
+            {"Lazy","Pathetic","Airy"},
+            {"Sturdy","Random","Slow"},
+            {"Tough","Standard","Fast"},
+            {"Potent","Furious","Damaging"},
+            {"Mashing","Controlling","Deadly"},
+            {"Exterminating","Diamond","Soul Bound"},
+            {"Monstrous","Destroying","Invincible"},
+            {"Ascended","Dark Matter","Pythium"}
+    };
+
 
 	Random rand = new Random();
 	String[][] WepTypes={
@@ -108,7 +121,8 @@ public class GameView extends View {
 	String goingTo = "";
 	boolean isTrans = false;
 	boolean isTransIn = false;
-	Chest chest = new Chest(8,8,2);
+	//Chest chest = new Chest(8,8,2,"Level2");
+	Chest[] chest = new Chest[]{new Chest(8,8,2,"Level2"),new Chest(2,4,4,"Start")};
 	/**/
 		MapWarp mw001 = new MapWarp(1,1,5,5,"Level2","Start");
 	/**/
@@ -177,10 +191,22 @@ public class GameView extends View {
 			if(map.getCurrentMap().equals("Level2")){
 				getSprite.get("Level2,testSprite").draw(canvas);
 				getSprite.get("Level2,testSprite").autoMove();
-				chest.draw(canvas);
-				chest.update();
+                for(int w =0;w<chest.length;w++){
+                    if(chest[w].Level.equals("Level2")){
+                        chest[w].draw(canvas);
+                        chest[w].update();
+                    }
+                }
 				mw001.update();
 			}
+            else if(map.getCurrentMap().equals("Start")){
+                for(int w =0;w<chest.length;w++){
+                    if(chest[w].Level.equals("Start")){
+                        chest[w].draw(canvas);
+                        chest[w].update();
+                    }
+                }
+            }
 			controls.drawButtons(canvas);
 			settings.draw(canvas);
 			if(isTrans == false && isTransIn == false){
@@ -210,6 +236,7 @@ public class GameView extends View {
 		invalidate();
 	}
 	float tCounter = 0;
+
 	public void transitionOut(float speed,Canvas canvas,String To){
 		int Max = 255;
 		Rect Cover = new Rect();
@@ -250,6 +277,7 @@ public class GameView extends View {
 	public void toasty(String a){
 			Toast toast = Toast.makeText(getContext(),a,Toast.LENGTH_SHORT);
 			toast.show();
+        if(!touch){toast.cancel();}
 		}
 	public boolean onTouchEvent(MotionEvent e){
 		float xx = e.getX();
@@ -653,9 +681,8 @@ public class GameView extends View {
 		private int Def,MDef;
 		int r1, r2;
 		private String Eff1,Eff2,Eff3,Eff4;
-		Weapon(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,int def, int mdef, String eff1, String eff2, String eff3,String eff4,String mainType){
+		Weapon(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,int def, int mdef, String eff1, String eff2, String eff3,String eff4){
 			Name = name;
-            MainType = mainType;
 			Type = type;
 			Holder = holder;
 			Rarity = rarity;
@@ -680,6 +707,10 @@ public class GameView extends View {
 				int[] nd = {4,4,4};
 				Type = WepTypes[RandClass][rand.nextInt(nd[RandClass])];
 			}
+            if(Arrays.asList(WepTypes[0]).contains(Type) || Arrays.asList(WepTypes[2]).contains(Type)){
+                MainType = "AD";
+            }
+            else{MainType = "SP";}
 			if(Dmg == 0){
 				r1 = rand.nextInt(10)+1;
 				r2 = rand.nextInt(10)+1;
@@ -712,6 +743,9 @@ public class GameView extends View {
                 r2 = rand.nextInt(10)+1;
                 Speed = (int) (Rarity*(Rarity*2)+((Rarity*(r1/10))*(Rarity+((r2/10)*0.4)* 0.3)));
 			}
+            if(Name.equals("rand")){
+                Name = part1[Rarity-1][rand.nextInt(3)] + " " + Type;
+            }
 		}
 
 		String getName(){return Name;}
@@ -736,9 +770,8 @@ public class GameView extends View {
         private int Speed, Attsp;
         private float Def,MDef;
         private String Eff1,Eff2,Eff3,Eff4;
-        Armour(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,float def, float mdef, String eff1, String eff2, String eff3,String eff4,String mainType){
+        Armour(String name, String type,String holder,int rarity,int dmg,int spellp,int speed, int attsp,float def, float mdef, String eff1, String eff2, String eff3,String eff4){
             Name = name;
-            MainType = mainType;
             Type = type;
             Holder = holder;
             Rarity = rarity;
@@ -760,9 +793,13 @@ public class GameView extends View {
                 Holder = ClassTypes[RandClass][w];
             }
             if(Type.equals("rand")){
-                int[] nd = {9,6,7};
+                int[] nd = {4,4,4};
                 Type = WepTypes[RandClass][rand.nextInt(nd[RandClass])];
             }
+            if(Arrays.asList(WepTypes[0]).contains("Type") || Arrays.asList(WepTypes[2]).contains("Type")){
+                   MainType = "AD";
+            }
+            else{MainType = "SP";}
             if(Dmg == 0){
                 int r1 = rand.nextInt(10)+1;
                 int r2 = rand.nextInt(10)+1;
@@ -881,7 +918,7 @@ public class GameView extends View {
         HashMap<String,Armour> slotA = new HashMap<String, Armour>();
         HashMap<String,Rect> allSlots = new HashMap<String, Rect>();
         private Rect slotSize = new Rect();
-
+        private int nextSlot = 1;
         private int slotHeight;
         private Paint slotText = new Paint();
         private int slotOffset;
@@ -921,20 +958,11 @@ public class GameView extends View {
 			arm.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
 			counter++;
 			acc.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
-            slot.put("0", new Weapon("Scythe of Holy Destiny", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","AD"));
-            slot.put("1", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("2", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("3", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("4", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("5", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("6", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("7", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("8", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("9", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("10", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slot.put("11", new Weapon("Long Sword of the Fallen", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","SP"));
-            slotA.put("0", new Armour("Chest Plate of Fire", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","AR"));
-            slotA.put("1", new Armour("Chest Plate of Ice", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None","MR"));
+            slot.put("0", new Weapon("Hands", " ", " ", 1, 1, 1, 1, 1, 1, 1, "None", "None", "None", "None"));
+
+            slotA.put("0", new Armour("Chest Plate of Fire", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
+            slotA.put("1", new Armour("Chest Plate of Ice", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
+
             slot.put("-1", null);
             slotA.put("-1", null);
             slotSize.set(space.left, space.top, space.right, getScreenHeight() / 6);
@@ -946,7 +974,6 @@ public class GameView extends View {
             Rect slotTemp = new Rect();
             slotTemp.setEmpty();
             int f;
-            //for(f=0;slot.get(Integer.toString(f))!= null;f++){
             if(Displaying.equals("Weapon")) {
                 for (f = 0; slot.get(Integer.toString(f)) != null; f++) {
                     int top = (space.top) + (f * slotHeight);
@@ -1031,6 +1058,10 @@ public class GameView extends View {
                 }
             }
 		}
+        void addWeapon(Weapon w){
+            slot.put(Integer.toString(nextSlot),w);
+            nextSlot++;
+        }
         void upDownButton(){
             if(mdown.contains(touchX,touchY) && !dsb.open){
                 if(allSlots.get(Integer.toString(slotCount)).bottom > space.bottom) {
@@ -1667,7 +1698,7 @@ public class GameView extends View {
 		private String[] direc = {"up","down","left","right"};
 		private int direcInt;
 		private Rect sCol = new Rect();
-		private String[] route = {"left","down","right","up"};
+		private String[] route = {"left","left","down","down","right","right","up","up"};
 		private int cRoute = 0;
 		private String[][] dialogText = {
 			{"first line","second line"},
@@ -1707,10 +1738,6 @@ public class GameView extends View {
 			index++;
 			if(index == dialogText.length){index=0;};
 		}
-		void toasty(String a){
-			Toast toast = Toast.makeText(getContext(),a,Toast.LENGTH_SHORT);
-			toast.show();
-		}
 		void autoMove(){
 			if(sMoving == false){
 				if(autoC == 5){
@@ -1736,7 +1763,7 @@ public class GameView extends View {
 		}
 		boolean checkEntityCollision(String e){
 			if(e.equals("left")){
-				sCol.set(worldX,worldY,worldX+5,worldY+sHeight);
+				sCol.set(worldX,worldY+5,worldX+5,worldY+sHeight-5);
 				if(sCol.intersect(player.drawPlayer)){
 					return false;
 				}
@@ -1745,7 +1772,7 @@ public class GameView extends View {
 				}
 			}
 			else if(e.equals("right")){
-				sCol.set(worldX+sWidth-5,worldY,worldX+sWidth,worldY+sHeight);
+				sCol.set(worldX+sWidth-5,worldY+5,worldX+sWidth,worldY+sHeight-5);
 				if(sCol.intersect(player.drawPlayer)){
 					return false;
 				}
@@ -1754,7 +1781,7 @@ public class GameView extends View {
 				}
 			}
 			else if(e.equals("up")){
-				sCol.set(worldX,worldY,worldX+sWidth,worldY+5);
+				sCol.set(worldX+5,worldY,worldX+sWidth-5,worldY+5);
 				if(sCol.intersect(player.drawPlayer)){
 					return false;
 				}
@@ -1763,7 +1790,7 @@ public class GameView extends View {
 				}
 			}
 			else if(e.equals("down")){
-				sCol.set(worldX,worldY+sHeight-5,worldX+sWidth,worldY+sHeight);
+				sCol.set(worldX+5,worldY+sHeight-5,worldX+sWidth-5,worldY+sHeight);
 				if(sCol.intersect(player.drawPlayer)){
 					return false;
 				}
@@ -1864,20 +1891,23 @@ public class GameView extends View {
 	class Chest{
 		private Rect sprite = new Rect();
 		private int Rarity = 1;
-		Chest(int x, int y,int r){
+        private String Level;
+        private boolean Opened = false;
+        private Weapon Reward = null;
+		Chest(int x, int y,int r,String level){
 			sprite.set((x-1)*map.tileSize,(y-1)*map.tileSize,x*map.tileSize,y*map.tileSize);
 			Rarity = r;
+            Level = level;
+            Reward = new Weapon("rand", "rand", "rand", Rarity, 0, 0, 0, 0, 0, 0, "None", "None", "None", "None");
 		}
 		void draw(Canvas canvas){
 			canvas.drawRect(sprite,red);
 		}
 		void update(){
-			if(controls.inter.contains(touchX,touchY) && Rect.intersects(sprite,player.drawPlayer)){
-				toasty("Does you momma know that your round");
+			if(controls.inter.contains(touchX,touchY) && Rect.intersects(sprite,player.drawPlayer) && !Opened){
+                Opened = true;
+                inv.addWeapon(Reward);
 			}
-		}
-		Weapon giveWeapon(){
-			return new Weapon("Scythe of Holy Destiny", "rand", "rand", Rarity, 0, 0, 0, 0, 0, 0, "None", "None", "None", "None","AD");
 		}
 	}
 }
