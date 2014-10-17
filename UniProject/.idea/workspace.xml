@@ -13,14 +13,14 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: aaronshort.android.uniproject" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="831" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="612" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="676" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="418" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="381" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="899" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="1113" />
-    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="765" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="829" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="610" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="674" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="420" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="383" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="897" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="1111" />
+    <bookmark url="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java" line="763" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2293f926-ff13-4df8-9e03-c01695e71e0d" name="Default" comment="" />
@@ -52,22 +52,19 @@
       <file leaf-file-name="GameView.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6572165" vertical-offset="2856" max-vertical-offset="9792">
-              <caret line="202" column="49" selection-start-line="202" selection-start-column="49" selection-end-line="202" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.12371134" vertical-offset="4015" max-vertical-offset="16609">
+              <caret line="258" column="5" selection-start-line="258" selection-start-column="5" selection-end-line="258" selection-end-column="5" />
               <folding>
                 <element signature="e#768#782#0" expanded="true" />
-                <element signature="e#1693#1710#0" expanded="true" />
-                <element signature="e#2070#2085#0" expanded="true" />
-                <element signature="e#2136#2151#0" expanded="true" />
-                <element signature="e#3397#3398#0" expanded="true" />
-                <element signature="e#3461#3462#0" expanded="true" />
-                <element signature="e#24898#24913#0" expanded="true" />
-                <element signature="e#25034#25049#0" expanded="true" />
+                <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+                <element signature="e#24532#24547#0" expanded="true" />
+                <element signature="e#24668#24683#0" expanded="true" />
                 <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-                <element signature="e#35369#35385#0" expanded="true" />
                 <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
                 <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
                 <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+                <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+                <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
                 <element signature="class#Chest#0;class#GameView#0" expanded="true" />
               </folding>
             </state>
@@ -725,9 +722,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -739,7 +736,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="FullScreen" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.1.115:5555" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555" />
     <property name="options.lastSelected" value="editor.preferences.completion" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -813,19 +810,6 @@
       </ExternalSystemSettings>
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -851,6 +835,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -992,7 +989,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27040815" sideWeight="0.3106796" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20226537" sideWeight="0.5034965" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20226537" sideWeight="0.5058275" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27040815" sideWeight="0.6893204" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1016,15 +1013,15 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23809524" sideWeight="0.3511327" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26550078" sideWeight="0.5019305" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11904762" sideWeight="0.1699029" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11904762" sideWeight="0.1699029" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26550078" sideWeight="0.5019305" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26618123" sideWeight="0.496139" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22278911" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22278911" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24319728" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1036,9 +1033,9 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11904762" sideWeight="0.8300971" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Code Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Code Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1066,22 +1063,39 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2856" max-vertical-offset="9792">
+          <caret line="202" column="49" selection-start-line="202" selection-start-column="49" selection-end-line="202" selection-end-column="49" />
+          <folding>
+            <element signature="e#768#782#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
+            <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
+            <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
+            <element signature="class#Chest#0;class#GameView#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4946" max-vertical-offset="5899">
           <caret line="1585" column="5" selection-start-line="1585" selection-start-column="5" selection-end-line="1585" selection-end-column="5" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1093,18 +1107,15 @@
           <caret line="424" column="38" selection-start-line="424" selection-start-column="38" selection-end-line="424" selection-end-column="38" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1116,18 +1127,15 @@
           <caret line="1157" column="43" selection-start-line="1157" selection-start-column="43" selection-end-line="1157" selection-end-column="43" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1139,18 +1147,15 @@
           <caret line="1150" column="0" selection-start-line="1150" selection-start-column="0" selection-end-line="1150" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1162,18 +1167,15 @@
           <caret line="1136" column="64" selection-start-line="1136" selection-start-column="64" selection-end-line="1136" selection-end-column="64" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1185,18 +1187,15 @@
           <caret line="1183" column="20" selection-start-line="1183" selection-start-column="20" selection-end-line="1183" selection-end-column="20" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1208,18 +1207,15 @@
           <caret line="1277" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1231,18 +1227,15 @@
           <caret line="1283" column="49" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1254,18 +1247,15 @@
           <caret line="1239" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1277,18 +1267,15 @@
           <caret line="1239" column="28" selection-start-line="1239" selection-start-column="15" selection-end-line="1239" selection-end-column="28" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1300,18 +1287,15 @@
           <caret line="265" column="34" selection-start-line="265" selection-start-column="34" selection-end-line="265" selection-end-column="34" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1323,18 +1307,15 @@
           <caret line="1112" column="72" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1346,18 +1327,15 @@
           <caret line="1252" column="10" selection-start-line="1252" selection-start-column="10" selection-end-line="1252" selection-end-column="10" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1369,18 +1347,15 @@
           <caret line="900" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1392,18 +1367,15 @@
           <caret line="1060" column="94" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1415,18 +1387,15 @@
           <caret line="1060" column="94" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1438,18 +1407,15 @@
           <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1461,18 +1427,15 @@
           <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1484,18 +1447,15 @@
           <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1507,18 +1467,15 @@
           <caret line="1129" column="13" selection-start-line="1129" selection-start-column="13" selection-end-line="1129" selection-end-column="13" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1530,18 +1487,15 @@
           <caret line="801" column="17" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1553,18 +1507,15 @@
           <caret line="801" column="17" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1576,18 +1527,15 @@
           <caret line="801" column="17" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1599,18 +1547,15 @@
           <caret line="884" column="57" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1622,18 +1567,15 @@
           <caret line="884" column="39" selection-start-line="884" selection-start-column="39" selection-end-line="884" selection-end-column="39" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1645,18 +1587,15 @@
           <caret line="803" column="50" selection-start-line="803" selection-start-column="50" selection-end-line="803" selection-end-column="50" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1668,18 +1607,15 @@
           <caret line="737" column="111" selection-start-line="737" selection-start-column="111" selection-end-line="737" selection-end-column="111" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1691,18 +1627,15 @@
           <caret line="622" column="30" selection-start-line="622" selection-start-column="30" selection-end-line="622" selection-end-column="30" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1714,18 +1647,15 @@
           <caret line="651" column="64" selection-start-line="651" selection-start-column="64" selection-end-line="651" selection-end-column="64" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1737,18 +1667,15 @@
           <caret line="707" column="42" selection-start-line="707" selection-start-column="42" selection-end-line="707" selection-end-column="42" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1760,18 +1687,15 @@
           <caret line="652" column="45" selection-start-line="652" selection-start-column="45" selection-end-line="652" selection-end-column="45" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1783,18 +1707,15 @@
           <caret line="615" column="39" selection-start-line="615" selection-start-column="39" selection-end-line="615" selection-end-column="39" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1806,18 +1727,15 @@
           <caret line="667" column="38" selection-start-line="667" selection-start-column="38" selection-end-line="667" selection-end-column="38" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1829,18 +1747,15 @@
           <caret line="667" column="38" selection-start-line="667" selection-start-column="38" selection-end-line="667" selection-end-column="38" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1852,18 +1767,15 @@
           <caret line="447" column="14" selection-start-line="447" selection-start-column="14" selection-end-line="447" selection-end-column="14" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>
@@ -1897,32 +1809,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/dumpsys-4118378887428470222.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.908686" vertical-offset="612" max-vertical-offset="2074">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/aaronshort/android/uniproject/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6572165" vertical-offset="2856" max-vertical-offset="9792">
-          <caret line="202" column="49" selection-start-line="202" selection-start-column="49" selection-end-line="202" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.12371134" vertical-offset="4015" max-vertical-offset="16609">
+          <caret line="258" column="5" selection-start-line="258" selection-start-column="5" selection-end-line="258" selection-end-column="5" />
           <folding>
             <element signature="e#768#782#0" expanded="true" />
-            <element signature="e#1693#1710#0" expanded="true" />
-            <element signature="e#2070#2085#0" expanded="true" />
-            <element signature="e#2136#2151#0" expanded="true" />
-            <element signature="e#3397#3398#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#24898#24913#0" expanded="true" />
-            <element signature="e#25034#25049#0" expanded="true" />
+            <element signature="class#Controls#0;class#GameView#0" expanded="true" />
+            <element signature="e#24532#24547#0" expanded="true" />
+            <element signature="e#24668#24683#0" expanded="true" />
             <element signature="class#Inventory#0;class#GameView#0" expanded="true" />
-            <element signature="e#35369#35385#0" expanded="true" />
             <element signature="method#upDownButton#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#checkEquip#0;class#Inventory#0;class#GameView#0" expanded="false" />
             <element signature="method#slotPressed#0;class#Inventory#0;class#GameView#0" expanded="false" />
+            <element signature="class#Sprite#0;class#GameView#0" expanded="true" />
+            <element signature="class#MapWarp#0;class#GameView#0" expanded="true" />
             <element signature="class#Chest#0;class#GameView#0" expanded="true" />
           </folding>
         </state>

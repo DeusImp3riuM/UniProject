@@ -66,11 +66,9 @@ public class GameView extends View {
 	int touchX,touchY;
 	final int sdk = android.os.Build.VERSION.SDK_INT;
     final static HashMap<String,Enemy> EnemyDatabase = new HashMap<String, Enemy>();
-	HashMap<String,Sprite> getSprite = new HashMap<String,Sprite>();
 
 	public GameView(Context context) {
 		super(context);
-		setAllSprites();
 		red.setColor(Color.RED);
 		blue.setColor(Color.BLUE);
 		black.setColor(Color.BLACK);
@@ -99,9 +97,6 @@ public class GameView extends View {
 		Temp[2] = three;
 		return Temp;
 	}
-	public void setAllSprites(){
-		getSprite.put("Level2,testSprite",new Sprite("test",4,4));
-	}
 
 	String Print;
 	String[] recieve = new String[3];
@@ -122,10 +117,16 @@ public class GameView extends View {
 	boolean isTrans = false;
 	boolean isTransIn = false;
 	//Chest chest = new Chest(8,8,2,"Level2");
-	Chest[] chest = new Chest[]{new Chest(8,8,2,"Level2"),new Chest(2,4,4,"Start")};
-	/**/
-		MapWarp mw001 = new MapWarp(1,1,5,5,"Level2","Start");
-	/**/
+	Chest[] chest = new Chest[]{
+            new Chest(8,8,2,"Level2"),
+            new Chest(2,4,4,"Start")
+    };
+    MapWarp[] mapWarp = new MapWarp[]{
+            new MapWarp(1,1,5,5,"Level2","Start")
+    };
+    Sprite[] sprite = new Sprite[]{
+            new Sprite("Level2","test",4,4)
+    };
 
 	@Override
 	protected void onDraw(Canvas canvas){
@@ -188,25 +189,7 @@ public class GameView extends View {
 			canvas.translate(xOffset, yOffset);
 			map.drawMap(canvas);
 			player.draw(canvas);
-			if(map.getCurrentMap().equals("Level2")){
-				getSprite.get("Level2,testSprite").draw(canvas);
-				getSprite.get("Level2,testSprite").autoMove();
-                for(int w =0;w<chest.length;w++){
-                    if(chest[w].Level.equals("Level2")){
-                        chest[w].draw(canvas);
-                        chest[w].update();
-                    }
-                }
-				mw001.update();
-			}
-            else if(map.getCurrentMap().equals("Start")){
-                for(int w =0;w<chest.length;w++){
-                    if(chest[w].Level.equals("Start")){
-                        chest[w].draw(canvas);
-                        chest[w].update();
-                    }
-                }
-            }
+			drawEntities(canvas);
 			controls.drawButtons(canvas);
 			settings.draw(canvas);
 			if(isTrans == false && isTransIn == false){
@@ -274,6 +257,25 @@ public class GameView extends View {
 		canvas.drawRect(Cover, coverP);
 		
 	}
+    public void drawEntities(Canvas canvas){
+        for(int w=0;w<sprite.length;w++){
+            if(sprite[w].Level.equals(map.getCurrentMap())){
+                sprite[w].draw(canvas);
+                sprite[w].autoMove();
+            }
+        }
+        for(int w=0;w<mapWarp.length;w++){
+            if(mapWarp[w].Current.equals(map.getCurrentMap())){
+                mapWarp[w].update();
+            }
+        }
+        for(int w =0;w<chest.length;w++){
+            if(chest[w].Level.equals(map.getCurrentMap())){
+                chest[w].draw(canvas);
+                chest[w].update();
+            }
+        }
+    }
 	public void toasty(String a){
 			Toast toast = Toast.makeText(getContext(),a,Toast.LENGTH_SHORT);
 			toast.show();
@@ -433,7 +435,6 @@ public class GameView extends View {
 		private int butScale = 9;
 		private int sWidth, sHeight;
 		private int chance = 0;
-		private String[] entryKeySplit;
 		private boolean canMove = true;
 		private Rect playerHitBox = new Rect();
 		private Point upP,downP,leftP,rightP,ulP,urP,dlP,drP,interP;
@@ -499,13 +500,12 @@ public class GameView extends View {
 			canvas.drawRect(dinter, blue);
 			canvas.drawRect(test,black);
 			if(dDisplay){
-				for(Entry<String,Sprite> entry: getSprite.entrySet()){
-					entryKeySplit = entry.getKey().split(",");
-					if(entryKeySplit[0].equals("Level2")){
-						if(Rect.intersects(entry.getValue().sBox,player.drawPlayer)){
+				for(int w=0;w<sprite.length;w++){
+					if(sprite[w].Level.equals("Level2")){
+						if(Rect.intersects(sprite[w].sBox,player.drawPlayer)){
 							canvas.drawRect(Dialog,blue);
-							for(int t=0;t<entry.getValue().dialogText[0].length;t++){
-								canvas.drawText(entry.getValue().getText(0,t),Dialog.left+20,Dialog.top+40+(40*t),black);
+							for(int t=0;t<sprite[w].dialogText[0].length;t++){
+								canvas.drawText(sprite[w].getText(0,t),Dialog.left+20,Dialog.top+40+(40*t),black);
 							}
 						}
 					}
@@ -538,13 +538,12 @@ public class GameView extends View {
 		void getPress(int x, int y){
 			int [][] cMap = map.getCurrentMapArray();
 			if(inter.contains(x, y) && dLock == 0){
-				for(Entry<String,Sprite> entry: getSprite.entrySet()){
-					entryKeySplit = entry.getKey().split(",");
-					if(entryKeySplit[0].equals(map.getCurrentMap())){
-						if(Rect.intersects(entry.getValue().sBox,player.drawPlayer)){
+				for(int w=0;w<sprite.length;w++){
+					if(sprite[w].Level.equals(map.getCurrentMap())){
+						if(Rect.intersects(sprite[w].sBox,player.drawPlayer)){
 							dDisplay = !dDisplay;
 							if(!dDisplay){
-								entry.getValue().Speech();
+                                sprite[w].Speech();
 							}
 							dLock++;
 						}
@@ -563,10 +562,9 @@ public class GameView extends View {
 				else if(dl.contains(x,y)){playerHitBox.set(player.drawPlayer);playerHitBox.right+=5;playerHitBox.top+=5;}
 
 				
-				for(Entry<String,Sprite> entry: getSprite.entrySet()){
-					entryKeySplit = entry.getKey().split(",");
-					if(entryKeySplit[0].equals(map.getCurrentMap())){
-						if(Rect.intersects(entry.getValue().sBox,playerHitBox)){
+				for(int w=0;w<sprite.length;w++){
+					if(sprite[w].Level.equals(map.getCurrentMap())){
+						if(Rect.intersects(sprite[w].sBox,playerHitBox)){
 							canMove = false;
 						}
 					}
@@ -1688,6 +1686,7 @@ public class GameView extends View {
         private int worldX;
         private int worldY;
         private String Name;
+        private String Level;
         private Bitmap Image;
         private String[] dialogLib;
         private Rect sBox;
@@ -1705,8 +1704,9 @@ public class GameView extends View {
 			{"new set of lines",":D"}
 		};
 		private int index = 0;
-        Sprite(String name,int x,int y){
+        Sprite(String level, String name,int x,int y){
 			Name =  name;
+            Level = level;
 			cRoute = 0;
 			sMoving = false;
 			autoC = 0;
