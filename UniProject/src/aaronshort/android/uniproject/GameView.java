@@ -1,5 +1,6 @@
 package aaronshort.android.uniproject;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Random;
@@ -88,7 +89,7 @@ public class GameView extends View {
         EnemyDatabase.put("Empty",new Enemy(0,0,"empty",0,0,0,new Rect(0,0,1,1),0));
         EnemyDatabase.put("debug1",new Enemy(10,5,"debug",5,5,5,new Rect(0,0,100,100),10));
         EnemyDatabase.put("debug2",new Enemy(10,5,"debug",5,5,5,new Rect(0,0,100,100),10));
-        EnemyDatabase.put("test",new Enemy(10,5,"debug2",5,5,5,new Rect(0,0,200,200),10));
+        EnemyDatabase.put("test",new Enemy(10,5,"debug2",5,5,5,new Rect(0,0,200,200),1000));
 	}
 	public String[] SetMap(String one, String two, String three){
 		String[] Temp = new String[3];
@@ -103,8 +104,11 @@ public class GameView extends View {
 	Map map = new Map();
 	Controls controls = new Controls();
 	Inventory inv = new Inventory();
+    Skills skillTree = new Skills();
 	Battle battle = null;
 	PlayerCharacter player = new PlayerCharacter();
+	PlayerCharacter player2 = new PlayerCharacter();
+	PlayerCharacter player3 = new PlayerCharacter();
 	Button settings = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Settings","MainMenu",7,1,"yellow");
 	Button back = new Button(0,getScreenHeight()-(getScreenWidth()/7),"Back","Map",7,1,"blue");
     Button backMenu = new Button(0,0,"Back","MainMenu",7,1,"yellow");
@@ -155,7 +159,6 @@ public class GameView extends View {
 			skills.draw(canvas);
 			characters.draw(canvas);
 			if(isTransIn == false && isTrans == false){
-
 				if(back.getPressed(touchX, touchY) == true){
 					goingTo = back.getState();
 					isTrans = true;
@@ -164,9 +167,13 @@ public class GameView extends View {
 					goingTo = inventory.getState();
 					isTrans = true;
 				}
+                else if(skills.getPressed(touchX,touchY) == true){
+                    goingTo = skills.getState();
+                    isTrans = true;
+                }
 			}
-			else if(isTransIn == true){transitionIn(15,canvas);}
-			else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+			else if(isTransIn == true){transitionIn(15, canvas);}
+			else if(isTrans == true){transitionOut(15, canvas, goingTo);}
 		}
 		else if(State == "Inventory"){
 			inv.draw(canvas);
@@ -216,6 +223,17 @@ public class GameView extends View {
             else if(isTransIn == true){transitionIn(15,canvas);}
             else if(isTrans == true){transitionOut(15,canvas,goingTo);}
 		}
+        else if(State.equals("SkillTree")){
+            skillTree.draw(canvas);
+            if(isTransIn == false && isTrans == false){
+                if(back.getPressed(touchX, touchY) == true){
+                    goingTo = "MainMenu";
+                    isTrans = true;
+                }
+            }
+            else if(isTransIn == true){transitionIn(15,canvas);}
+            else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+        }
 		invalidate();
 	}
 	float tCounter = 0;
@@ -286,6 +304,7 @@ public class GameView extends View {
 		float yy = e.getY();
 		touch = true;
 		if(e.getAction() == MotionEvent.ACTION_DOWN || e.getAction() == MotionEvent.ACTION_MOVE){
+            if(e.getAction()==MotionEvent.ACTION_MOVE){skillTree.move=true;}
 			touch = true;
 			touchY = (int) yy;
 			touchX = (int) xx;
@@ -294,6 +313,7 @@ public class GameView extends View {
             touchX = 0;
             touchY = 0;
 			touch = false;
+            skillTree.move=false;
 			controls.dLock = 0;
 		}
 		else{}
@@ -527,7 +547,7 @@ public class GameView extends View {
 		boolean triggerBattle(){
 			if(touch && map.getTag() == "Wild"){
 				if(up.contains(touchX,touchY) || down.contains(touchX,touchY) || left.contains(touchX,touchY) || right.contains(touchX,touchY) || ul.contains(touchX,touchY) || ur.contains(touchX,touchY)|| dl.contains(touchX,touchY) || dr.contains(touchX,touchY)){
-					if (rand.nextInt(30)+1 == -1){
+					if (rand.nextInt(100)+1 == 1){
 						return true;
 					}
 					else{return false;}
@@ -569,6 +589,13 @@ public class GameView extends View {
 						}
 					}
 				}
+                for(int w=0;w<chest.length;w++){
+                    if(chest[w].Level.equals(map.getCurrentMap())){
+                        if(Rect.intersects(chest[w].sprite,playerHitBox)){
+                            canMove = false;
+                        }
+                    }
+                }
 				if(canMove){
 					if(up.contains(x, y)){
 						if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
@@ -835,6 +862,9 @@ public class GameView extends View {
 		private int playerSize;
         private Weapon personalWep = null;
         private Armour personalArm = null;
+        private int Experience = 0;
+        private int nextLevel = 20;
+        private int Level = 1;
 		PlayerCharacter(){
 			sWidth = getScreenWidth();
 			sHeight = getScreenHeight();
@@ -846,7 +876,6 @@ public class GameView extends View {
 		void draw(Canvas canvas){
 			drawPlayer.offsetTo(((sWidth/2)-drawPlayer.width()/2)-xOffset, ((sHeight/2)-drawPlayer.height()/2)-yOffset);
 			canvas.drawText(""+controls.chance, 0, 0, black);
-			
 			canvas.drawRect(drawPlayer, playerpaint);
 		}
 		int playerCenterX(){return drawPlayer.centerX()/playerSize;}
@@ -863,6 +892,7 @@ public class GameView extends View {
         void equipWeapon(Weapon weapon){personalWep = weapon;}
         void unequipArmour(){personalArm = null;}
         void equipArmour(Armour armour){personalArm = armour;}
+        void earnExp(int i){Experience += i;}
 	}
 	class Button{
 		private Rect button = new Rect();
@@ -1283,11 +1313,30 @@ public class GameView extends View {
         private Enemy slot1;
         private Enemy slot2;
         private Enemy slot3;
-        boolean send;
+        private boolean send;
+        private boolean giveExp;
+        private boolean giveExpDisplay;
+        private int P1ep,P2ep,P3ep;
+        private Paint expSlot = new Paint();
+        private Rect ExpBox = new Rect(getScreenWidth()/10,getScreenWidth()/10,getScreenWidth()-(getScreenWidth()/10),getScreenHeight()/2);
+        private Rect ExpBox1 = new Rect(ExpBox.left,ExpBox.top,ExpBox.right,ExpBox.top+(ExpBox.height()/3));
+        private Rect ExpBox3 = new Rect(ExpBox.left,ExpBox.top+(ExpBox.height()/3)*2,ExpBox.right,ExpBox.bottom);
+        private Rect ExpBox2 = new Rect(ExpBox.left,ExpBox1.bottom,ExpBox.right,ExpBox3.top);
+        private int t;
+        private int totalExp;
+        private int totalExpD;
         //               MoveBar(Offset,Max,     Width,       Speed,  X,                 Y,  TextSize)
         public MoveBar P1,P2,P3,E1,E2,E3;
         private String[] Player1Spells = {"Fire","Fire"};
+        private String[] Player2Spells = {"Fire","Fire"};
+        private String[] Player3Spells = {"Fire","Fire"};
     	Battle(String a, String b, String c){
+            t=0;
+            P1ep = player.Experience;
+            giveExp = true;
+            giveExpDisplay = true;
+            totalExpD = 0;
+            expSlot.setColor(Color.rgb(255,140,0));
     		bg.set(0,(getScreenHeight()/2),getScreenWidth(),getScreenHeight());
     		subMenu.set((getScreenWidth()/2)-(bg.right/16),bg.top+(bg.right/32),bg.right-(bg.right/16),bg.bottom-((bg.right/12)));
     		menuButton.set(0,0,(int)(getScreenWidth()/3.5),(getScreenWidth()/4)/3);
@@ -1322,7 +1371,7 @@ public class GameView extends View {
 
             slot3 = EnemyDatabase.get(c).get();
             slot3.setRect(new Point(battleEnemy3.centerX(),battleEnemy3.centerY()));
-
+            totalExp = slot1.Exp+slot2.Exp+slot3.Exp;
     		buttonFont.setColor(Color.BLACK);
     		buttonFont.setTextSize((menuButton.height()/4)*3);
     		buttonFont.setTextAlign(Paint.Align.CENTER);
@@ -1383,12 +1432,19 @@ public class GameView extends View {
     			subMenuButton.offsetTo(subMenu.left,subMenu.top);
     			drawTooltip = false;
                 if(castSpell.Name.equals("none")){castSpell.spellComplete = true;}
-    			for(int u=0;u<Player1Spells.length;u++){
+                String[] PlayerSpells = Player1Spells;
+                if(P2.canMove()){
+                    PlayerSpells = Player2Spells;
+                }
+                else if(P3.canMove()){
+                    PlayerSpells = Player3Spells;
+                }
+    			for(int u=0;u<PlayerSpells.length;u++){
     				canvas.drawRect(subMenuButton,blue);
     				canvas.drawText(Player1Spells[u],subMenuButton.centerX(),subMenuButton.bottom,buttonFont);
     				if(touch){
-    				subtouchX = touchX;
-    				subtouchY = touchY;
+    				    subtouchX = touchX;
+    				    subtouchY = touchY;
     				}
                     if(P1.canMove()||P2.canMove()||P3.canMove()) {
                         if (subMenuButton.contains(subtouchX, subtouchY) && !touch && castSpell.completed()) {
@@ -1452,9 +1508,34 @@ public class GameView extends View {
                     break;
                 case 1:
                     canvas.drawRect(0,0,getScreenWidth(),getScreenHeight(),blue);
-                    canvas.drawRect(getScreenWidth()/10,getScreenWidth()/10,getScreenWidth()-(getScreenWidth()/10),getScreenHeight()/2,red);
+                    canvas.drawRect(ExpBox,red);
                     canvas.drawRect(cont,red);
-                    if(cont.contains(touchX,touchY)&&!send){
+                    //canvas.drawRect(ExpBox1,expSlot);
+                    canvas.drawRect(ExpBox2,expSlot);
+                    //canvas.drawRect(ExpBox3,expSlot);
+
+                    if(giveExp){
+                        giveExp = false;
+
+                    }
+                    if(giveExpDisplay){
+                        if(t<totalExp){
+                            player.earnExp(1);
+                            player2.earnExp(1);
+                            player3.earnExp(1);
+                            if(t == totalExp){
+                                giveExpDisplay = false;
+                            }
+                            t++;
+
+                        }
+                    }
+                    canvas.drawText("Player 1 - " +player.Experience + "/" + player.nextLevel + "..." + player.Level,ExpBox1.left+20,ExpBox1.top+20,black);
+                    canvas.drawText("Player 2 - " +player2.Experience + "/" + player2.nextLevel + "..." + player2.Level,ExpBox2.left+20,ExpBox2.top+20,black);
+                    canvas.drawText("Player 3 - " +player3.Experience + "/" + player3.nextLevel + "..." + player3.Level,ExpBox3.left+20,ExpBox3.top+20,black);
+                    checkLevelUp();
+
+                    if(cont.contains(touchX,touchY)&&!send&& t==totalExp){
                         send = true;
                     }
                     if(send){
@@ -1463,6 +1544,23 @@ public class GameView extends View {
                     break;
                 case 2:
                     break;
+            }
+        }
+        void checkLevelUp(){
+            if(player.Experience == player.nextLevel){
+                player.nextLevel = (player.Level)*(5) + player.nextLevel;
+                player.Experience = 0;
+                player.Level++;
+            }
+            if(player2.Experience == player2.nextLevel){
+                player2.nextLevel = (player2.Level)*(5) + player2.nextLevel;
+                player2.Experience = 0;
+                player2.Level++;
+            }
+            if(player3.Experience == player3.nextLevel){
+                player3.nextLevel = (player3.Level)*(5) + player3.nextLevel;
+                player3.Experience = 0;
+                player3.Level++;
             }
         }
     }
@@ -1910,4 +2008,65 @@ public class GameView extends View {
 			}
 		}
 	}
+    class Skills{
+        private Rect player1Skills = new Rect(0,0,getScreenWidth()/3,(getScreenWidth()/3)/3);
+        private int spacer =  (int)(player1Skills.width()/7.6);
+        private Rect player3Skills = new Rect(getScreenWidth()-(getScreenWidth()/3),0,getScreenWidth(),(getScreenWidth()/3)/3);
+        private Rect player2Skills = new Rect(player1Skills.right,0,player3Skills.left,player1Skills.bottom);
+        private Rect bottomBar = new Rect(0,getScreenHeight()-(int)(getScreenHeight()/2.48),getScreenWidth(),getScreenHeight());
+        private Rect leftBar = new Rect(0,player1Skills.bottom,spacer,bottomBar.top);
+        private Rect rightBar = new Rect(getScreenWidth()-spacer,player3Skills.bottom,getScreenWidth(),bottomBar.top);
+        private Rect skillsArea = new Rect(leftBar.right,player2Skills.bottom+spacer,rightBar.left,bottomBar.top);
+        private Rect infoArea = new Rect(leftBar.right,bottomBar.top+spacer,rightBar.left,getScreenHeight()-(spacer*4));
+        private Rect Learn = new Rect(getScreenWidth()-spacer-player1Skills.width(),getScreenHeight()-spacer-player1Skills.height(),getScreenWidth()-spacer,getScreenHeight()-spacer);
+        private int t = 0;
+        private int offsetX = 0,offsetY = 0;
+        private int offsetXD = 0,offsetYD = 0;
+        public boolean move = false;
+        public boolean setPos = false;
+        private Point before = new Point();
+        private Point present = new Point();
+        Skills(){
+
+        }
+        int getXOffset(){
+            return present.x-before.x;
+        }
+        int getYOffset(){
+            return present.y-before.y;
+        }
+        void draw(Canvas canvas){
+            canvas.save();
+            if(setPos&&touch){
+                before.x = touchX;
+                before.y = touchY;
+                setPos=false;
+            }
+            else if(!setPos&&!touch){
+                setPos = true;
+            }
+            if(touch){
+                present.x = touchX;
+                present.y = touchY;
+                offsetXD=offsetXD+getXOffset();
+                offsetYD=offsetYD+getYOffset();
+            }
+            //returnX = ;
+            canvas.translate(offsetX+offsetXD, offsetY+offsetYD);
+            before.x = present.x;
+            before.y = present.y;
+            canvas.drawRect(100,100,200,200,blue);
+
+            canvas.restore();
+            canvas.drawRect(player1Skills,red);
+            canvas.drawRect(player2Skills,red);
+            canvas.drawRect(player3Skills,red);
+            canvas.drawRect(leftBar,black);
+            canvas.drawRect(rightBar,black);
+            canvas.drawRect(bottomBar,black);
+            canvas.drawRect(infoArea,blue);
+            canvas.drawRect(Learn,blue);
+            back.draw(canvas);
+        }
+    }
 }
