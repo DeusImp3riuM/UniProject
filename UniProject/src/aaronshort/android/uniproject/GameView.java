@@ -1576,10 +1576,11 @@ public class GameView extends View {
 					if(AttackingClass.equals("Melee")){
 						switch(Phase){
 							case 0:
-								if(AttackerName.equals("player")){moveController = getLocation(battlePlayer1Start.x,battlePlayer1Start.y,Attacking.left,Attacking,top,25,currentStep);}
-								else if(AttackerName.equals("player2")){moveController = getLocation(battlePlayer2Start.x,battlePlayer2Start.y,Attacking.left,Attacking,top,25,currentStep);}
-								else if(AttackerName.equals("player3")){moveController = getLocation(battlePlayer3Start.x,battlePlayer3Start.y,Attacking.left,Attacking,top,25,currentStep);}
+								if(AttackerName.equals("player")){moveController = getLocation(battlePlayer1Start.x,battlePlayer1Start.y,Attacking.left,Attacking.top,25,currentStep);}
+								else if(AttackerName.equals("player2")){moveController = getLocation(battlePlayer2Start.x,battlePlayer2Start.y,Attacking.left,Attacking.top,25,currentStep);}
+								else if(AttackerName.equals("player3")){moveController = getLocation(battlePlayer3Start.x,battlePlayer3Start.y,Attacking.left,Attacking.top,25,currentStep);}
 								Attacker.offsetTo(moveController.x,moveController.y);
+                                canvas.drawRect(Attacker,blue);
 								if(currentStep == 25){Phase++;}
 								currentStep++;
 								break;
