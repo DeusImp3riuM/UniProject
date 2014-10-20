@@ -2,9 +2,13 @@ package aaronshort.android.uniproject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -24,4 +28,19 @@ public class MainActivity extends Activity {
     	Toast toast = Toast.makeText(this, "test", Toast.LENGTH_SHORT);
     	toast.show();
     }
+	@Override
+	public void onBackPressed(){
+		new AlertDialog.Builder(this)
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setTitle("Quit Game")
+			.setMessage("Are you sure you want to quit the game?")
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog,int which){
+					finish();
+				}
+			})
+			.setNegativeButton("No",null)
+			.show();
+	}
 }
