@@ -151,7 +151,7 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
 		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
-		 if(load==false){load=true;map.setCurrentMap("Level2");player.setClass("Sword");player2.setClass("Ranger");player3.setClass("Mage");}
+		 if(load==false){load=true;map.setCurrentMap("Level2");player.setClass("Range");player2.setClass("Melee");player3.setClass("Melee");}
 		if(State == "MainMenu"){
 			back.draw(canvas);
 			inventory.draw(canvas);
@@ -1293,20 +1293,35 @@ public class GameView extends View {
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer1;
 									battle.AttackerName = "player";
-									battle.Attacking = battle.battleEnemy1;
+									battle.Attacking = "slot1";
 									battle.AttackingClass = player.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer1));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot1.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer1.left,battle.battlePlayer1.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot1.Space.left-(int)(battle.battlePlayer1.width()),battle.slot1.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P1.Reset();
 								}else if(battle.P2.canMove()){
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer2;
 									battle.AttackerName = "player2";
-									battle.Attacking = battle.battleEnemy1;
+									battle.Attacking =  "slot1";
 									battle.AttackingClass = player2.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer2));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot1.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer2.left,battle.battlePlayer2.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot1.Space.left-(int)(battle.battlePlayer2.width()),battle.slot1.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P2.Reset();
 								}else if(battle.P3.canMove()){
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer3;
 									battle.AttackerName = "player3";
-									battle.Attacking = battle.battleEnemy1;
+									battle.Attacking =  "slot1";
 									battle.AttackingClass = player3.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer3));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot1.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer3.left,battle.battlePlayer3.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot1.Space.left-(int)(battle.battlePlayer3.width()),battle.slot1.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P3.Reset();
 								}
 								open = false;
 							}
@@ -1317,20 +1332,35 @@ public class GameView extends View {
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer1;
 									battle.AttackerName = "player";
-									battle.Attacking = battle.battleEnemy2;
+									battle.Attacking =  "slot2";
 									battle.AttackingClass = player.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer1));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot2.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer1.left,battle.battlePlayer1.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot2.Space.left-(int)(battle.battlePlayer1.width()),battle.slot2.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P1.Reset();
 								}else if(battle.P2.canMove()){
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer2;
 									battle.AttackerName = "player2";
-									battle.Attacking = battle.battleEnemy2;
+									battle.Attacking = "slot2";
 									battle.AttackingClass = player2.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer2));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot2.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer2.left,battle.battlePlayer2.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot2.Space.left-(int)(battle.battlePlayer2.width()),battle.slot2.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P2.Reset();
 								}else if(battle.P3.canMove()){
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer3;
 									battle.AttackerName = "player3";
-									battle.Attacking = battle.battleEnemy2;
+									battle.Attacking = "slot2";
 									battle.AttackingClass = player3.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer3));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot2.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer3.left,battle.battlePlayer3.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot2.Space.left-(int)(battle.battlePlayer3.width()),battle.slot2.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P3.Reset();
 								}
 								open = false;
 							}
@@ -1341,25 +1371,41 @@ public class GameView extends View {
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer1;
 									battle.AttackerName = "player";
-									battle.Attacking = battle.battleEnemy3;
+									battle.Attacking = "slot3";
 									battle.AttackingClass = player.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer1));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot3.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer1.left,battle.battlePlayer1.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot3.Space.left-(int)(battle.battlePlayer1.width()),battle.slot3.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P1.Reset();
 								}else if(battle.P2.canMove()){
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer2;
 									battle.AttackerName = "player2";
-									battle.Attacking = battle.battleEnemy3;
+									battle.Attacking = "slot3";
 									battle.AttackingClass = player2.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer2));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot3.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer2.left,battle.battlePlayer2.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot3.Space.left-(int)(battle.battlePlayer2.width()),battle.slot3.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P2.Reset();
 								}else if(battle.P3.canMove()){
 									battle.canAttack = true;
 									battle.Attacker = battle.battlePlayer3;
 									battle.AttackerName = "player3";
-									battle.Attacking = battle.battleEnemy3;
+									battle.Attacking = "slot3";
 									battle.AttackingClass = player3.Class;
+									battle.battleSequence.put("Attacker",new Rect(battle.battlePlayer3));
+									battle.battleSequence.put("Attacking",new Rect(battle.slot3.Space));
+									battle.battleSequencePoints.put("Attacker",new Point(battle.battlePlayer3.left,battle.battlePlayer3.top));
+									battle.battleSequencePoints.put("Attacking",new Point(battle.slot3.Space.left-(int)(battle.battlePlayer3.width()),battle.slot3.Space.centerY()-(battle.battlePlayer1.height()/2)));
+									battle.P3.Reset();
 								}
 								open = false;
 							}
 							break;
 					}
+					battle.isAttacking = true;
 				}
             }
         }
@@ -1413,7 +1459,7 @@ public class GameView extends View {
 		public boolean canAttack = false;
 		public Rect Attacker = new Rect();
 		public String AttackerName = "";
-		public Rect Attacking = new Rect();
+		String Attacking = "";
 		public String AttackingClass = "";
 		private int Phase = 0;
 		private Point battlePlayer1Start = new Point();
@@ -1421,6 +1467,9 @@ public class GameView extends View {
 		private Point battlePlayer3Start = new Point();
 		private int currentStep = 0;
 		private Point moveController = new Point(); 
+		private HashMap<String,Rect> battleSequence = new HashMap<String,Rect>();
+		private HashMap<String,Point> battleSequencePoints = new HashMap<String,Point>();
+		public boolean isAttacking = false;
 		
     	Battle(String a, String b, String c){
 			Phase = 0;
@@ -1520,7 +1569,7 @@ public class GameView extends View {
             }
             else{getPress(canvas);}
 
-            if(P1.canMove()||P2.canMove()||P3.canMove()||E1.canMove()||E2.canMove()||E3.canMove()){Standby = true;}
+            if(P1.canMove()||P2.canMove()||P3.canMove()||E1.canMove()||E2.canMove()||E3.canMove()){Standby = true;Phase=0;}
 
             if(E1.canMove()){E1.Reset();Standby=false;}
             else if(E2.canMove()){E2.Reset();Standby=false;}
@@ -1573,26 +1622,6 @@ public class GameView extends View {
 					}
 				}
 				else{
-					if(AttackingClass.equals("Melee")){
-						switch(Phase){
-							case 0:
-								if(AttackerName.equals("player")){moveController = getLocation(battlePlayer1Start.x,battlePlayer1Start.y,Attacking.left,Attacking.top,25,currentStep);}
-								else if(AttackerName.equals("player2")){moveController = getLocation(battlePlayer2Start.x,battlePlayer2Start.y,Attacking.left,Attacking.top,25,currentStep);}
-								else if(AttackerName.equals("player3")){moveController = getLocation(battlePlayer3Start.x,battlePlayer3Start.y,Attacking.left,Attacking.top,25,currentStep);}
-								Attacker.offsetTo(moveController.x,moveController.y);
-                                canvas.drawRect(Attacker,blue);
-								if(currentStep == 25){Phase++;}
-								currentStep++;
-								break;
-							case 1:
-								break;
-							case 2:
-								break;
-						}
-					}
-					else{
-						
-					}
 				}
 				
 			}
@@ -1600,6 +1629,59 @@ public class GameView extends View {
     		if(!castSpell.completed() && !castSpell.Name.equals("none")){
     			castSpell.draw(canvas);
     		}
+			if(canAttack && isAttacking){
+				if(AttackingClass.equals("Melee")){
+						switch(Phase){
+							case 0:
+								moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,24,currentStep);
+								battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                                canvas.drawRect(battleSequence.get("Attacker"),blue);
+								if(currentStep == 25){Phase++;currentStep=0;}
+								currentStep++;
+								break;
+							case 1:
+								canvas.drawRect(battleSequence.get("Attacker"),blue);
+								if(currentStep == 15){
+									if(Attacking.equals("slot1")){slot1.applyDamage(5);}
+									else if(Attacking.equals("slot2")){slot2.applyDamage(5);}
+									else if(Attacking.equals("slot3")){slot3.applyDamage(5);}
+								}
+								if(currentStep == 25){Phase++;currentStep = -1;}
+								currentStep++;
+								break;
+							case 2:
+								if(currentStep == 0){
+									battleSequencePoints.put("Attacker",new Point(battleSequence.get("Attacker").left,battleSequence.get("Attacker").top));
+									battleSequencePoints.put("Attacking",new Point(Attacker.left,Attacker.top));
+								}
+								moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,25,currentStep);
+								battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                                canvas.drawRect(battleSequence.get("Attacker"),blue);
+								currentStep++;
+								if(currentStep == 25){Phase++;currentStep=0;canAttack=true;Standby=false;isAttacking=false;canAttack=false;}
+								break;
+						}
+					}
+					else{
+						switch(Phase){
+							case 0:
+								moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,24,currentStep);
+								battleSequence.get("Attacker").offsetTo(moveController.x+battleSequence.get("Attacker").width(),moveController.y-(int)(battlePlayer1.height()/2));
+                                canvas.drawRect(battleSequence.get("Attacker"),blue);
+								if(currentStep == 25){Phase++;currentStep=0;}
+								currentStep++;
+								break;
+							case 1:
+								canvas.drawRect(battleSequence.get("Attacker"),blue);
+								if(currentStep == 15){}
+								if(currentStep == 25){Phase++;currentStep = -1;}
+								currentStep++;
+								break;
+							case 2:
+								break;
+						}
+					}
+			}
             if(!P1.canMove()&&!P2.canMove()&&!P3.canMove()){
                 display = "none";
                 canvas.drawRect(bg,fade);
@@ -1613,30 +1695,29 @@ public class GameView extends View {
            int xInterval = (endX-startX)/totalSteps;
            int yInterval = (endY-startY)/totalSteps;
            Point returning = new Point(startX+(xInterval*currentStep),startY+(yInterval*currentStep));
-           if(xInterval > 0 &&returning.x >= endX){Phase++;}
-           if(xInterval < 0 &&returning.x <= endX){Phase++;}
            return returning;
        }
         int getSlot(){
             return slotSelected;
         }
     	void getPress(Canvas canvas){
-    		if(flee.contains(touchX,touchY)){
-    			battleEnd(0,canvas);
-    		}
-    		else if(attack.contains(touchX,touchY)){
-    			display = "attack";
-    		}
+			if(Standby && !canAttack){
+				if(flee.contains(touchX,touchY)){
+					battleEnd(0,canvas);
+				}
+				else if(attack.contains(touchX,touchY)){
+					display = "attack";
+				}
     		else if(spells.contains(touchX,touchY)){
-    			display = "spells";
-    		}
-    		else if(classSpells.contains(touchX,touchY)){
-    			display = "class";
-    		}
-    		else if(items.contains(touchX,touchY)){
-    			display = "items";
-
-    		}
+					display = "spells";
+				}
+				else if(classSpells.contains(touchX,touchY)){
+					display = "class";
+				}
+				else if(items.contains(touchX,touchY)){
+					display = "items";
+				}
+			}
     	}
         void battleEnd(int Condition, Canvas canvas){
             Rect cont = new Rect(0,0,getScreenWidth()/4,getScreenWidth()/8);

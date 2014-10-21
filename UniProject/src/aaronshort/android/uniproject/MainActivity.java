@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 		new AlertDialog.Builder(this)
 			.setIcon(android.R.drawable.ic_dialog_alert)
 			.setTitle("Quit Game")
-			.setMessage("Are you sure you want to quit the game?")
+			.setMessage("Are you sure you want to quit the game?This will NOT save progress.")
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialog,int which){
