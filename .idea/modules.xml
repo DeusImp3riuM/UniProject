@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UniProject/UniProject.iml" filepath="$PROJECT_DIR$/UniProject/UniProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PythiumOdyssey.iml" filepath="$PROJECT_DIR$/PythiumOdyssey.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
