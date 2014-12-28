@@ -17,6 +17,7 @@ package pythiumodyssey.android.aaronshort.pythiumodyssey;
         import android.graphics.drawable.Drawable;
         import android.renderscript.Sampler;
         import android.util.Log;
+        import android.util.LruCache;
         import android.view.Display;
         import android.view.MotionEvent;
         import android.view.View;
@@ -661,16 +662,31 @@ public class GameView extends View {
         }
     }
     class Map{
-        HashMap<String,Bitmap[]> MapList = new HashMap<String,Bitmap[]>();
+        HashMap<String,Bitmap[][]> MapList = new HashMap<String,Bitmap[][]>();
+        private LruCache<String, Bitmap[][]> mMemoryCache;
+        final int maxMemory;
+        final int cacheSize;
+
         HashMap<String,int[][]> MapListArray = new HashMap<String,int[][]>();
         HashMap<String,String> MapTag = new HashMap<String,String>();
-        private String currentMap;
+        private String currentMap = "Start";
         public int tileSize;
         private int mapScale = 15;
         Bitmap d;
-        Bitmap map[] = new Bitmap[4];
+        Bitmap map[][];
         Bitmap fourthSlot;
         Map(){
+            maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+            cacheSize = maxMemory / 4;
+            mMemoryCache = new LruCache<String, Bitmap[][]>(cacheSize) {
+                //@Override
+                protected int sizeOf(String key, Bitmap bitmap) {
+                    // The cache size will be measured in kilobytes rather than
+                    // number of items.
+                    return bitmap.getByteCount() / 1024;
+                }
+            };
+
             tileSize = getScreenHeight()/mapScale;
             int[][] setMap;
             /*setMap = new int[][]{
@@ -709,14 +725,114 @@ public class GameView extends View {
             Bitmap temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone1);
             //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
 
-            MapList.put("Start",new Bitmap[]{
-                    Bitmap.createBitmap(temp,0,0,temp.getWidth()/2,temp.getHeight()/2),
-                    Bitmap.createBitmap(temp,temp.getWidth()/2,0,temp.getWidth()/2,temp.getHeight()/2),
-                    Bitmap.createBitmap(temp,0,temp.getHeight()/2,temp.getWidth()/2,temp.getHeight()/2),
-                    //Bitmap.createBitmap(temp,temp.getWidth()/2,temp.getHeight()/2,temp.getWidth()/2,temp.getHeight()/2)
-            });
+            //MapList.put("Start",Tilefy(temp,10));
+            addBitmapToMemoryCache("Start",Tilefy(temp,2));
             MapListArray.put("Start", setMap);
             MapTag.put("Start","Wild");
+
+            splitLine = null;
+            br2 = getResources().openRawResource(R.raw.zone2);
+            br = new BufferedReader(new InputStreamReader(br2));
+
+            j = 0 ;
+            try {
+                while ((line = br.readLine()) != null) {
+                    splitLine = line.split(",");
+                    for (int i = 0; i < splitLine.length; i++) {
+                        //Log.d("Deb","");
+                        setMap[j][i] = Stripper(splitLine[i]);
+                    }
+                    j = j + 1;
+                }
+            }
+            catch(IOException e){
+
+            }
+            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone2);
+            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
+
+            //MapList.put("Start",Tilefy(temp,10));
+            addBitmapToMemoryCache("Zone2",Tilefy(temp,2));
+            MapListArray.put("Zone2", setMap);
+            MapTag.put("Zone2","Wild");
+
+            splitLine = null;
+            br2 = getResources().openRawResource(R.raw.zone3);
+            br = new BufferedReader(new InputStreamReader(br2));
+
+            j = 0 ;
+            try {
+                while ((line = br.readLine()) != null) {
+                    splitLine = line.split(",");
+                    for (int i = 0; i < splitLine.length; i++) {
+                        //Log.d("Deb","");
+                        setMap[j][i] = Stripper(splitLine[i]);
+                    }
+                    j = j + 1;
+                }
+            }
+            catch(IOException e){
+
+            }
+            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone3);
+            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
+
+            //MapList.put("Start",Tilefy(temp,10));
+            addBitmapToMemoryCache("Zone3",Tilefy(temp,2));
+            MapListArray.put("Zone3", setMap);
+            MapTag.put("Zone3","Wild");
+
+            splitLine = null;
+            br2 = getResources().openRawResource(R.raw.zone4);
+            br = new BufferedReader(new InputStreamReader(br2));
+
+            j = 0 ;
+            try {
+                while ((line = br.readLine()) != null) {
+                    splitLine = line.split(",");
+                    for (int i = 0; i < splitLine.length; i++) {
+                        //Log.d("Deb","");
+                        setMap[j][i] = Stripper(splitLine[i]);
+                    }
+                    j = j + 1;
+                }
+            }
+            catch(IOException e){
+
+            }
+            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone4);
+            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
+
+            //MapList.put("Start",Tilefy(temp,10));
+            addBitmapToMemoryCache("Zone4",Tilefy(temp,2));
+            MapListArray.put("Zone4", setMap);
+            MapTag.put("Zone4","Wild");
+
+            splitLine = null;
+            br2 = getResources().openRawResource(R.raw.zone5);
+            br = new BufferedReader(new InputStreamReader(br2));
+
+            j = 0 ;
+            try {
+                while ((line = br.readLine()) != null) {
+                    splitLine = line.split(",");
+                    for (int i = 0; i < splitLine.length; i++) {
+                        //Log.d("Deb","");
+                        setMap[j][i] = Stripper(splitLine[i]);
+                    }
+                    j = j + 1;
+                }
+            }
+            catch(IOException e){
+
+            }
+            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone5);
+            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
+
+            //MapList.put("Start",Tilefy(temp,10));
+            addBitmapToMemoryCache("Zone5",Tilefy(temp,2));
+            MapListArray.put("Zone5", setMap);
+            MapTag.put("Zone5","Wild");
 
             setMap = new int[][]{
                     {1,2,1,2,1,2,1,2,1,2},
@@ -731,18 +847,33 @@ public class GameView extends View {
                     {2,1,2,1,2,1,2,1,2,1}
             };
             temp = combineTiles(setMap, tileSize);
-            MapList.put("Level2",new Bitmap[]{
-                    Bitmap.createBitmap(temp,0,0,temp.getWidth()/2,temp.getHeight()/2),
-                    Bitmap.createBitmap(temp,temp.getWidth()/2,0,temp.getWidth()/2,temp.getHeight()/2),
-                    Bitmap.createBitmap(temp,0,temp.getHeight()/2,temp.getWidth()/2,temp.getHeight()/2),
-                    Bitmap.createBitmap(temp,temp.getWidth()/2,temp.getHeight()/2,temp.getWidth()/2,temp.getHeight()/2)
-            });
-
+            //MapList.put("Level2",Tilefy(temp,10));
+            addBitmapToMemoryCache("Level2",Tilefy(temp,2));
             MapListArray.put("Level2", setMap);
             MapTag.put("Level2","Wild");
-            map = MapList.get("Start");
+            //map = MapList.get("Start");
 
 
+        }
+        public Bitmap[][] Tilefy(Bitmap input, int count){
+            Bitmap[][] grid = new Bitmap[count][count];
+            int size = input.getWidth()/count;
+            for(int y=0;y<count;y++){
+                for(int x=0;x<count;x++){
+                    grid[y][x] = Bitmap.createBitmap(input,x*size,y*size,size,size);
+                    //grid[y][x] = Bitmap.createScaledBitmap(Bitmap.createBitmap(input,x*size,y*size,size,size),size+(int)(size*0.5),size+(int)(size*0.5),false);
+                }
+            }
+            return grid;
+        }
+        public void addBitmapToMemoryCache(String key, Bitmap[][] bitmap) {
+            if (getBitmapFromMemCache(key) == null) {
+                mMemoryCache.put(key, bitmap);
+            }
+        }
+
+        public Bitmap[][] getBitmapFromMemCache(String key) {
+            return mMemoryCache.get(key);
         }
         public int Stripper(String a){
             String str = a;
@@ -764,15 +895,15 @@ public class GameView extends View {
             return MapListArray.get(currentMap);
         }
         void drawMap(Canvas canvas){
-            map = MapList.get(currentMap);
-            if (map[0].getWidth() > getScreenWidth()) {
-                //d = Bitmap.createBitmap(map, -xOffset, -yOffset, -xOffset + getScreenWidth(), -yOffset+getScreenHeight());
-            }else{
-                //d = map;
+            map = getBitmapFromMemCache(currentMap);
+            for(int y=0;y<map.length;y++){
+                for(int x=0;x<map[0].length;x++){
+                    if(new Rect(-xOffset,-yOffset,-xOffset+getScreenWidth(),-yOffset+getScreenHeight()).intersects(x*map[0][0].getWidth(),y*map[0][0].getWidth(),(x+1)*map[0][0].getWidth(),(y+1)*map[0][0].getWidth())) {
+                        canvas.drawBitmap(map[y][x], x * map[0][0].getWidth(), y * map[0][0].getWidth(), null);
+                    }
+                }
             }
-            canvas.drawBitmap(map[0], 0, 0, null);
-            canvas.drawBitmap(map[1], map[0].getWidth(), 0, null);
-            canvas.drawBitmap(map[2], 0, map[0].getHeight(), null);
+
             //canvas.drawBitmap(map[3],  map[0].getWidth(),  map[0].getHeight(), null);
             //d = null;
         }
@@ -2329,39 +2460,39 @@ public class GameView extends View {
         private int offsetX = 0,offsetY = 0;
         private int offsetXD = 0,offsetYD = 0;
         public boolean move = false;
-        public boolean setPos = false;
+        public boolean setPos = true;
         private Point before = new Point();
         private Point present = new Point();
         Skills(){
 
         }
-        int getXOffset(){
-            return present.x-before.x;
-        }
-        int getYOffset(){
-            return present.y-before.y;
-        }
+
         void draw(Canvas canvas){
             canvas.save();
             if(skillsArea.contains(touchX,touchY)){
-                if(setPos&&touch){
-                    before.x = touchX;
-                    before.y = touchY;
-                    setPos=false;
-                }
-                else if(!setPos&&!touch){
-                    setPos = true;
-                }
                 if(touch){
+                    if (setPos) {
+                        before.x = touchX;
+                        before.y = touchY;
+                        setPos = false;
+                    }
                     present.x = touchX;
                     present.y = touchY;
-                    offsetXD=offsetXD+getXOffset();
-                    offsetYD=offsetYD+getYOffset();
+                    offsetXD = offsetXD + (present.x - before.x);
+                    offsetYD = offsetYD + (present.y - before.y);
+                    before.x = present.x;
+                    before.y = present.y;
                 }
-                canvas.translate(offsetX + offsetXD, offsetY + offsetYD);
-                before.x = present.x;
-                before.y = present.y;
+               else{
+                }
             }
+            if(!touch){
+                if(setPos == false) {
+                    setPos = true;
+                }
+            }
+            canvas.translate(offsetXD, offsetYD);
+
             canvas.drawRect(100,100,200,200,blue);
 
             canvas.restore();
