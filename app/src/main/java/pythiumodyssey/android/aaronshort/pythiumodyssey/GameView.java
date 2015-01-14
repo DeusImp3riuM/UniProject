@@ -1,21 +1,16 @@
 package pythiumodyssey.android.aaronshort.pythiumodyssey;
 
         import java.io.BufferedReader;
-        import java.io.FileReader;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
-        import java.lang.reflect.Array;
         import java.util.HashMap;
-        import java.util.Hashtable;
         import java.util.Random;
 
         import android.content.Context;
         import android.graphics.Canvas;
         import android.graphics.Color;
         import android.graphics.Paint;
-        import android.graphics.drawable.Drawable;
-        import android.renderscript.Sampler;
         import android.util.Log;
         import android.util.LruCache;
         import android.view.Display;
@@ -25,16 +20,15 @@ package pythiumodyssey.android.aaronshort.pythiumodyssey;
         import android.graphics.*;
         import android.widget.Toast;
         import java.util.Arrays;
-        import java.util.ArrayList;
         import java.util.List;
-        import java.util.Map.Entry;
-        import java.util.Scanner;
+
 
 public class GameView extends View {
 
     int mapSpeed = 3;
     Toast toast = Toast.makeText(getContext(),"Test",Toast.LENGTH_SHORT);
     HashMap<String,Spell> getSpell = new HashMap<String,Spell>();
+    HashMap<String,Integer> TileAmount = new HashMap<String,Integer>();
 
     String[][] part1 = {
             {"Terrible","Weak","Flimsy"},
@@ -98,6 +92,11 @@ public class GameView extends View {
         EnemyDatabase.put("debug1",new Enemy(10,5,"debug",5,5,5,new Rect(0,0,100,100),10));
         EnemyDatabase.put("debug2",new Enemy(10,5,"debug",5,5,5,new Rect(0,0,100,100),10));
         EnemyDatabase.put("test",new Enemy(10,5,"debug2",5,5,5,new Rect(0,0,200,200),1000));
+        TileAmount.put("zone1",126);
+        TileAmount.put("zone2",126);
+        TileAmount.put("zone3",126);
+        TileAmount.put("zone4",126);
+        TileAmount.put("zone5",126);
     }
     public String[] SetMap(String one, String two, String three){
         String[] Temp = new String[3];
@@ -109,7 +108,8 @@ public class GameView extends View {
 
     String Print;
     String[] recieve = new String[3];
-    Map map = new Map();
+    //Map map = new Map();
+
     Controls controls = new Controls();
     Inventory inv = new Inventory();
     Skills skillTree = new Skills();
@@ -129,15 +129,16 @@ public class GameView extends View {
     boolean isTrans = false;
     boolean isTransIn = false;
     //Chest chest = new Chest(8,8,2,"Level2");
+    Map2 map = new Map2("zone1",127);
     Chest[] chest = new Chest[]{
-            new Chest(8,8,2,"Level2"),
-            new Chest(2,4,4,"Start")
+            new Chest(8,8,2,"zone2"),
+            new Chest(2,4,4,"zone1")
     };
     MapWarp[] mapWarp = new MapWarp[]{
-            new MapWarp(1,1,5,5,"Level2","Start")
+            new MapWarp(1,1,5,5,"zone1","zone2")
     };
     Sprite[] sprite = new Sprite[]{
-            new Sprite("Level2","test",4,4)
+            new Sprite("zone1","test",4,4)
     };
 
     @Override
@@ -159,7 +160,7 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
 		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
-        if(load==false){load=true;map.setCurrentMap("Level2");player.setClass("Range");player2.setClass("Melee");player3.setClass("Melee");}
+        if(load==false){load=true;player.setClass("Range");player2.setClass("Melee");player3.setClass("Melee");}
         if(State == "MainMenu"){
             back.draw(canvas);
             inventory.draw(canvas);
@@ -200,32 +201,38 @@ public class GameView extends View {
             else if(isTransIn == true){transitionIn(15,canvas);}
             else if(isTrans == true){transitionOut(15,canvas,goingTo);}
         }
-        else if(State == "Map"){
-            if(yOffset > 0 || player.py != 0){
-                yOffset=0;
-                if(controls.up.contains(touchX,touchY)){
-                    player.py-=mapSpeed;
+        else if(State == "Map") {
+            map.Load();
+            if (map.Loaded()) {
+                if (yOffset > 0 || player.py != 0) {
+                    yOffset = 0;
+                    if (controls.up.contains(touchX, touchY)) {
+                        player.py -= mapSpeed;
+                    }
+                    if (controls.down.contains(touchX, touchY)) {
+                        player.py += mapSpeed;
+                    }
                 }
-                if(controls.down.contains(touchX,touchY)){
-                    player.py+=mapSpeed;
+                if (xOffset > 0 || player.px != 0) {
+                    xOffset = 0;
+                    if (controls.left.contains(touchX, touchY)) {
+                        player.px -= mapSpeed;
+                    }
+                    if (controls.right.contains(touchX, touchY)) {
+                        player.px += mapSpeed;
+                    }
                 }
+                canvas.translate(xOffset, yOffset);
+                map.draw(canvas);
+                player.draw(canvas);
+                drawEntities(canvas);
+                controls.drawButtons(canvas);
+                settings.draw(canvas);
+                //Log.d("#~~~~~~~~~#",player.drawPlayer.centerX()+"..."+player.drawPlayer.centerY()+"-:-"+chest[1].sprite.centerY()+"..."+chest[1].sprite.centerY());
             }
-            if(xOffset > 0 || player.px !=0){
-                xOffset=0;
-                if(controls.left.contains(touchX,touchY)){
-                    player.px-=mapSpeed;
-                }
-                if(controls.right.contains(touchX,touchY)){
-                    player.px+=mapSpeed;
-                }
+            else{
+                canvas.drawRect(50,getScreenHeight()/2,((getScreenWidth()-50)/100)*Perc(map.percentage,100),(getScreenHeight()/2)+100,red);
             }
-            canvas.translate(xOffset, yOffset);
-
-            map.drawMap(canvas);
-            player.draw(canvas);
-            drawEntities(canvas);
-            controls.drawButtons(canvas);
-            settings.draw(canvas);
             if(isTrans == false && isTransIn == false){
                 if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("debug1","test","debug2");isTrans = true;}
                 if(touch == true){controls.getPress(touchX, touchY);}
@@ -315,6 +322,7 @@ public class GameView extends View {
             }
         }
         for(int w =0;w<chest.length;w++){
+            Log.d("chest-debug",chest[w].Level+"...."+map.getCurrentMap());
             if(chest[w].Level.equals(map.getCurrentMap())){
                 chest[w].draw(canvas);
                 chest[w].update();
@@ -583,7 +591,7 @@ public class GameView extends View {
             return false;
         }
         void getPress(int x, int y){
-            int [][] cMap = map.getCurrentMapArray();
+            int [][] cMap = map.tileMap;
             if(inter.contains(x, y) && dLock == 0){
                 for(int w=0;w<sprite.length;w++){
                     if(sprite[w].Level.equals(map.getCurrentMap())){
@@ -661,6 +669,125 @@ public class GameView extends View {
             }
         }
     }
+class Map2{
+	private String currentMap;
+	private Bitmap mapFromRes;
+	private Bitmap[][] Map;
+	private int[][] tileMap = new int[200][200];
+	private int tileSize;
+	private int x,y,Tiles,percentage;
+	private double mapScale =1;
+    private int scale = 3;
+	private boolean isLoaded;
+    private Paint filter = new Paint();
+	
+	Map2(String mapName,int tiles){
+        currentMap = mapName;
+        filter.setAntiAlias(false);
+        filter.setDither(true);
+        filter.setFilterBitmap(false);
+        percentage = 0;
+		isLoaded = false;
+		x = 0;
+        Tiles = tiles;
+		y = 0;
+		mapFromRes = BitmapFactory.decodeResource(getContext().getResources(),	getContext().getResources().getIdentifier(mapName,"drawable",getContext().getPackageName()));
+	
+	 InputStream br2 = getResources().openRawResource(getContext().getResources().getIdentifier(mapName,"raw",getContext().getPackageName()));
+     BufferedReader br = new BufferedReader(new InputStreamReader(br2));
+			String[] splitLine;
+            String line;
+            int j = 0 ;
+            try {
+                while ((line = br.readLine()) != null) {
+                    splitLine = line.split(",");
+                    for (int i = 0; i < splitLine.length; i++) {
+                        tileMap[j][i] = Stripper(splitLine[i]);
+                    }
+                    j = j + 1;
+                }
+            }
+            catch(IOException e){
+
+            }
+	Map = Tilefy(mapFromRes,10);
+	tileSize = (int)(mapFromRes.getWidth()*scale)/Tiles;
+	}
+
+	void draw(Canvas canvas){
+	//canvas.drawRect(0,0,1500,1500,blue);
+        int amount = 0;
+        Rect screen = new Rect(-xOffset,-yOffset,-xOffset+getScreenWidth(),-yOffset+getScreenHeight());
+        //Rect screen = new Rect(0,0,100,100);
+        Rect section = new Rect();
+        /*
+		for(int i=0;i<Map.length;i++){
+			for(int j=0;j<Map[0].length;j++){
+                section.set(j*Map[0][0].getWidth(),i*Map[0][0].getHeight(),j*Map[0][0].getWidth()+getScreenWidth(),i*Map[0][0].getHeight()+getScreenHeight());
+                if(new Rect(-xOffset,-yOffset,-xOffset+getScreenWidth(),-yOffset+getScreenHeight()).intersects(section.left,section.top,section.right,section.bottom)){
+                    canvas.drawBitmap(Map[i][j], Map[i][j].getWidth() * j, Map[i][j].getHeight() * i, null);
+                    amount++;
+                }
+			}
+		}*/
+        int xPos = -xOffset/(Map[0][0].getWidth()*scale);
+        int xPos2 = (-xOffset+getScreenWidth())/(Map[0][0].getWidth()*scale);
+        int yPos = -yOffset/(Map[0][0].getHeight()*scale);
+        int yPos2 = (-yOffset-yOffset+getScreenHeight())/(Map[0][0].getHeight()*scale);
+        canvas.save();
+        canvas.scale(scale,scale);
+        try {
+            for (int i = yPos; i < yPos2 + 1; i++) {
+                for (int j = xPos; j < xPos2 + 1; j++) {
+                    canvas.drawBitmap(Map[i][j], Map[i][j].getWidth() * j, Map[i][j].getHeight() * i, filter);
+                }
+            }
+        }
+        catch (Exception e){}
+        canvas.restore();
+	}
+	void Load(){
+	 	if(!isLoaded){
+	    	Map[y][x] = Bitmap.createScaledBitmap(Map[y][x],(int)(Map[y][x].getWidth()*mapScale),(int)(Map[y][x].getHeight()*mapScale),false);
+		    x++;
+            percentage++;
+	    	if(x == Map[0].length){
+			    x = 0;
+		    	y++;
+		    }
+		    if(y == Map.length){
+			    isLoaded = true;
+		    }
+        }
+	}
+    String getTag(){
+        return "Wild";
+    }
+	String getCurrentMap(){
+	 return currentMap;
+	}
+	boolean Loaded(){
+		return isLoaded;
+	}
+	 public int Stripper(String a){
+            String str = a;
+            str = new String (str.replace("{", ""));
+            str = str.replaceAll(" ", "");
+            str = str.replace("}", "");
+            return Integer.valueOf(str);
+        }
+	 public Bitmap[][] Tilefy(Bitmap input, int count){
+            Bitmap[][] grid = new Bitmap[count][count];
+            int size = input.getWidth()/count;
+            for(int y=0;y<count;y++){
+                for(int x=0;x<count;x++){
+                    grid[y][x] = Bitmap.createBitmap(input,x*size,y*size,size,size);
+                    //grid[y][x] = Bitmap.createScaledBitmap(Bitmap.createBitmap(input,x*size,y*size,size,size),size+(int)(size*0.5),size+(int)(size*0.5),false);
+                }
+            }
+            return grid;
+        }
+}
     class Map{
         HashMap<String,Bitmap[][]> MapList = new HashMap<String,Bitmap[][]>();
         private LruCache<String, Bitmap[][]> mMemoryCache;
@@ -913,6 +1040,7 @@ public class GameView extends View {
 			return tile;
 		}*/
     }
+
     class Weapon{
         private String Name,Type,Holder,MainType;
         private int Rarity;
@@ -2289,7 +2417,7 @@ public class GameView extends View {
         boolean checkMapCollision(int x,int y){
             String[] array = {"1","2"};
             List<String> walkable = Arrays.asList(array);
-            if(walkable.contains(Integer.toString(map.getCurrentMapArray()[y][x]))){
+            if(walkable.contains(Integer.toString(map.tileMap[y][x]))){
                 return true;
             }
             else{
@@ -2343,13 +2471,13 @@ public class GameView extends View {
                 if(direction.equals("left")&& mapX-1 != -1 && checkMapCollision(mapX-1,mapY)){
                     mapX--;
                 }
-                else if(direction.equals("right") && mapX+1 != map.MapListArray.get(map.getCurrentMap())[mapY].length && checkMapCollision(mapX+1,mapY)){
+                else if(direction.equals("right") && mapX+1 != map.tileMap[mapY].length && checkMapCollision(mapX+1,mapY)){
                     mapX++;
                 }
                 else if(direction.equals("up")&& mapY-1 != -1 && checkMapCollision(mapX,mapY-1)){
                     mapY--;
                 }
-                else if(direction.equals("down") && mapY+1 != map.MapListArray.get(map.getCurrentMap()).length && checkMapCollision(mapX,mapY+1)){
+                else if(direction.equals("down") && mapY+1 != map.tileMap.length && checkMapCollision(mapX,mapY+1)){
                     mapY++;
                 }
                 moveC=1;
@@ -2416,7 +2544,7 @@ public class GameView extends View {
         void update(){
             if(map.getCurrentMap().equals(Current)){
                 if(Rect.intersects(HitBoxCenter,player.drawPlayer)){
-                    map.setCurrentMap(To);
+                    map = new Map2(To,TileAmount.get(To));
                     xOffset = (getScreenWidth()/2-(map.tileSize/2))-(toX-1)*map.tileSize;
                     yOffset = (getScreenHeight()/2-(map.tileSize/2))-(toY-1)*map.tileSize;
                 }
