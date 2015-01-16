@@ -4,6 +4,7 @@ package pythiumodyssey.android.aaronshort.pythiumodyssey;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
+        import java.lang.reflect.Array;
         import java.util.HashMap;
         import java.util.Random;
 
@@ -97,6 +98,7 @@ public class GameView extends View {
         TileAmount.put("zone3",126);
         TileAmount.put("zone4",126);
         TileAmount.put("zone5",126);
+        TileAmount.put("cave_farm3",70);
     }
     public String[] SetMap(String one, String two, String three){
         String[] Temp = new String[3];
@@ -129,16 +131,18 @@ public class GameView extends View {
     boolean isTrans = false;
     boolean isTransIn = false;
     //Chest chest = new Chest(8,8,2,"Level2");
-    Map2 map = new Map2("zone1",127);
+    Map2 map = new Map2("zone1","zone1",127);
     Chest[] chest = new Chest[]{
             new Chest(8,8,2,"zone2"),
-            new Chest(2,4,4,"zone1")
+            new Chest(20,20,4,"zone1")
     };
     MapWarp[] mapWarp = new MapWarp[]{
-            new MapWarp(1,1,5,5,"zone1","zone2")
+            //new MapWarp(123,73,5,73,"zone1","zone2")
+            new MapWarp(7,7,7,74,"zone1","zone2")
+
     };
     Sprite[] sprite = new Sprite[]{
-            new Sprite("zone1","test",4,4)
+            new Sprite("zone1","test",11,11)
     };
 
     @Override
@@ -204,31 +208,12 @@ public class GameView extends View {
         else if(State == "Map") {
             map.Load();
             if (map.Loaded()) {
-                if (yOffset > 0 || player.py != 0) {
-                    yOffset = 0;
-                    if (controls.up.contains(touchX, touchY)) {
-                        player.py -= mapSpeed;
-                    }
-                    if (controls.down.contains(touchX, touchY)) {
-                        player.py += mapSpeed;
-                    }
-                }
-                if (xOffset > 0 || player.px != 0) {
-                    xOffset = 0;
-                    if (controls.left.contains(touchX, touchY)) {
-                        player.px -= mapSpeed;
-                    }
-                    if (controls.right.contains(touchX, touchY)) {
-                        player.px += mapSpeed;
-                    }
-                }
                 canvas.translate(xOffset, yOffset);
                 map.draw(canvas);
                 player.draw(canvas);
                 drawEntities(canvas);
                 controls.drawButtons(canvas);
                 settings.draw(canvas);
-                //Log.d("#~~~~~~~~~#",player.drawPlayer.centerX()+"..."+player.drawPlayer.centerY()+"-:-"+chest[1].sprite.centerY()+"..."+chest[1].sprite.centerY());
             }
             else{
                 canvas.drawRect(50,getScreenHeight()/2,((getScreenWidth()-50)/100)*Perc(map.percentage,100),(getScreenHeight()/2)+100,red);
@@ -322,7 +307,6 @@ public class GameView extends View {
             }
         }
         for(int w =0;w<chest.length;w++){
-            Log.d("chest-debug",chest[w].Level+"...."+map.getCurrentMap());
             if(chest[w].Level.equals(map.getCurrentMap())){
                 chest[w].draw(canvas);
                 chest[w].update();
@@ -494,6 +478,8 @@ public class GameView extends View {
         private Rect playerHitBox = new Rect();
         private Point upP,downP,leftP,rightP,ulP,urP,dlP,drP,interP;
         private Rect test = new Rect();
+        int l,t,r,b;
+        private Rect coliRect = new Rect(0,0,1,1);
 
         Controls(){
             buttonSize = getScreenWidth()/butScale;
@@ -556,8 +542,9 @@ public class GameView extends View {
             canvas.drawRect(test,black);
             if(dDisplay){
                 for(int w=0;w<sprite.length;w++){
-                    if(sprite[w].Level.equals("Level2")){
+                    if(sprite[w].Level.equals(map.currentMap)){
                         if(Rect.intersects(sprite[w].sBox,player.drawPlayer)){
+                            Dialog.offsetTo(-xOffset+10,-yOffset+10);
                             canvas.drawRect(Dialog,blue);
                             for(int t=0;t<sprite[w].dialogText[0].length;t++){
                                 canvas.drawText(sprite[w].getText(0,t),Dialog.left+20,Dialog.top+40+(40*t),black);
@@ -577,7 +564,7 @@ public class GameView extends View {
             ddl.offsetTo(dlP.x-xOffset, dlP.y-yOffset);
             ddr.offsetTo(drP.x-xOffset, drP.y-yOffset);
             dinter.offsetTo(interP.x-xOffset, interP.y-yOffset);
-            Dialog.offset(x, y);
+            Dialog.offsetTo(xOffset+10, yOffset+10);
         }
         boolean triggerBattle(){
             if(touch && map.getTag() == "Wild"){
@@ -631,39 +618,348 @@ public class GameView extends View {
                         }
                     }
                 }
+                String[] collision = null;
+                if(map.currentMap.startsWith("zone")){
+                    collision = new String[]{"11","12","13","14","15","16","17","18","19","20","21","22","77",
+                            "78","198","199","39","44","30","41","42","37","38","43","75",
+                            "35","194","36","196","195","146","28","203","205","24","29",
+                            "25","30","27","33","31","26","45","46","47","48","49","50","51","52","53","54","55","56"};
+                }
+                else if(map.currentMap.startsWith("cave")){
+                    collision = new String[]{"0","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","19","20"};
+                }
+
                 if(canMove){
                     if(up.contains(x, y)){
-                        if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
-                        else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}}
+                        //if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerL()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerCenterX()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerR()]))){
+                            //player.drawPlayer.left-mapSpeed;
+                            l = player.playerCx()*map.tileSize;
+                            t = player.playerTn()*map.tileSize;
+                            r = l;
+                            b = t;
+                            r = r+map.tileSize;
+                            b = b+map.tileSize;
+                            coliRect.set(l,t,r,b);
+                            if(player.drawPlayer.top > coliRect.centerY()){
+                                if(player.py != 0){
+                                    player.py -= mapSpeed;
+                                }
+                                else if (yOffset > 0){
+                                    yOffset = 0;
+                                    player.py -= mapSpeed;
+                                }
+                                else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                    yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                    yOffset *= -1;
+                                    player.py -= mapSpeed;
+                                }
+                                else{
+                                    yOffset += mapSpeed;
+                                }
+                                offsetButtons(0,-mapSpeed);
+                            }
+                        }
+                        else{
+                            if(player.py != 0){
+                                player.py -= mapSpeed;
+                            }
+                            else if (yOffset > 0){
+                                yOffset = 0;
+                                player.py -= mapSpeed;
+                            }
+                            else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                yOffset *= -1;
+                                player.py -= mapSpeed;
+                            }
+                            else{
+                                yOffset += mapSpeed;
+                            }
+                            offsetButtons(0,-mapSpeed);
+                        }
+                    }
                     else if(down.contains(x, y)){
-                        if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
-                        else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerL()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerCenterX()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerR()]))){}
+                        else{
+                            if(player.py != 0){
+                                player.py += mapSpeed;
+                            }
+                            else if(yOffset > 0) {
+                                yOffset = 0;
+                                player.py += mapSpeed;
+                            }
+                            else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                yOffset *= -1;
+                                player.py += mapSpeed;
+                            }
+                            else {
+                               yOffset -= mapSpeed;
+                            }
+                            offsetButtons(0,mapSpeed);
+                        }
+                    }
                     else if(right.contains(x, y)){
-                        if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
-                        else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCy()][player.playerRn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCenterY()][player.playerRn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerB()][player.playerRn()]))){}
+                        else{
+                            if(player.px != 0){
+                                player.px += mapSpeed;
+                            }
+                            else if(xOffset > 0) {
+                                xOffset = 0;
+                                player.px += mapSpeed;
+                            }
+                            else if(-xOffset >(map.mapFromRes.getWidth()*map.scale)-getScreenWidth()-map.tileSize){
+                                xOffset = (map.mapFromRes.getWidth()*map.scale)-getScreenWidth();
+                                xOffset *= -1;
+                                xOffset += map.tileSize;
+                                player.px += mapSpeed;
+                            }
+                            else {
+                                xOffset -= mapSpeed;
+                            }
+                            offsetButtons(mapSpeed,0);
+                        }
+                    }
                     else if(left.contains(x, y)){
-                        if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
-                        else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCy()][player.playerLn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCenterY()][player.playerLn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerB()][player.playerLn()]))){}
+                        else{
+                            if(player.px != 0){
+                                player.px -= mapSpeed;
+                            }
+                            else if(xOffset > 0) {
+                                xOffset = 0;
+                                player.px -= mapSpeed;
+                            }
+                            else if(-xOffset >(map.mapFromRes.getWidth()*map.scale)-getScreenWidth()-map.tileSize){
+                                xOffset = (map.mapFromRes.getWidth()*map.scale)-getScreenWidth();
+                                xOffset *= -1;
+                                xOffset += map.tileSize;
+                                player.px -= mapSpeed;
+                            }
+                            else {
+                                xOffset += mapSpeed;
+                            }
+                            offsetButtons(-mapSpeed,0);
+                        }
+                    }
+
                     else if(ul.contains(x, y)){
-                        if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
-                        else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
-                        if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
-                        else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerL()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerCenterX()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerR()]))){
+                            //player.drawPlayer.left-mapSpeed;
+                            l = player.playerCx()*map.tileSize;
+                            t = player.playerTn()*map.tileSize;
+                            r = l;
+                            b = t;
+                            r = r+map.tileSize;
+                            b = b+map.tileSize;
+                            coliRect.set(l,t,r,b);
+                            if(player.drawPlayer.top > coliRect.centerY()){
+                                if(player.py != 0){
+                                    player.py -= mapSpeed;
+                                }
+                                else if (yOffset > 0){
+                                    yOffset = 0;
+                                    player.py -= mapSpeed;
+                                }
+                                else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                    yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                    yOffset *= -1;
+                                    player.py -= mapSpeed;
+                                }
+                                else{
+                                    yOffset += mapSpeed;
+                                }
+                                offsetButtons(0,-mapSpeed);
+                            }
+                        }
+                        else{
+                            if(player.py != 0){
+                                player.py -= mapSpeed;
+                            }
+                            else if (yOffset > 0){
+                                yOffset = 0;
+                                player.py -= mapSpeed;
+                            }
+                            else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                yOffset *= -1;
+                                player.py -= mapSpeed;
+                            }
+                            else{
+                                yOffset += mapSpeed;
+                            }
+                            offsetButtons(0,-mapSpeed);
+                        }
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCy()][player.playerLn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCenterY()][player.playerLn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerB()][player.playerLn()]))){}
+                        else{
+                            if(player.px != 0){
+                                player.px -= mapSpeed;
+                            }
+                            else if(xOffset > 0) {
+                                xOffset = 0;
+                                player.px -= mapSpeed;
+                            }
+                            else if(-xOffset >(map.mapFromRes.getWidth()*map.scale)-getScreenWidth()-map.tileSize){
+                                xOffset = (map.mapFromRes.getWidth()*map.scale)-getScreenWidth();
+                                xOffset *= -1;
+                                xOffset += map.tileSize;
+                                player.px -= mapSpeed;
+                            }
+                            else {
+                                xOffset += mapSpeed;
+                            }
+                            offsetButtons(-mapSpeed,0);
+                        }}
                     else if(ur.contains(x, y)){
-                        if(cMap[player.playerTn()][player.playerL()] == 0 ||cMap[player.playerTn()][player.playerCenterX()] == 0 || cMap[player.playerTn()][player.playerR()] == 0){}
-                        else{yOffset += mapSpeed;offsetButtons(0,-mapSpeed);}
-                        if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
-                        else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerL()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerCenterX()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerTn()][player.playerR()]))){
+                            //player.drawPlayer.left-mapSpeed;
+                            l = player.playerCx()*map.tileSize;
+                            t = player.playerTn()*map.tileSize;
+                            r = l;
+                            b = t;
+                            r = r+map.tileSize;
+                            b = b+map.tileSize;
+                            coliRect.set(l,t,r,b);
+                            if(player.drawPlayer.top > coliRect.centerY()){
+                                if(player.py != 0){
+                                    player.py -= mapSpeed;
+                                }
+                                else if (yOffset > 0){
+                                    yOffset = 0;
+                                    player.py -= mapSpeed;
+                                }
+                                else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                    yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                    yOffset *= -1;
+                                    player.py -= mapSpeed;
+                                }
+                                else{
+                                    yOffset += mapSpeed;
+                                }
+                                offsetButtons(0,-mapSpeed);
+                            }
+                        }
+                        else{
+                            if(player.py != 0){
+                                player.py -= mapSpeed;
+                            }
+                            else if (yOffset > 0){
+                                yOffset = 0;
+                                player.py -= mapSpeed;
+                            }
+                            else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                yOffset *= -1;
+                                player.py -= mapSpeed;
+                            }
+                            else{
+                                yOffset += mapSpeed;
+                            }
+                            offsetButtons(0,-mapSpeed);
+                        }
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCy()][player.playerRn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCenterY()][player.playerRn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerB()][player.playerRn()]))){}
+                        else{
+                            if(player.px != 0){
+                                player.px += mapSpeed;
+                            }
+                            else if(xOffset > 0) {
+                                xOffset = 0;
+                                player.px += mapSpeed;
+                            }
+                            else if(-xOffset >(map.mapFromRes.getWidth()*map.scale)-getScreenWidth()-map.tileSize){
+                                xOffset = (map.mapFromRes.getWidth()*map.scale)-getScreenWidth();
+                                xOffset *= -1;
+                                xOffset += map.tileSize;
+                                player.px += mapSpeed;
+                            }
+                            else {
+                                xOffset -= mapSpeed;
+                            }
+                            offsetButtons(mapSpeed,0);
+                        }}
                     else if(dl.contains(x, y)){
-                        if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
-                        else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
-                        if(cMap[player.playerT()][player.playerLn()] == 0 ||cMap[player.playerCenterY()][player.playerLn()] == 0 || cMap[player.playerB()][player.playerLn()] == 0){}
-                        else{xOffset += mapSpeed;offsetButtons(-mapSpeed,0);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerL()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerCenterX()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerR()]))){}
+                        else{
+                            if(player.py != 0){
+                                player.py += mapSpeed;
+                            }
+                            else if(yOffset > 0) {
+                                yOffset = 0;
+                                player.py += mapSpeed;
+                            }
+                            else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                yOffset *= -1;
+                                player.py += mapSpeed;
+                            }
+                            else {
+                                yOffset -= mapSpeed;
+                            }
+                            offsetButtons(0,mapSpeed);
+                        }
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCy()][player.playerLn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCenterY()][player.playerLn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerB()][player.playerLn()]))){}
+                        else{
+                            if(player.px != 0){
+                                player.px -= mapSpeed;
+                            }
+                            else if(xOffset > 0) {
+                                xOffset = 0;
+                                player.px -= mapSpeed;
+                            }
+                            else if(-xOffset >(map.mapFromRes.getWidth()*map.scale)-getScreenWidth()-map.tileSize){
+                                xOffset = (map.mapFromRes.getWidth()*map.scale)-getScreenWidth();
+                                xOffset *= -1;
+                                xOffset += map.tileSize;
+                                player.px -= mapSpeed;
+                            }
+                            else {
+                                xOffset += mapSpeed;
+                            }
+                            offsetButtons(-mapSpeed,0);
+                        }
+                    }
                     else if(dr.contains(x, y)){
-                        if(cMap[player.playerBn()][player.playerL()] == 0 ||cMap[player.playerBn()][player.playerCenterX()] == 0 || cMap[player.playerBn()][player.playerR()] == 0){}
-                        else{yOffset -=mapSpeed;offsetButtons(0,mapSpeed);}
-                        if(cMap[player.playerT()][player.playerRn()] == 0 ||cMap[player.playerCenterY()][player.playerRn()] == 0 || cMap[player.playerB()][player.playerRn()] == 0){}
-                        else{xOffset -= mapSpeed;offsetButtons(mapSpeed,0);}}
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerL()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerCenterX()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerBn()][player.playerR()]))){}
+                        else{
+                            if(player.py != 0){
+                                player.py += mapSpeed;
+                            }
+                            else if(yOffset > 0) {
+                                yOffset = 0;
+                                player.py += mapSpeed;
+                            }
+                            else if(-yOffset > (map.mapFromRes.getHeight()*map.scale)-getScreenHeight()){
+                                yOffset = (map.mapFromRes.getHeight()*map.scale)-getScreenHeight();
+                                yOffset *= -1;
+                                player.py += mapSpeed;
+                            }
+                            else {
+                                yOffset -= mapSpeed;
+                            }
+                            offsetButtons(0,mapSpeed);
+                        }
+                        if(Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCy()][player.playerRn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerCenterY()][player.playerRn()])) || Arrays.asList(collision).contains(Integer.toString(cMap[player.playerB()][player.playerRn()]))){}
+                        else{
+                            if(player.px != 0){
+                                player.px += mapSpeed;
+                            }
+                            else if(xOffset > 0) {
+                                xOffset = 0;
+                                player.px += mapSpeed;
+                            }
+                            else if(-xOffset >(map.mapFromRes.getWidth()*map.scale)-getScreenWidth()-map.tileSize){
+                                xOffset = (map.mapFromRes.getWidth()*map.scale)-getScreenWidth();
+                                xOffset *= -1;
+                                xOffset += map.tileSize;
+                                player.px += mapSpeed;
+                            }
+                            else {
+                                xOffset -= mapSpeed;
+                            }
+                            offsetButtons(mapSpeed,0);
+                        }}
                     else{}
                 }
             }
@@ -681,7 +977,7 @@ class Map2{
 	private boolean isLoaded;
     private Paint filter = new Paint();
 	
-	Map2(String mapName,int tiles){
+	Map2(String ImageName ,String mapName,int tiles){
         currentMap = mapName;
         filter.setAntiAlias(false);
         filter.setDither(true);
@@ -691,9 +987,9 @@ class Map2{
 		x = 0;
         Tiles = tiles;
 		y = 0;
-		mapFromRes = BitmapFactory.decodeResource(getContext().getResources(),	getContext().getResources().getIdentifier(mapName,"drawable",getContext().getPackageName()));
+		mapFromRes = BitmapFactory.decodeResource(getContext().getResources(),	getContext().getResources().getIdentifier(ImageName,"drawable",getContext().getPackageName()));
 	
-	 InputStream br2 = getResources().openRawResource(getContext().getResources().getIdentifier(mapName,"raw",getContext().getPackageName()));
+	 InputStream br2 = getResources().openRawResource(getContext().getResources().getIdentifier(ImageName,"raw",getContext().getPackageName()));
      BufferedReader br = new BufferedReader(new InputStreamReader(br2));
 			String[] splitLine;
             String line;
@@ -712,6 +1008,7 @@ class Map2{
             }
 	Map = Tilefy(mapFromRes,10);
 	tileSize = (int)(mapFromRes.getWidth()*scale)/Tiles;
+        tileSize++;
 	}
 
 	void draw(Canvas canvas){
@@ -788,258 +1085,6 @@ class Map2{
             return grid;
         }
 }
-    class Map{
-        HashMap<String,Bitmap[][]> MapList = new HashMap<String,Bitmap[][]>();
-        private LruCache<String, Bitmap[][]> mMemoryCache;
-        final int maxMemory;
-        final int cacheSize;
-
-        HashMap<String,int[][]> MapListArray = new HashMap<String,int[][]>();
-        HashMap<String,String> MapTag = new HashMap<String,String>();
-        private String currentMap = "Start";
-        public int tileSize;
-        private int mapScale = 15;
-        Bitmap d;
-        Bitmap map[][];
-        Bitmap fourthSlot;
-        Map(){
-            maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-            cacheSize = maxMemory / 4;
-            mMemoryCache = new LruCache<String, Bitmap[][]>(cacheSize) {
-                //@Override
-                protected int sizeOf(String key, Bitmap bitmap) {
-                    // The cache size will be measured in kilobytes rather than
-                    // number of items.
-                    return bitmap.getByteCount() / 1024;
-                }
-            };
-
-            tileSize = getScreenHeight()/mapScale;
-            int[][] setMap;
-            /*setMap = new int[][]{
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,0,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1},
-                    {1,1,1,1,1,1,1,1,1,1}
-            };*/
-            setMap = new int[200][200];
-            String[] splitLine = null;
-            InputStream br2 = getResources().openRawResource(R.raw.zone1);
-            BufferedReader br = new BufferedReader(new InputStreamReader(br2));
-            String line;
-            int j = 0 ;
-            try {
-                while ((line = br.readLine()) != null) {
-                    splitLine = line.split(",");
-                    for (int i = 0; i < splitLine.length; i++) {
-                        //Log.d("Deb","");
-                        setMap[j][i] = Stripper(splitLine[i]);
-                    }
-                    j = j + 1;
-                }
-            }
-            catch(IOException e){
-
-            }
-
-
-            Bitmap temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone1);
-            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
-
-            //MapList.put("Start",Tilefy(temp,10));
-            addBitmapToMemoryCache("Start",Tilefy(temp,2));
-            MapListArray.put("Start", setMap);
-            MapTag.put("Start","Wild");
-
-            splitLine = null;
-            br2 = getResources().openRawResource(R.raw.zone2);
-            br = new BufferedReader(new InputStreamReader(br2));
-
-            j = 0 ;
-            try {
-                while ((line = br.readLine()) != null) {
-                    splitLine = line.split(",");
-                    for (int i = 0; i < splitLine.length; i++) {
-                        //Log.d("Deb","");
-                        setMap[j][i] = Stripper(splitLine[i]);
-                    }
-                    j = j + 1;
-                }
-            }
-            catch(IOException e){
-
-            }
-            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone2);
-            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
-
-            //MapList.put("Start",Tilefy(temp,10));
-            addBitmapToMemoryCache("Zone2",Tilefy(temp,2));
-            MapListArray.put("Zone2", setMap);
-            MapTag.put("Zone2","Wild");
-
-            splitLine = null;
-            br2 = getResources().openRawResource(R.raw.zone3);
-            br = new BufferedReader(new InputStreamReader(br2));
-
-            j = 0 ;
-            try {
-                while ((line = br.readLine()) != null) {
-                    splitLine = line.split(",");
-                    for (int i = 0; i < splitLine.length; i++) {
-                        //Log.d("Deb","");
-                        setMap[j][i] = Stripper(splitLine[i]);
-                    }
-                    j = j + 1;
-                }
-            }
-            catch(IOException e){
-
-            }
-            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone3);
-            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
-
-            //MapList.put("Start",Tilefy(temp,10));
-            addBitmapToMemoryCache("Zone3",Tilefy(temp,2));
-            MapListArray.put("Zone3", setMap);
-            MapTag.put("Zone3","Wild");
-
-            splitLine = null;
-            br2 = getResources().openRawResource(R.raw.zone4);
-            br = new BufferedReader(new InputStreamReader(br2));
-
-            j = 0 ;
-            try {
-                while ((line = br.readLine()) != null) {
-                    splitLine = line.split(",");
-                    for (int i = 0; i < splitLine.length; i++) {
-                        //Log.d("Deb","");
-                        setMap[j][i] = Stripper(splitLine[i]);
-                    }
-                    j = j + 1;
-                }
-            }
-            catch(IOException e){
-
-            }
-            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone4);
-            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
-
-            //MapList.put("Start",Tilefy(temp,10));
-            addBitmapToMemoryCache("Zone4",Tilefy(temp,2));
-            MapListArray.put("Zone4", setMap);
-            MapTag.put("Zone4","Wild");
-
-            splitLine = null;
-            br2 = getResources().openRawResource(R.raw.zone5);
-            br = new BufferedReader(new InputStreamReader(br2));
-
-            j = 0 ;
-            try {
-                while ((line = br.readLine()) != null) {
-                    splitLine = line.split(",");
-                    for (int i = 0; i < splitLine.length; i++) {
-                        //Log.d("Deb","");
-                        setMap[j][i] = Stripper(splitLine[i]);
-                    }
-                    j = j + 1;
-                }
-            }
-            catch(IOException e){
-
-            }
-            temp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.zone5);
-            //temp = Bitmap.createBitmap(temp, 0, 0, temp.getWidth()/2, temp.getHeight()/2);
-
-            //MapList.put("Start",Tilefy(temp,10));
-            addBitmapToMemoryCache("Zone5",Tilefy(temp,2));
-            MapListArray.put("Zone5", setMap);
-            MapTag.put("Zone5","Wild");
-
-            setMap = new int[][]{
-                    {1,2,1,2,1,2,1,2,1,2},
-                    {2,1,2,1,2,1,2,1,2,1},
-                    {1,2,0,0,1,0,0,2,1,2},
-                    {2,1,2,1,2,1,2,1,2,1},
-                    {1,2,1,2,1,2,1,2,1,2},
-                    {2,1,2,1,2,1,2,1,2,1},
-                    {1,2,1,2,1,2,1,2,1,2},
-                    {2,0,2,1,2,1,2,1,2,1},
-                    {1,2,1,2,1,2,1,2,1,2},
-                    {2,1,2,1,2,1,2,1,2,1}
-            };
-            temp = combineTiles(setMap, tileSize);
-            //MapList.put("Level2",Tilefy(temp,10));
-            addBitmapToMemoryCache("Level2",Tilefy(temp,2));
-            MapListArray.put("Level2", setMap);
-            MapTag.put("Level2","Wild");
-            //map = MapList.get("Start");
-
-
-        }
-        public Bitmap[][] Tilefy(Bitmap input, int count){
-            Bitmap[][] grid = new Bitmap[count][count];
-            int size = input.getWidth()/count;
-            for(int y=0;y<count;y++){
-                for(int x=0;x<count;x++){
-                    grid[y][x] = Bitmap.createBitmap(input,x*size,y*size,size,size);
-                    //grid[y][x] = Bitmap.createScaledBitmap(Bitmap.createBitmap(input,x*size,y*size,size,size),size+(int)(size*0.5),size+(int)(size*0.5),false);
-                }
-            }
-            return grid;
-        }
-        public void addBitmapToMemoryCache(String key, Bitmap[][] bitmap) {
-            if (getBitmapFromMemCache(key) == null) {
-                mMemoryCache.put(key, bitmap);
-            }
-        }
-
-        public Bitmap[][] getBitmapFromMemCache(String key) {
-            return mMemoryCache.get(key);
-        }
-        public int Stripper(String a){
-            String str = a;
-            str = new String (str.replace("{", ""));
-            str = str.replaceAll(" ", "");
-            str = str.replace("}", "");
-            return Integer.valueOf(str);
-        }
-        void setCurrentMap(String nextMap){
-            currentMap = nextMap;
-        }
-        String getCurrentMap(){
-            return currentMap;
-        }
-        String getTag(){
-            return MapTag.get(getCurrentMap());
-        }
-        int[][] getCurrentMapArray(){
-            return MapListArray.get(currentMap);
-        }
-        void drawMap(Canvas canvas){
-            map = getBitmapFromMemCache(currentMap);
-            for(int y=0;y<map.length;y++){
-                for(int x=0;x<map[0].length;x++){
-                    if(new Rect(-xOffset,-yOffset,-xOffset+getScreenWidth(),-yOffset+getScreenHeight()).intersects(x*map[0][0].getWidth(),y*map[0][0].getWidth(),(x+1)*map[0][0].getWidth(),(y+1)*map[0][0].getWidth())) {
-                        canvas.drawBitmap(map[y][x], x * map[0][0].getWidth(), y * map[0][0].getWidth(), null);
-                    }
-                }
-            }
-
-            //canvas.drawBitmap(map[3],  map[0].getWidth(),  map[0].getHeight(), null);
-            //d = null;
-        }
-		/*int getTile(int x, int y){
-			int[][] cMap = MapList.get(currentMap);
-			int tile = cMap[x][y];
-			return tile;
-		}*/
-    }
 
     class Weapon{
         private String Name,Type,Holder,MainType;
@@ -1225,16 +1270,18 @@ class Map2{
             canvas.drawText(""+controls.chance, 0, 0, black);
             canvas.drawRect(drawPlayer, playerpaint);
         }
-        int playerCenterX(){return drawPlayer.centerX()/playerSize;}
-        int playerCenterY(){return drawPlayer.centerY()/playerSize;}
-        int playerL(){return drawPlayer.left/playerSize;}
-        int playerR(){return drawPlayer.right/playerSize;}
-        int playerT(){return drawPlayer.top/playerSize;}
-        int playerB(){return drawPlayer.bottom/playerSize;}
-        int playerLn(){return (drawPlayer.left-mapSpeed)/playerSize;}
-        int playerRn(){return (drawPlayer.right+mapSpeed)/playerSize;}
-        int playerTn(){return (drawPlayer.top-mapSpeed)/playerSize;}
-        int playerBn(){return (drawPlayer.bottom+mapSpeed)/playerSize;}
+        int playerCenterX(){return drawPlayer.centerX()/map.tileSize;}
+        int playerCenterY(){return drawPlayer.centerY()/map.tileSize;}
+        int playerL(){return drawPlayer.left/map.tileSize;}
+        int playerR(){return drawPlayer.right/map.tileSize;}
+        int playerT(){return drawPlayer.top/map.tileSize;}
+        int playerB(){return drawPlayer.bottom/map.tileSize;}
+        int playerCx(){return drawPlayer.centerX()/map.tileSize;}
+        int playerCy(){return drawPlayer.centerY()/map.tileSize;}
+        int playerLn(){return (drawPlayer.left-mapSpeed)/map.tileSize;}
+        int playerRn(){return (drawPlayer.right+mapSpeed)/map.tileSize;}
+        int playerTn(){return (drawPlayer.top-mapSpeed)/map.tileSize;}
+        int playerBn(){return (drawPlayer.bottom+mapSpeed)/map.tileSize;}
         void unequipWeapon(){personalWep = null;}
         void equipWeapon(Weapon weapon){personalWep = weapon;}
         void unequipArmour(){personalArm = null;}
@@ -2544,7 +2591,7 @@ class Map2{
         void update(){
             if(map.getCurrentMap().equals(Current)){
                 if(Rect.intersects(HitBoxCenter,player.drawPlayer)){
-                    map = new Map2(To,TileAmount.get(To));
+                    map = new Map2(To,To,TileAmount.get(To));
                     xOffset = (getScreenWidth()/2-(map.tileSize/2))-(toX-1)*map.tileSize;
                     yOffset = (getScreenHeight()/2-(map.tileSize/2))-(toY-1)*map.tileSize;
                 }
