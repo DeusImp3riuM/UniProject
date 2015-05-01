@@ -5,6 +5,7 @@ package pythiumodyssey.android.aaronshort.pythiumodyssey;
         import java.io.InputStream;
         import java.io.InputStreamReader;
         import java.lang.reflect.Array;
+        import java.util.ArrayList;
         import java.util.HashMap;
         import java.util.Random;
 
@@ -252,7 +253,7 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
 		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
-        if(load==false){load=true;player.setClass("Range");player2.setClass("Melee");player3.setClass("Melee");}
+        if(load==false){load=true;player.setClass("Range");player2.setClass("Range");player3.setClass("Melee");}
         if(State == "MainMenu"){
             back.draw(canvas);
             inventory.draw(canvas);
@@ -307,7 +308,7 @@ public class GameView extends View {
                 canvas.drawRect(50,getScreenHeight()/2,((getScreenWidth()-50)/100)*Perc(map.percentage,100),(getScreenHeight()/2)+100,red);
             }
             if(isTrans == false && isTransIn == false){
-                if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("bear","mechChimera","Empty");isTrans = true;}
+                if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("bear","mechChimera","rabidWolf");isTrans = true;}
                 if(touch == true){controls.getPress(touchX, touchY);}
                 if(settings.getPressed(touchX, touchY) == true){
                     goingTo = settings.getState();
@@ -1361,6 +1362,7 @@ class Map2{
         private int playerSize;
         private Weapon personalWep = null;
         private Armour personalArm = null;
+        private int Health = 100;
         private int Experience = 0;
         private int nextLevel = 20;
         private int Level = 1;
@@ -1523,6 +1525,8 @@ class Map2{
         void setClass(String s){
             Class = s;
         }
+        void applyDamage(int a){Health=Health-a;}
+        boolean isAlive(){if(Health<=0){return false;}else{return true;}}
     }
     class Button{
         private Rect button = new Rect();
@@ -2098,8 +2102,10 @@ class Map2{
         public boolean isAttacking = false;
 
         Bitmap[] bit1 = new Bitmap[5],bit2 = new Bitmap[5],bit3 = new Bitmap[5];
+        Bitmap Arrow;
         BitmapFactory.Options opt = new BitmapFactory.Options();
         Paint BitPaint = new Paint();
+        Enemy attackingUnit;
 
         Battle(String a, String b, String c){
             Phase = 0;
@@ -2162,14 +2168,16 @@ class Map2{
             subBack.setColor(Color.LTGRAY);
             P1 = new MoveBar(0,1000,getScreenWidth()/4,2,battlePlayer1.left,battlePlayer1.top-(getScreenHeight()/24),40);
             P2 = new MoveBar(0,1000,getScreenWidth()/4,4,battlePlayer2.left,battlePlayer2.top-(getScreenHeight()/24),40);
-            P3 = new MoveBar(0,1000,getScreenWidth()/4,50,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
+            P3 = new MoveBar(0,1000,getScreenWidth()/4,3,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
             E1 = new MoveBar(0,1000,getScreenWidth()/4,6,battleEnemy1.left-(battleEnemy1.width()),battleEnemy1.top-(getScreenHeight()/24),40);
             E2 = new MoveBar(0,1000,getScreenWidth()/4,10,battleEnemy2.left-(battleEnemy2.width()),battleEnemy2.top-(getScreenHeight()/24),40);
-            E3 = new MoveBar(0,1000,getScreenWidth()/4,1,battleEnemy3.left-(battleEnemy3.width()),battleEnemy3.top-(getScreenHeight()/24),40);
+            E3 = new MoveBar(0,1000,getScreenWidth()/4,5,battleEnemy3.left-(battleEnemy3.width()),battleEnemy3.top-(getScreenHeight()/24),40);
             send = false;
 
             opt.inDither = false;
             opt.inScaled = false;
+            Arrow = BitmapFactory.decodeResource(getResources(),R.drawable.arrow,opt);
+            Arrow = Bitmap.createScaledBitmap(Arrow,battlePlayer1.width(),battlePlayer1.height(),false);
             bit1[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player_sheet,opt);
             bit2[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player_sheet,opt);
             bit3[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player_sheet,opt);
@@ -2199,39 +2207,54 @@ class Map2{
             canvas.drawRect(flee,red);
             canvas.drawText("flee",flee.centerX(),flee.centerY()+(buttonFont.getTextSize()/2),buttonFont);
 
-            if(AttackerName != "player"){
-                //canvas.drawRect(battlePlayer1, red);
-                canvas.drawBitmap(bit1[0],battlePlayer1.left,battlePlayer1.top,BitPaint);
-            }
-            if(AttackerName != "player2"){
-                //canvas.drawRect(battlePlayer2, red);
-                canvas.drawBitmap(bit1[0],battlePlayer2.left,battlePlayer2.top,BitPaint);
-            }
+
+            if(player.isAlive()){canvas.drawBitmap(bit1[0],battlePlayer1.left,battlePlayer1.top,BitPaint);}
+            if(player2.isAlive()){canvas.drawBitmap(bit1[0],battlePlayer2.left,battlePlayer2.top,BitPaint);}
             if(AttackerName != "player3"){
                 //canvas.drawRect(battlePlayer3, red);
-                canvas.drawBitmap(bit1[0],battlePlayer3.left,battlePlayer3.top,BitPaint);
+                if(player3.isAlive()){canvas.drawBitmap(bit1[0],battlePlayer3.left,battlePlayer3.top,BitPaint);}
             }
+            if(player.isAlive()){canvas.drawText(Integer.toString(player.Health),battlePlayer1.left,battlePlayer1.top,black);}
+            if(player2.isAlive()){canvas.drawText(Integer.toString(player2.Health),battlePlayer2.left,battlePlayer2.top,black);}
+            if(player3.isAlive()){canvas.drawText(Integer.toString(player3.Health),battlePlayer3.left,battlePlayer3.top,black);}
 
-
-            slot1.draw(canvas);
-            slot2.draw(canvas);
-            slot3.draw(canvas);
-            P1.Draw(canvas);
-            P2.Draw(canvas);
-            P3.Draw(canvas);
+            if(!AttackerName.equals("slot1")){slot1.draw(canvas);}
+            if(!AttackerName.equals("slot2")){slot2.draw(canvas);}
+            if(!AttackerName.equals("slot3")){slot3.draw(canvas);}
+            if(player.isAlive()){P1.Draw(canvas);}
+            if(player2.isAlive()){P2.Draw(canvas);}
+            if(player3.isAlive()){P3.Draw(canvas);}
             if(slot1.isAlive()){E1.Draw(canvas);}
             if(slot2.isAlive()){E2.Draw(canvas);}
             if(slot3.isAlive()){E3.Draw(canvas);}
             if(!Standby){
-                P1.Update();
-                P2.Update();
-                P3.Update();
+                if(player.isAlive()){P1.Update();}
+                if(player2.isAlive()){P2.Update();}
+                if(player3.isAlive()){P3.Update();}
                 if(slot1.isAlive()){E1.Update();}
                 if(slot2.isAlive()){E2.Update();}
                 if(slot3.isAlive()){E3.Update();}
+                if(E1.canMove()){
+                    if(P1.canMove()){P1.Offset = P1.Max-1;}
+                    if(P2.canMove()){P2.Offset = P2.Max-1;}
+                    if(P3.canMove()){P3.Offset = P3.Max-1;}
+                    if(E2.canMove()){E2.Offset = E2.Max-1;}
+                    if(E3.canMove()){E3.Offset = E3.Max-1;}
+                }
+                if(E2.canMove()){
+                    if(P1.canMove()){P1.Offset = P1.Max-1;}
+                    if(P2.canMove()){P2.Offset = P2.Max-1;}
+                    if(P3.canMove()){P3.Offset = P3.Max-1;}
+                    if(E3.canMove()){E3.Offset = E3.Max-1;}
+                }
+                if(E3.canMove()){
+                    if(P1.canMove()){P1.Offset = P1.Max-1;}
+                    if(P2.canMove()){P2.Offset = P2.Max-1;}
+                    if(P3.canMove()){P3.Offset = P3.Max-1;}
+                }
                 if(P1.canMove()){
-                   if(P2.canMove()){P2.Offset = P2.Max-P2.Speed;}
-                   if(P3.canMove()){P3.Offset = P3.Max-P3.Speed;}
+                    if(P2.canMove()){P2.Offset = P2.Max-1;}
+                    if(P3.canMove()){P3.Offset = P3.Max-1;}
                 }
                 if(P2.canMove()){
                     if(P3.canMove()){P3.Offset = P3.Max-P3.Speed;}
@@ -2239,11 +2262,168 @@ class Map2{
             }
             else{getPress(canvas);}
 
-            if(P1.canMove()||P2.canMove()||P3.canMove()||E1.canMove()||E2.canMove()||E3.canMove()){Standby = true;Phase=0;}
+            if(P1.canMove()||P2.canMove()||P3.canMove()||E1.canMove()||E2.canMove()||E3.canMove()){if(!Standby) {Standby = true;Phase = 0;}}
 
-            if(E1.canMove()){E1.Reset();Standby=false;}
-            else if(E2.canMove()){E2.Reset();Standby=false;}
-            else if(E3.canMove()){E3.Reset();Standby=false;}
+            if(E1.canMove()){
+                switch(Phase){
+                    case 0:
+                        battleSequencePoints.put("Attacker",new Point(slot1.Space.left,slot1.Space.top));
+                        battleSequence.put("Attacker",new Rect(slot1.Space));
+                        AttackerName = "slot1";
+                        attackingUnit = slot1;
+                        List<Rect> sel = new ArrayList<Rect>();
+                        List<String> sel2 = new ArrayList<String>();
+                        if(player.isAlive()){sel.add(battlePlayer1);sel2.add("player1");}
+                        if(player2.isAlive()){sel.add(battlePlayer2);sel2.add("player2");}
+                        if(player3.isAlive()){sel.add(battlePlayer3);sel2.add("player3");}
+
+                        int u = rand.nextInt(sel.size());
+                        Rect selected = sel.get(u);
+                        Attacking = sel2.get(u);
+                        battleSequencePoints.put("Attacking",new Point(selected.left+battlePlayer1.width(),selected.top));
+                        battleSequence.put("Attacking",new Rect(selected));
+                        Phase++;
+                        break;
+                    case 1:
+                        moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,24,currentStep);
+                        battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        if(currentStep == 25){Phase++;currentStep=-1;}
+                        currentStep++;
+                        break;
+                    case 2:
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        if(currentStep == 15){
+                            if(Attacking.equals("player1")){player.applyDamage(attackingUnit.Damage);}
+                            else if(Attacking.equals("player2")){player2.applyDamage(attackingUnit.Damage);}
+                            else if(Attacking.equals("player3")){player3.applyDamage(attackingUnit.Damage);}
+                        }
+                        if(currentStep == 25){Phase++;currentStep = -1;}
+                        currentStep++;
+                        break;
+                    case 3:
+                        if(currentStep == 0){
+                            battleSequencePoints.put("Attacker",new Point(battleSequence.get("Attacker").left,battleSequence.get("Attacker").top));
+                            battleSequencePoints.put("Attacking",new Point(slot1.Space.left,slot1.Space.top));
+                        }
+                        moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,25,currentStep);
+                        battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        currentStep++;
+                        if(currentStep == 25){E1.Reset();Phase++;currentStep=0;canAttack=true;Standby=false;isAttacking=false;canAttack=false;AttackerName = "null";}
+                        break;
+                }
+            }
+            //if(E1.canMove()){E1.Reset();Standby=false;}
+            else if(E2.canMove()){
+                switch(Phase){
+                    case 0:
+                        battleSequencePoints.put("Attacker",new Point(slot2.Space.left,slot2.Space.top));
+                        battleSequence.put("Attacker",new Rect(slot2.Space));
+                        AttackerName = "slot2";
+                        attackingUnit = slot2;
+                        List<Rect> sel = new ArrayList<Rect>();
+                        List<String> sel2 = new ArrayList<String>();
+                        if(player.isAlive()){sel.add(battlePlayer1);sel2.add("player1");}
+                        if(player2.isAlive()){sel.add(battlePlayer2);sel2.add("player2");}
+                        if(player3.isAlive()){sel.add(battlePlayer3);sel2.add("player3");}
+
+                        int u = rand.nextInt(sel.size());
+                        Rect selected = sel.get(u);
+                        Attacking = sel2.get(u);
+                        battleSequencePoints.put("Attacking",new Point(selected.left+battlePlayer1.width(),selected.top));
+                        battleSequence.put("Attacking",new Rect(selected));
+                        Phase++;
+                        break;
+                    case 1:
+                        moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,24,currentStep);
+                        battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        if(currentStep == 25){Phase++;currentStep=-1;}
+                        currentStep++;
+                        break;
+                    case 2:
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        if(currentStep == 15){
+                            if(Attacking.equals("player1")){player.applyDamage(attackingUnit.Damage);}
+                            else if(Attacking.equals("player2")){player2.applyDamage(attackingUnit.Damage);}
+                            else if(Attacking.equals("player3")){player3.applyDamage(attackingUnit.Damage);}
+                        }
+                        if(currentStep == 25){Phase++;currentStep = -1;}
+                        currentStep++;
+                        break;
+                    case 3:
+                        if(currentStep == 0){
+                            battleSequencePoints.put("Attacker",new Point(battleSequence.get("Attacker").left,battleSequence.get("Attacker").top));
+                            battleSequencePoints.put("Attacking",new Point(slot2.Space.left,slot2.Space.top));
+                        }
+                        moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,25,currentStep);
+                        battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        currentStep++;
+                        if(currentStep == 25){E2.Reset();Phase++;currentStep=0;canAttack=true;Standby=false;isAttacking=false;canAttack=false;AttackerName = "null";}
+                        break;
+                }
+            }
+            else if(E3.canMove()){
+                switch(Phase){
+                    case 0:
+                        battleSequencePoints.put("Attacker",new Point(slot3.Space.left,slot3.Space.top));
+                        battleSequence.put("Attacker",new Rect(slot3.Space));
+                        AttackerName = "slot3";
+                        attackingUnit = slot3;
+                        List<Rect> sel = new ArrayList<Rect>();
+                        List<String> sel2 = new ArrayList<String>();
+                        if(player.isAlive()){sel.add(battlePlayer1);sel2.add("player1");}
+                        if(player2.isAlive()){sel.add(battlePlayer2);sel2.add("player2");}
+                        if(player3.isAlive()){sel.add(battlePlayer3);sel2.add("player3");}
+
+                        int u = rand.nextInt(sel.size());
+                        Rect selected = sel.get(u);
+                        Attacking = sel2.get(u);
+                        battleSequencePoints.put("Attacking",new Point(selected.left+battlePlayer1.width(),selected.top));
+                        battleSequence.put("Attacking",new Rect(selected));
+                        Phase++;
+                        break;
+                    case 1:
+                        moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,24,currentStep);
+                        battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        if(currentStep == 25){Phase++;currentStep=-1;}
+                        currentStep++;
+                        break;
+                    case 2:
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        if(currentStep == 15){
+                            if(Attacking.equals("player1")){player.applyDamage(attackingUnit.Damage);}
+                            else if(Attacking.equals("player2")){player2.applyDamage(attackingUnit.Damage);}
+                            else if(Attacking.equals("player3")){player3.applyDamage(attackingUnit.Damage);}
+                        }
+                        if(currentStep == 25){Phase++;currentStep = -1;}
+                        currentStep++;
+                        break;
+                    case 3:
+                        if(currentStep == 0){
+                            battleSequencePoints.put("Attacker",new Point(battleSequence.get("Attacker").left,battleSequence.get("Attacker").top));
+                            battleSequencePoints.put("Attacking",new Point(slot3.Space.left,slot3.Space.top));
+                        }
+                        moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,25,currentStep);
+                        battleSequence.get("Attacker").offsetTo(moveController.x,moveController.y);
+                        //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                        canvas.drawBitmap(attackingUnit.img,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                        currentStep++;
+                        if(currentStep == 25){E3.Reset();Phase++;currentStep=0;canAttack=true;Standby=false;isAttacking=false;canAttack=false;AttackerName = "null";}
+                        break;
+                }
+            }
 
             if(display.equals("spells")){
                 subMenuButton.offsetTo(subMenu.left,subMenu.top);
@@ -2362,19 +2542,31 @@ class Map2{
                 else{
                     switch(Phase){
                         case 0:
-                            moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,24,currentStep);
+                            moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,9,currentStep);
                             battleSequence.get("Attacker").offsetTo(moveController.x+battleSequence.get("Attacker").width(),moveController.y-(int)(battlePlayer1.height()/2));
-                            canvas.drawRect(battleSequence.get("Attacker"),blue);
-                            if(currentStep == 25){Phase++;currentStep=0;}
+                            //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                            canvas.drawBitmap(Arrow,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
+                            if(currentStep == 10){Phase++;currentStep=0;}
                             currentStep++;
                             break;
                         case 1:
-                            canvas.drawRect(battleSequence.get("Attacker"),blue);
-                            if(currentStep == 15){}
+                            //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                            if(currentStep == 15){
+                                if(Attacking.equals("slot1")){slot1.applyDamage(5);}
+                                else if(Attacking.equals("slot2")){slot2.applyDamage(5);}
+                                else if(Attacking.equals("slot3")){slot3.applyDamage(5);}
+                            }
                             if(currentStep == 25){Phase++;currentStep = -1;}
                             currentStep++;
                             break;
                         case 2:
+                            Phase++;
+                            currentStep=0;
+                            canAttack=true;
+                            Standby=false;
+                            isAttacking=false;
+                            canAttack=false;
+                            AttackerName = "null";
                             break;
                     }
                 }
