@@ -71,6 +71,9 @@ public class GameView extends View {
     int touchX,touchY;
     final int sdk = android.os.Build.VERSION.SDK_INT;
     final static HashMap<String,Enemy> EnemyDatabase = new HashMap<String, Enemy>();
+    List<String> zone12 = new ArrayList<String>();
+    List<String> zone34 = new ArrayList<String>();
+    List<String> zone5 = new ArrayList<String>();
 
     public GameView(Context context) {
         super(context);
@@ -112,6 +115,22 @@ public class GameView extends View {
         EnemyDatabase.put("giantBear",new Enemy(160,27,"bear",1,5,5,new Rect(0,0,130,130),55));
         EnemyDatabase.put("chimera",new Enemy(300,40,"chimera_boss",1,5,5,new Rect(0,0,200,200),100));
         EnemyDatabase.put("mechChimera",new Enemy(500,60,"chimeramech_boss",1,5,5,new Rect(0,0,200,200),200));
+
+        zone12.add("cukyo");
+        zone12.add("goblin");
+        zone12.add("boblin");
+        zone12.add("slime");
+        zone12.add("poisonSlime");
+        zone12.add("fireFlime");
+        zone12.add("rat");
+        zone12.add("iceRat");
+        zone12.add("exoticRat");
+        zone12.add("wolf");
+        zone12.add("rabidWolf");
+        zone12.add("docileWolf");
+        zone12.add("bear");
+        zone12.add("lightBear");
+        zone12.add("giantBear");
 
 
 
@@ -162,7 +181,7 @@ public class GameView extends View {
     Button equip = new Button(getScreenWidth()/4,(getScreenHeight()/10)*2,"Equip","Equiptment",7,4,"red");
     Button skills = new Button(getScreenWidth()/4,(getScreenHeight()/10)*3,"Skill","SkillTree",7,4,"#CB00FF");
     Button characters = new Button(getScreenWidth()/4,(getScreenHeight()/10)*4,"Characters","Characters",7,4,"#00A552");
-    String State = "Map";
+    String State = "Splash";
     String goingTo = "";
     boolean isTrans = false;
     boolean isTransIn = false;
@@ -234,6 +253,9 @@ public class GameView extends View {
             new Sprite("zone1","test","npc1",11,11,new String[]{"left","left","down","down","up","up","right","right"})
     };
 
+    int currentS = 0;
+    int Phas = 0;
+
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -253,7 +275,7 @@ public class GameView extends View {
 		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
 		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
 		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
-        if(load==false){load=true;player.setClass("Range");player2.setClass("Range");player3.setClass("Melee");}
+        if(load==false){load=true;player.setClass("Melee");player2.setClass("Range");player3.setClass("Range");}
         if(State == "MainMenu"){
             back.draw(canvas);
             inventory.draw(canvas);
@@ -276,6 +298,34 @@ public class GameView extends View {
             }
             else if(isTransIn == true){transitionIn(15, canvas);}
             else if(isTrans == true){transitionOut(15, canvas, goingTo);}
+        }
+        else if(State.equals("Splash")){
+            switch(Phas) {
+                case 0:
+                    Rect back = new Rect(0, 0, getScreenWidth(), getScreenHeight());
+                    Paint backP = new Paint();
+                    backP.setColor(Color.rgb(0, 0, 0));
+                    canvas.drawRect(back, backP);
+                    if(currentS == 100){Phas++;currentS = -1;}
+                    currentS++;
+                    break;
+                case 1:
+                    Rect back2 = new Rect(0, 0, getScreenWidth(), getScreenHeight());
+                    Rect newGame = new Rect(0,0,250,100);
+                    Paint backP2 = new Paint();
+                    Paint new2 = new Paint();
+                    newGame.offsetTo(getScreenWidth()/2-(newGame.width()/2),getScreenHeight()/2-(newGame.height()/2));
+                    backP2.setColor(Color.rgb(102, 196, 255));
+                    new2.setColor(Color.rgb(255, 222, 91));
+                    canvas.drawRect(back2, backP2);
+                    canvas.drawRect(newGame, new2);
+                    if(newGame.contains(touchX,touchY)){
+                        State = "Map";
+                    }
+                    break;
+
+            }
+
         }
         else if(State == "Inventory"){
             inv.draw(canvas);
@@ -308,15 +358,22 @@ public class GameView extends View {
                 canvas.drawRect(50,getScreenHeight()/2,((getScreenWidth()-50)/100)*Perc(map.percentage,100),(getScreenHeight()/2)+100,red);
             }
             if(isTrans == false && isTransIn == false){
-                if(controls.triggerBattle()){goingTo = "Battle";battle = new Battle("bear","mechChimera","rabidWolf");isTrans = true;}
+                if(controls.triggerBattle()){
+                    goingTo = "Battle";
+                    if(map.currentMap.equals("zone1") || map.currentMap.equals("zone2")){
+                        battle = new Battle(zone12.get(rand.nextInt(zone12.size())),zone12.get(rand.nextInt(zone12.size())),zone12.get(rand.nextInt(zone12.size())));
+                    }
+
+                    isTrans = true;
+                }
                 if(touch == true){controls.getPress(touchX, touchY);}
                 if(settings.getPressed(touchX, touchY) == true){
                     goingTo = settings.getState();
                     isTrans = true;
                 }
             }
-            else if(isTransIn == true){transitionIn(15,canvas);}
-            else if(isTrans == true){transitionOut(15,canvas,goingTo);}
+            else if(isTransIn == true){transitionIn(15, canvas);}
+            else if(isTrans == true){transitionOut(15, canvas, goingTo);}
         }
         else if(State == "Battle"){
             battle.draw(canvas);
@@ -1363,6 +1420,7 @@ class Map2{
         private Weapon personalWep = null;
         private Armour personalArm = null;
         private int Health = 100;
+        private int MaxHealth = 100;
         private int Experience = 0;
         private int nextLevel = 20;
         private int Level = 1;
@@ -2103,6 +2161,7 @@ class Map2{
 
         Bitmap[] bit1 = new Bitmap[5],bit2 = new Bitmap[5],bit3 = new Bitmap[5];
         Bitmap Arrow;
+        Bitmap Magic;
         BitmapFactory.Options opt = new BitmapFactory.Options();
         Paint BitPaint = new Paint();
         Enemy attackingUnit;
@@ -2166,11 +2225,11 @@ class Map2{
             fade.setAlpha(150);
             back.setColor(Color.DKGRAY);
             subBack.setColor(Color.LTGRAY);
-            P1 = new MoveBar(0,1000,getScreenWidth()/4,2,battlePlayer1.left,battlePlayer1.top-(getScreenHeight()/24),40);
-            P2 = new MoveBar(0,1000,getScreenWidth()/4,4,battlePlayer2.left,battlePlayer2.top-(getScreenHeight()/24),40);
-            P3 = new MoveBar(0,1000,getScreenWidth()/4,3,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
+            P1 = new MoveBar(0,1000,getScreenWidth()/4,30,battlePlayer1.left,battlePlayer1.top-(getScreenHeight()/24),40);
+            P2 = new MoveBar(0,1000,getScreenWidth()/4,40,battlePlayer2.left,battlePlayer2.top-(getScreenHeight()/24),40);
+            P3 = new MoveBar(0,1000,getScreenWidth()/4,50,battlePlayer3.left,battlePlayer3.top-(getScreenHeight()/24),40);
             E1 = new MoveBar(0,1000,getScreenWidth()/4,6,battleEnemy1.left-(battleEnemy1.width()),battleEnemy1.top-(getScreenHeight()/24),40);
-            E2 = new MoveBar(0,1000,getScreenWidth()/4,10,battleEnemy2.left-(battleEnemy2.width()),battleEnemy2.top-(getScreenHeight()/24),40);
+            E2 = new MoveBar(0,1000,getScreenWidth()/4,3,battleEnemy2.left-(battleEnemy2.width()),battleEnemy2.top-(getScreenHeight()/24),40);
             E3 = new MoveBar(0,1000,getScreenWidth()/4,5,battleEnemy3.left-(battleEnemy3.width()),battleEnemy3.top-(getScreenHeight()/24),40);
             send = false;
 
@@ -2178,13 +2237,21 @@ class Map2{
             opt.inScaled = false;
             Arrow = BitmapFactory.decodeResource(getResources(),R.drawable.arrow,opt);
             Arrow = Bitmap.createScaledBitmap(Arrow,battlePlayer1.width(),battlePlayer1.height(),false);
+            Magic = BitmapFactory.decodeResource(getResources(),R.drawable.magicprojectile,opt);
+            Magic = Bitmap.createScaledBitmap(Magic,battlePlayer1.width(),battlePlayer1.height(),false);
+
+
             bit1[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player_sheet,opt);
-            bit2[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player_sheet,opt);
-            bit3[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player_sheet,opt);
+            bit2[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player2_sheet,opt);
+            bit3[4] = BitmapFactory.decodeResource(getResources(),R.drawable.attack_player3_sheet,opt);
             Rect src = new Rect(0,0,bit1[4].getWidth()/3,bit1[4].getHeight());
             for(int t =0;t<3;t++){
                 bit1[t] = Bitmap.createBitmap(bit1[4],t*src.width(),0,src.width(),src.height());
                 bit1[t] = Bitmap.createScaledBitmap(bit1[t],battlePlayer1.width(),battlePlayer1.height(),false);
+                bit2[t] = Bitmap.createBitmap(bit2[4],t*src.width(),0,src.width(),src.height());
+                bit2[t] = Bitmap.createScaledBitmap(bit2[t],battlePlayer1.width(),battlePlayer1.height(),false);
+                bit3[t] = Bitmap.createBitmap(bit3[4],t*src.width(),0,src.width(),src.height());
+                bit3[t] = Bitmap.createScaledBitmap(bit3[t],battlePlayer1.width(),battlePlayer1.height(),false);
             }
 
             BitPaint.setAntiAlias(false);
@@ -2207,13 +2274,37 @@ class Map2{
             canvas.drawRect(flee,red);
             canvas.drawText("flee",flee.centerX(),flee.centerY()+(buttonFont.getTextSize()/2),buttonFont);
 
-
+            if(AttackerName != "player"){
             if(player.isAlive()){canvas.drawBitmap(bit1[0],battlePlayer1.left,battlePlayer1.top,BitPaint);}
-            if(player2.isAlive()){canvas.drawBitmap(bit1[0],battlePlayer2.left,battlePlayer2.top,BitPaint);}
-            if(AttackerName != "player3"){
-                //canvas.drawRect(battlePlayer3, red);
-                if(player3.isAlive()){canvas.drawBitmap(bit1[0],battlePlayer3.left,battlePlayer3.top,BitPaint);}
             }
+            if(player2.isAlive()){
+                if(AttackerName.equals("player2")) {
+                    if(Phase == 0){
+                            canvas.drawBitmap(bit2[1], battlePlayer2.left, battlePlayer2.top, BitPaint);
+                    }
+                    else{
+                        canvas.drawBitmap(bit2[2], battlePlayer2.left, battlePlayer2.top, BitPaint);
+                    }
+                }
+                else{
+                    canvas.drawBitmap(bit2[0], battlePlayer2.left, battlePlayer2.top, BitPaint);
+                }
+            }
+            if(player3.isAlive()){
+                if(AttackerName.equals("player3")) {
+                    if(Phase == 0){
+                        canvas.drawBitmap(bit3[1],battlePlayer3.left,battlePlayer3.top,BitPaint);
+                    }
+                    else{
+                        canvas.drawBitmap(bit3[2],battlePlayer3.left,battlePlayer3.top,BitPaint);
+                    }
+                }
+                else{
+                    canvas.drawBitmap(bit3[0],battlePlayer3.left,battlePlayer3.top,BitPaint);
+                }
+            }
+
+
             if(player.isAlive()){canvas.drawText(Integer.toString(player.Health),battlePlayer1.left,battlePlayer1.top,black);}
             if(player2.isAlive()){canvas.drawText(Integer.toString(player2.Health),battlePlayer2.left,battlePlayer2.top,black);}
             if(player3.isAlive()){canvas.drawText(Integer.toString(player3.Health),battlePlayer3.left,battlePlayer3.top,black);}
@@ -2317,7 +2408,6 @@ class Map2{
                         break;
                 }
             }
-            //if(E1.canMove()){E1.Reset();Standby=false;}
             else if(E2.canMove()){
                 switch(Phase){
                     case 0:
@@ -2542,14 +2632,23 @@ class Map2{
                 else{
                     switch(Phase){
                         case 0:
-                            moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y,battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y,9,currentStep);
-                            battleSequence.get("Attacker").offsetTo(moveController.x+battleSequence.get("Attacker").width(),moveController.y-(int)(battlePlayer1.height()/2));
-                            //canvas.drawRect(battleSequence.get("Attacker"),blue);
-                            canvas.drawBitmap(Arrow,battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
-                            if(currentStep == 10){Phase++;currentStep=0;}
+                            if(currentStep == 5){Phase++;currentStep=-1;}
                             currentStep++;
                             break;
                         case 1:
+                            moveController = getLocation(battleSequencePoints.get("Attacker").x,battleSequencePoints.get("Attacker").y+(battleSequence.get("Attacker").height()/2),battleSequencePoints.get("Attacking").x,battleSequencePoints.get("Attacking").y+(battleSequence.get("Attacker").height()/2),10,currentStep);
+                            battleSequence.get("Attacker").offsetTo(moveController.x+battleSequence.get("Attacker").width(),moveController.y-(int)(battlePlayer1.height()/2));
+                            //canvas.drawRect(battleSequence.get("Attacker"),blue);
+                            if(AttackerName.equals("player2")) {
+                                canvas.drawBitmap(Arrow, battleSequence.get("Attacker").left, battleSequence.get("Attacker").top, BitPaint);
+                            }
+                            else{
+                                canvas.drawBitmap(Magic, battleSequence.get("Attacker").left, battleSequence.get("Attacker").top, BitPaint);
+                            }
+                            if(currentStep == 10){Phase++;currentStep=0;}
+                            currentStep++;
+                            break;
+                        case 2:
                             //canvas.drawRect(battleSequence.get("Attacker"),blue);
                             if(currentStep == 15){
                                 if(Attacking.equals("slot1")){slot1.applyDamage(5);}
@@ -2559,7 +2658,7 @@ class Map2{
                             if(currentStep == 25){Phase++;currentStep = -1;}
                             currentStep++;
                             break;
-                        case 2:
+                        case 3:
                             Phase++;
                             currentStep=0;
                             canAttack=true;
@@ -2569,6 +2668,7 @@ class Map2{
                             AttackerName = "null";
                             break;
                     }
+
                 }
 
             }
@@ -2579,6 +2679,9 @@ class Map2{
             if(!slot1.isAlive()&&!slot2.isAlive()&&!slot3.isAlive()){
                 Standby=true;
                 battleEnd(1,canvas);
+            }
+            if(!player.isAlive() && !player2.isAlive() && !player3.isAlive()){
+                battleEnd(2,canvas);
             }
         }
         Point getLocation(int startX, int startY,int endX,int endY,int totalSteps, int currentStep){
@@ -2614,6 +2717,7 @@ class Map2{
             cont.offsetTo(getScreenWidth()-(getScreenWidth()/4)-10,getScreenHeight()-(getScreenWidth()/8)-10);
             switch(Condition){
                 case 0:
+                    transitionOut(15,canvas,"Map");
                     break;
                 case 1:
                     canvas.drawRect(0,0,getScreenWidth(),getScreenHeight(),blue);
@@ -2652,6 +2756,7 @@ class Map2{
                     }
                     break;
                 case 2:
+                    transitionOut(15,canvas,"Map");
                     break;
             }
         }
@@ -3240,6 +3345,71 @@ class Map2{
         }
     }
     class Skills{
+        class Skill{
+            String Type,Name,Image,Previous;
+            String[] Description;
+            int posX,posY,LevelRequirement,Damage;
+            Rect Button = new Rect();
+            boolean Unlocked = false;
+            Bitmap ButtonIMG;
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            Paint linePaint = new Paint();
+
+            Skill(String type,String name, String image, int x, int y, int levelrequire,String[] des, int dam,String prev){
+                Type = type;
+                Name = name;
+                posX = x;
+                posY = y;
+                LevelRequirement = levelrequire;
+                Description = des;
+                Damage = dam;
+                Previous = prev;
+                opt.inDither = false;
+                opt.inScaled = false;
+                Button.set(0,0,getScreenWidth()/12,getScreenWidth()/12);
+                Button.offsetTo(x*Button.width(),y*Button.height());
+                ButtonIMG = BitmapFactory.decodeResource(getContext().getResources(),	getContext().getResources().getIdentifier(image,"drawable",getContext().getPackageName()),opt);
+                ButtonIMG = Bitmap.createScaledBitmap(ButtonIMG,Button.width(),Button.height(),false);
+                linePaint.setColor(Color.BLACK);
+                linePaint.setStrokeWidth(2);
+            }
+
+            public String getType() {
+                return Type;
+            }
+            public String getName() {
+                return Name;
+            }
+            public String getImage() {
+                return Image;
+            }
+            public String getPrevious() {
+                return Previous;
+            }
+            public String[] getDescription() {
+                return Description;
+            }
+            public int getPosX() {
+                return posX;
+            }
+            public int getPosY() {
+                return posY;
+            }
+            public int getLevelRequirement() {
+                return LevelRequirement;
+            }
+            public int getDamage() {
+                return Damage;
+            }
+            public Rect getButton() {
+                return Button;
+            }
+            public Bitmap getButtonIMG(){return ButtonIMG;}
+            public boolean getUnlocked() {
+                return Unlocked;
+            }
+            public Paint getLinePaint(){return linePaint;}
+        }
         private Rect player1Skills = new Rect(0,0,getScreenWidth()/3,(getScreenWidth()/3)/3);
         private int spacer =  (int)(player1Skills.width()/7.6);
         private Rect player3Skills = new Rect(getScreenWidth()-(getScreenWidth()/3),0,getScreenWidth(),(getScreenWidth()/3)/3);
@@ -3257,15 +3427,34 @@ class Map2{
         public boolean setPos = true;
         private Point before = new Point();
         private Point present = new Point();
-        Skills(){
 
+        Paint BitPaint = new Paint();
+        private String skillSet = "Player";
+        HashMap<String,Skill> p1Skills = new HashMap<String,Skill>();
+        List<String> p1SkillNames = new ArrayList<String>();
+
+        Skills(){
+            BitPaint.setAntiAlias(false);
+            BitPaint.setDither(false);
+
+            p1Skills.put("fireLVL1", new Skill("Spell", "Fire Ball Lvl 1", "spell_fire", 4, 2, 1, new String[]{"Basic Fire Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP1"));
+            p1SkillNames.add("fireLVL1");
+            p1Skills.put("HP1",new Skill("HP","HP1","hp",2,2,1,new String[]{"Health Up"},20,"none"));
+            p1SkillNames.add("HP1");
+            p1Skills.put("HP2",new Skill("HP","HP2","hp",2,4,1,new String[]{"Health Up"},20,"HP1"));
+            p1SkillNames.add("HP2");
+            p1Skills.put("HP3",new Skill("HP","HP3","hp",4,4,1,new String[]{"Health Up"},22,"fireLVL1"));
+            p1SkillNames.add("HP3");
+            p1Skills.put("HP4",new Skill("HP","HP3","hp",6,2,1,new String[]{"Health Up"},22,"fireLVL1"));
+            p1SkillNames.add("HP4");
         }
 
         void draw(Canvas canvas){
+
             canvas.save();
             if(skillsArea.contains(touchX,touchY)){
                 if(touch){
-                    if (setPos) {
+                    if(setPos){
                         before.x = touchX;
                         before.y = touchY;
                         setPos = false;
@@ -3286,18 +3475,28 @@ class Map2{
                 }
             }
             canvas.translate(offsetXD, offsetYD);
+            //canvas.drawRect(100,100,200,200,blue);
 
-            canvas.drawRect(100,100,200,200,blue);
+            if(skillSet.equals("Player")){
+                for(int i = 0;i<p1SkillNames.size();i++){
+                    if(!p1Skills.get(p1SkillNames.get(i)).getPrevious().equals("none")){
+                        canvas.drawLine(p1Skills.get(p1SkillNames.get(i)).getButton().centerX(),p1Skills.get(p1SkillNames.get(i)).getButton().centerY(),p1Skills.get(p1Skills.get(p1SkillNames.get(i)).getPrevious()).getButton().centerX(),p1Skills.get(p1Skills.get(p1SkillNames.get(i)).getPrevious()).getButton().centerY(),p1Skills.get(p1SkillNames.get(i)).getLinePaint());
+                    }
+                }
+                for(int i = 0;i<p1SkillNames.size();i++){
+                    canvas.drawBitmap(p1Skills.get(p1SkillNames.get(i)).getButtonIMG(),p1Skills.get(p1SkillNames.get(i)).getButton().left,p1Skills.get(p1SkillNames.get(i)).getButton().top,BitPaint);
+                }
+            }
 
             canvas.restore();
             canvas.drawRect(player1Skills,red);
-            canvas.drawRect(player2Skills,red);
+            canvas.drawRect(player2Skills,blue);
             canvas.drawRect(player3Skills,red);
             canvas.drawRect(leftBar,black);
             canvas.drawRect(rightBar,black);
             canvas.drawRect(bottomBar,black);
             canvas.drawRect(infoArea,blue);
-            canvas.drawRect(Learn,blue);
+            canvas.drawRect(Learn,red);
             back.draw(canvas);
         }
     }
