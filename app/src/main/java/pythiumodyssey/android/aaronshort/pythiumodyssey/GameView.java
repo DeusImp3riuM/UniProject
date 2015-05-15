@@ -13,6 +13,7 @@ package pythiumodyssey.android.aaronshort.pythiumodyssey;
         import android.graphics.Canvas;
         import android.graphics.Color;
         import android.graphics.Paint;
+        import android.media.MediaPlayer;
         import android.util.Log;
         import android.util.LruCache;
         import android.view.Display;
@@ -27,7 +28,7 @@ package pythiumodyssey.android.aaronshort.pythiumodyssey;
 
 public class GameView extends View {
 
-    int mapSpeed = 10;
+    int mapSpeed = 3;
     Toast toast = Toast.makeText(getContext(),"Test",Toast.LENGTH_SHORT);
     HashMap<String,Spell> getSpell = new HashMap<String,Spell>();
     HashMap<String,Integer> TileAmount = new HashMap<String,Integer>();
@@ -255,27 +256,13 @@ public class GameView extends View {
 
     int currentS = 0;
     int Phas = 0;
+    MediaPlayer global = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("title","raw",getContext().getPackageName()));
+
 
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
-		/*
-		 *
-		 * recieve = GetClass.get("Base");
-		 * Print = Arrays.toString(recieve);
-		 * canvas.drawText(Print,100,100,black)
-		 *
-		 * canvas.drawText(""+testWep.getName(), 100, 100, black);
-		 * canvas.drawText(""+testWep.getHolder(), 100, 130, black);
-		 * canvas.drawText(""+testWep.getType(), 100, 160, black);
-		 * canvas.drawText(""+testWep.getRarity(), 100, 190, black);
-		 * canvas.drawText(""+testWep.getDamage(), 100, 210, black);
-		 * canvas.drawText(""+testWep.getSpellPower(), 100, 240, black);
-		 * canvas.drawText(""+testWep.getSpeed(), 100, 270, black);
-		 * canvas.drawText(""+testWep.getAttackSpeed(), 100, 300, black);
-		 * canvas.drawText(""+testWep.getDefence(), 100, 330, black);
-		 * canvas.drawText(""+testWep.getMagicDefence(), 100, 360, black);*/
-        if(load==false){load=true;player.setClass("Melee");player2.setClass("Range");player3.setClass("Range");}
+        if(load==false){load=true;player.setClass("Melee");player2.setClass("Range");player3.setClass("Range");global.setLooping(true);}
         if(State == "MainMenu"){
             back.draw(canvas);
             inventory.draw(canvas);
@@ -310,6 +297,7 @@ public class GameView extends View {
                     currentS++;
                     break;
                 case 1:
+                    global.start();
                     Rect back2 = new Rect(0, 0, getScreenWidth(), getScreenHeight());
                     Rect newGame = new Rect(0,0,250,100);
                     Paint backP2 = new Paint();
@@ -320,7 +308,11 @@ public class GameView extends View {
                     canvas.drawRect(back2, backP2);
                     canvas.drawRect(newGame, new2);
                     if(newGame.contains(touchX,touchY)){
+                        global.release();
                         State = "Map";
+                        global = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("map_back","raw",getContext().getPackageName()));
+                        global.setLooping(true);
+                        global.start();
                     }
                     break;
 
@@ -360,6 +352,10 @@ public class GameView extends View {
             if(isTrans == false && isTransIn == false){
                 if(controls.triggerBattle()){
                     goingTo = "Battle";
+                    global.release();
+                    global = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("battle","raw",getContext().getPackageName()));
+                    global.setLooping(true);
+                    global.start();
                     if(map.currentMap.equals("zone1") || map.currentMap.equals("zone2")){
                         battle = new Battle(zone12.get(rand.nextInt(zone12.size())),zone12.get(rand.nextInt(zone12.size())),zone12.get(rand.nextInt(zone12.size())));
                     }
@@ -1562,7 +1558,7 @@ class Map2{
         }
         void draw(Canvas canvas){
             drawPlayer.offsetTo(((sWidth/2)-drawPlayer.width()/2)-xOffset+px, ((sHeight/2)-drawPlayer.height()/2)-yOffset+py);
-            canvas.drawText(""+controls.chance, 0, 0, black);
+            //canvas.drawText(""+controls.chance, 0, 0, black);
             canvas.drawBitmap(getState(),drawPlayer.left,drawPlayer.top,playerpaint);
             //canvas.drawBitmap(imgArray[0][0],new Rect(0,0,imgArray[0][0].getWidth(),imgArray[0][0].getHeight()),drawPlayer,playerpaint);
             //canvas.drawRect(drawPlayer, playerpaint);
@@ -1655,6 +1651,8 @@ class Map2{
         private int slotCount;
         private int selected;
         private Paint selectedCol = new Paint();
+        private Paint green = new Paint();
+        private Paint white = new Paint();
         private int infoW,infoH,rowSpacing,colSpacing;
         private String[] tempArray = {"e",null,null,null,null,null,null,null,null,null};
         private DialogSelectionBox dsb = new DialogSelectionBox("test",tempArray,"none","none");
@@ -1667,7 +1665,7 @@ class Map2{
             slotOffset = 0;
             selected = -1;
             slotText.setColor(Color.BLACK);
-            slotText.setTextSize(getScreenWidth()/25);
+            slotText.setTextSize(getScreenWidth() / 25);
             space.set((int)(getScreenWidth()/33.33), (int)(getScreenHeight()/10.21), (int)(getScreenWidth()/1.15),(int)(getScreenHeight()/1.99));
             top.set(0,0,getScreenWidth(),space.top);
             down.set(0,space.bottom,getScreenWidth(),getScreenHeight());
@@ -1678,18 +1676,23 @@ class Map2{
             infoH = info.height();
             mup.set((int)(getScreenWidth()/1.14),(int)(getScreenHeight()/8.48),(int)(getScreenWidth()/1.01),(int)(getScreenHeight()/5.04));
             mdown.set(mup);
-            mdown.offsetTo(mup.left,(int)(getScreenHeight()/2.52));
+            mdown.offsetTo(mup.left, (int) (getScreenHeight() / 2.52));
             //int butSize = (int)(getScreenWidth()/1.14) - (int)(getScreenWidth()/1.01);
             equipt.set((int)(getScreenWidth()/1.14),(int)(getScreenHeight()/1.5),(int)(getScreenWidth()/1.01),info.top+(info.height()/2-10));
             unequipt.set(equipt);
-            unequipt.offset(0,equipt.height()+10);
-            wep.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+            unequipt.offset(0, equipt.height() + 10);
+            wep.set((getScreenWidth() / 4) + (offset * counter), (int) (getScreenHeight() / 100.41), (getScreenWidth() / 4) + (offset * counter) + tabSize, (int) (getScreenHeight() / 100.41) + tabSize);
             counter++;
             arm.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
             counter++;
-            acc.set((getScreenWidth()/4)+(offset*counter),(int)(getScreenHeight()/100.41),(getScreenWidth()/4)+(offset*counter)+tabSize,(int)(getScreenHeight()/100.41)+tabSize);
+            acc.set((getScreenWidth() / 4) + (offset * counter), (int) (getScreenHeight() / 100.41), (getScreenWidth() / 4) + (offset * counter) + tabSize, (int) (getScreenHeight() / 100.41) + tabSize);
             slot.put("0", new Weapon("Hands", " ", " ", 1, 1, 1, 1, 1, 1, 1, "None", "None", "None", "None"));
-
+            slot.put("1", new Weapon("rand", "LongSword", "Swordsman", 1, 0, 0, 0, 0, 0, 0, "None", "None", "None", "None"));
+            slot.put("2", new Weapon("rand","LongBow","Ranger",1,0,0,0,0,0,0,"None","None","None","None"));
+            slot.put("3", new Weapon("rand", "Staff", "Mage", 1, 0, 0, 0, 0, 0, 0, "None", "None", "None", "None"));
+            //player.equipWeapon(slot.get("1"));
+            //player2.equipWeapon(slot.get("2"));
+            //player3.equipWeapon(slot.get("3"));
             slotA.put("0", new Armour("Chest Plate of Fire", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
             slotA.put("1", new Armour("Chest Plate of Ice", "rand", "rand", 10, 0, 50, 10, 40, 40, 32, "None", "None", "None", "None"));
 
@@ -1698,6 +1701,8 @@ class Map2{
             slotSize.set(space.left, space.top, space.right, getScreenHeight() / 6);
             slotHeight = getScreenHeight()/6;
             slotHeight -= space.top;
+            green.setColor(Color.GREEN);
+            white.setColor(Color.WHITE);
         }
         void draw(Canvas canvas){
             canvas.drawRect(space,blue);
@@ -1719,6 +1724,8 @@ class Map2{
                     slotCount = f;
                     allSlots.put("" + f, rtemp);
                     if(temp == player.personalWep){canvas.drawRect(slotTemp.right-slotTemp.height(),slotTemp.top,slotTemp.right,slotTemp.bottom,black);}
+                    if(temp == player2.personalWep){canvas.drawRect(slotTemp.right-slotTemp.height(),slotTemp.top,slotTemp.right,slotTemp.bottom,green);}
+                    if(temp == player3.personalWep){canvas.drawRect(slotTemp.right-slotTemp.height(),slotTemp.top,slotTemp.right,slotTemp.bottom,white);}
                 }
             } else if (Displaying.equals("Armour")) {
                 for (f = 0; slotA.get(Integer.toString(f)) != null; f++) {
@@ -2176,6 +2183,7 @@ class Map2{
         BitmapFactory.Options opt = new BitmapFactory.Options();
         Paint BitPaint = new Paint();
         Enemy attackingUnit;
+        PlayerCharacter atackingPlayer;
 
         Battle(String a, String b, String c){
             Player1Spells = player.getSpellList();
@@ -2587,7 +2595,7 @@ class Map2{
 
             }
             //-------------------
-            if(!castSpell.completed() && !castSpell.Name.equals("none")){
+            if(!castSpell.completed() && !castSpell.Name.equals("empty")){
                 castSpell.draw(canvas);
             }
             if(canAttack && isAttacking){
@@ -2621,9 +2629,9 @@ class Map2{
                                 canvas.drawBitmap(bit1[2],battleSequence.get("Attacker").left,battleSequence.get("Attacker").top,BitPaint);
                             }
                             if(currentStep == 15){
-                                if(Attacking.equals("slot1")){slot1.applyDamage(5);}
-                                else if(Attacking.equals("slot2")){slot2.applyDamage(5);}
-                                else if(Attacking.equals("slot3")){slot3.applyDamage(5);}
+                                if(Attacking.equals("slot1")){slot1.applyDamage(player.personalWep.Dmg+player.SpellPower);}
+                                else if(Attacking.equals("slot2")){slot2.applyDamage(player.personalWep.Dmg+player.SpellPower);}
+                                else if(Attacking.equals("slot3")){slot3.applyDamage(player.personalWep.Dmg+player.SpellPower);}
                             }
                             if(currentStep == 25){Phase++;currentStep = -1;}
                             currentStep++;
@@ -2739,6 +2747,10 @@ class Map2{
             switch(Condition){
                 case 0:
                     transitionOut(15,canvas,"Map");
+                    global.release();
+                    global = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("map_back","raw",getContext().getPackageName()));
+                    global.setLooping(true);
+                    global.start();
                     break;
                 case 1:
                     canvas.drawRect(0,0,getScreenWidth(),getScreenHeight(),blue);
@@ -2749,6 +2761,10 @@ class Map2{
                     //canvas.drawRect(ExpBox3,expSlot);
 
                     if(giveExp){
+                        int chance = rand.nextInt(100)+1;
+                        if(chance < 3) {
+                            inv.addWeapon(new Weapon("rand", "rand", "rand", 0, 0, 0, 0, 0, 0, 0, "none", "none", "none", "none"));
+                        }
                         giveExp = false;
 
                     }
@@ -2761,7 +2777,6 @@ class Map2{
                                 giveExpDisplay = false;
                             }
                             t++;
-
                         }
                     }
                     canvas.drawText("Player 1 - " +player.Experience + "/" + player.nextLevel + "..." + player.Level,ExpBox1.left+20,ExpBox1.top+20,black);
@@ -2774,10 +2789,18 @@ class Map2{
                     }
                     if(send){
                         transitionOut(15,canvas,"Map");
+                        global.release();
+                        global = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("map_back","raw",getContext().getPackageName()));
+                        global.setLooping(true);
+                        global.start();
                     }
                     break;
                 case 2:
                     transitionOut(15,canvas,"Map");
+                    global.release();
+                    global = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("map_back","raw",getContext().getPackageName()));
+                    global.setLooping(true);
+                    global.start();
                     break;
             }
         }
@@ -2895,6 +2918,10 @@ class Map2{
         private int pre,during,post,preC,postC;
         private Enemy Target = null;
         private PlayerCharacter User;
+        private Bitmap effect;
+        private Paint filter = new Paint();
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        MediaPlayer soundeffect;
 
         CastSpell(String name,int total,Point from,Point to,Enemy target,PlayerCharacter user){
             setSpells();
@@ -2915,6 +2942,12 @@ class Map2{
             preC = 0;
             postC = 0;
             Target = target;
+            opt.inDither = false;
+            opt.inScaled = false;
+            filter.setAntiAlias(false);
+            filter.setDither(true);
+            effect = BitmapFactory.decodeResource(getContext().getResources(), getContext().getResources().getIdentifier(spell.Name, "drawable", getContext().getPackageName()), opt);
+            if(spell.Name == "none"){}else{effect = Bitmap.createScaledBitmap(effect, spellBox.height(), spellBox.height(), false);}
         }
         boolean completed(){
             return spellComplete;
@@ -2926,22 +2959,40 @@ class Map2{
                 if(spell.Type.equals("Projectile")){
                     switch(Phase){
                         case 0:
+                            if(preC == 0){
+                                soundeffect = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("cast"+(rand.nextInt(10)+1),"raw",getContext().getPackageName()));
+                                soundeffect.start();
+                            }
                             if(preC == pre) {
                                 Phase++;
+                                soundeffect.release();
                             }
                             else {
                                 preC++;
                             }
                             break;
                         case 1:
+                            if(current == 0){
+                                soundeffect = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("travel"+(rand.nextInt(7)+1),"raw",getContext().getPackageName()));
+                                soundeffect.start();
+                            }
+                            else if(current == during){
+                                soundeffect.release();
+                            }
                             spellLoc = getLocation(From.x, From.y, To.x, To.y, during, current);
-                            spellBox.offsetTo(spellLoc[0]-(spellBox.width()/2), spellLoc[1]-(spellBox.height()/2));
-                            canvas.drawRect(spellBox, red);
+                            spellBox.offsetTo(spellLoc[0] - (spellBox.width() / 2), spellLoc[1] - (spellBox.height() / 2));
+                            //canvas.drawRect(spellBox, red);
+                            canvas.drawBitmap(effect,spellBox.left,spellBox.top,filter);
                             current++;
                             break;
                         case 2:
+                            if(postC == 0){
+                                soundeffect = MediaPlayer.create(getContext(),getContext().getResources().getIdentifier("impact"+(rand.nextInt(10)+1),"raw",getContext().getPackageName()));
+                                soundeffect.start();
+                            }
                             if(postC == post) {
                                 Phase++;
+                                soundeffect.release();
                                 if(Target == battle.slot1){
                                     battle.slot1.applyDamage(spell.getDmg()+User.SpellPower);
                                 }
@@ -2983,8 +3034,51 @@ class Map2{
             }
         }
         void setSpells(){
-            getSpell.put("FireBall Lvl 1", new Spell("FireBall Lvl 1", 100, 100, 5,"Projectile",25,25,25));
-            getSpell.put("FireBall Lvl 2", new Spell("FireBall Lvl 2", 100, 100, 40,"Projectile",25,25,25));
+            getSpell.put("FireBall Lvl 1", new Spell("fire1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("FireBall Lvl 2", new Spell("fire2", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Rock Lvl 1", new Spell("rock1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Rock Slam Lvl 2", new Spell("rock2", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Wind Lvl 1", new Spell("wind1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Wind Lvl 2", new Spell("wind2", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Dark Impact Lvl 1", new Spell("dark1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Dark Impact Lvl 2", new Spell("dark2", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Lightning Lvl 1", new Spell("lightning1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Lightning Shock Lvl 2", new Spell("lightning2", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Water Strike Lvl 1", new Spell("water1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Water Lvl 2", new Spell("water2", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Light Impact Lvl 1", new Spell("light1", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Light Impact Lvl 2", new Spell("light2", 200, 200, 40,"Projectile",25,25,25));
+
+            getSpell.put("Fire Slash Lvl 1", new Spell("mfire", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Fire Swipe Lvl 2", new Spell("mfire", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Water Slash Lvl 1", new Spell("mwater", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Water Swipe Lvl 2", new Spell("mwater", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Rock Slash Lvl 1", new Spell("mrock", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Rock Swipe Lvl 2", new Spell("mrock", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Wind Slash Lvl 1", new Spell("mwind", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Wind Swipe Lvl 2", new Spell("mwind", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Lightning Slash Lvl 1", new Spell("mlightning", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Lightning Swipe Lvl 2", new Spell("mlightning", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Light Slash Lvl 1", new Spell("mlight", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Light Swipe Lvl 2", new Spell("mlight", 200, 200, 40,"Projectile",25,25,25));
+            getSpell.put("Dark Slash Lvl 1", new Spell("mdark", 100, 100, 5,"Projectile",25,25,25));
+            getSpell.put("Dark Swipe Lvl 2", new Spell("mdark", 200, 200, 40,"Projectile",25,25,25));
+
+            getSpell.put("Fire Arrow Lvl 1", new Spell("afire", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Fire Snipe Lvl 2", new Spell("afire", 200, 200, 40,"Projectile",25,10,25));
+            getSpell.put("Water Arrow Lvl 1", new Spell("awater", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Water Snipe Lvl 2", new Spell("awater", 200, 200, 40,"Projectile",25,10,25));
+            getSpell.put("Rock Arrow Lvl 1", new Spell("arock", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Rock Snipe Lvl 2", new Spell("arock", 200, 200, 40,"Projectile",25,10,25));
+            getSpell.put("Wind Arrow Lvl 1", new Spell("awind", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Wind Snipe Lvl 2", new Spell("awind", 200, 200, 40,"Projectile",25,10,25));
+            getSpell.put("Lightning Arrow Lvl 1", new Spell("alightning", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Lightning Snipe Lvl 2", new Spell("alightning", 200, 200, 40,"Projectile",25,10,25));
+            getSpell.put("Light Arrow Lvl 1", new Spell("alight", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Light Snipe Lvl 2", new Spell("alight", 200, 200, 40,"Projectile",25,10,25));
+            getSpell.put("Dark Arrow Lvl 1", new Spell("adark", 100, 100, 5,"Projectile",25,10,25));
+            getSpell.put("Dark Snipe Lvl 2", new Spell("adark", 200, 200, 40,"Projectile",25,10,25));
+
             getSpell.put("none",new Spell("none",100,100,10,"Blank",0,0,0));
         }
         int[] getLocation(int startX, int startY,int endX,int endY,int totalSteps, int currentStep){
@@ -3667,33 +3761,33 @@ class Map2{
             back.draw(canvas);
         }
         void setPlayer1Skills(){
-            p1Skills.put("fireLVL1", new Skill("Spell", "FireBall Lvl 1", "spell_fire", 4, 2, 1, new String[]{"Basic Fire Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP1"));
+            p1Skills.put("fireLVL1", new Skill("Spell", "Fire Slash Lvl 1", "mfire", 4, 2, 1, new String[]{"Basic Fire Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP1"));
             p1SkillNames.add("fireLVL1");
-            p1Skills.put("Spell7",new Skill("SpellPower","Spell7","spell",4,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"fireLVL1"));
-            p1SkillNames.add("Spell7");
-            p1Skills.put("Spell10",new Skill("SpellPower","Spell10","spell",6,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell7"));
+            p1Skills.put("Str7",new Skill("SpellPower","Str7","strength",4,4,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"fireLVL1"));
+            p1SkillNames.add("Str7");
+            p1Skills.put("Spell10",new Skill("SpellPower","Spell10","strength",6,4,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"Str7"));
             p1SkillNames.add("Spell10");
-            p1Skills.put("lightningLVL1", new Skill("Spell", "Lightning Lvl 1", "spell_lightning", 8, 4, 1, new String[]{"Basic Lightning Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell10"));
+            p1Skills.put("lightningLVL1", new Skill("Spell", "Lightning Slash Lvl 1", "mlightning", 8, 4, 1, new String[]{"Basic Lightning Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell10"));
             p1SkillNames.add("lightningLVL1");
             p1Skills.put("HP10",new Skill("HP","HP10","hp",8,2,1,new String[]{"Health Up","Increases max health by: 22"},22,"lightningLVL1"));
             p1SkillNames.add("HP10");
-            p1Skills.put("Spell11",new Skill("SpellPower","Spell11","spell",10,2,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP10"));
+            p1Skills.put("Spell11",new Skill("SpellPower","Spell11","strength",10,2,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP10"));
             p1SkillNames.add("Spell11");
             p1Skills.put("HP11",new Skill("HP","HP11","hp",10,4,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell11"));
             p1SkillNames.add("HP11");
             p1Skills.put("HP12",new Skill("HP","HP12","hp",10,6,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP11"));
             p1SkillNames.add("HP12");
-            p1Skills.put("HP9",new Skill("HP","HP9","hp",4,6,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell7"));
+            p1Skills.put("HP9",new Skill("HP","HP9","hp",4,6,1,new String[]{"Health Up","Increases max health by: 22"},22,"Str7"));
             p1SkillNames.add("HP9");
             p1Skills.put("HP13",new Skill("HP","HP13","hp",6,6,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP9"));
             p1SkillNames.add("HP13");
-            p1Skills.put("rockLVL1", new Skill("Spell", "Rock Lvl 1", "spell_rock", 8, 6, 1, new String[]{"Basic Rock Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
+            p1Skills.put("rockLVL1", new Skill("Spell", "Rock Slash Lvl 1", "mrock", 8, 6, 1, new String[]{"Basic Rock Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
             p1SkillNames.add("rockLVL1");
-            p1Skills.put("windLVL1", new Skill("Spell", "Wind Lvl 1", "spell_wind", 6, 8, 1, new String[]{"Basic Wind Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
+            p1Skills.put("windLVL1", new Skill("Spell", "Wind Slash Lvl 1", "mwind", 6, 8, 1, new String[]{"Basic Wind Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
             p1SkillNames.add("windLVL1");
-            p1Skills.put("Spell12",new Skill("SpellPower","Spell12","spell",8,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"windLVL1"));
+            p1Skills.put("Spell12",new Skill("SpellPower","Spell12","strength",8,8,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"windLVL1"));
             p1SkillNames.add("Spell12");
-            p1Skills.put("Spell13",new Skill("SpellPower","Spell13","spell",10,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell12"));
+            p1Skills.put("Spell13",new Skill("SpellPower","Spell13","strength",10,8,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"Spell12"));
             p1SkillNames.add("Spell13");
             p1Skills.put("HP14",new Skill("HP","HP14","hp",12,8,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell13"));
             p1SkillNames.add("HP14");
@@ -3701,29 +3795,29 @@ class Map2{
             p1SkillNames.add("HP15");
             p1Skills.put("HP16",new Skill("HP","HP16","hp",12,10,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP14"));
             p1SkillNames.add("HP16");
-            p1Skills.put("darkLVL2", new Skill("Spell", "Dark Impact Lvl 2", "spell_dark", 14, 10, 1, new String[]{"Advance Dark Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP16"));
+            p1Skills.put("darkLVL2", new Skill("Spell", "Dark Swipe Lvl 2", "mdark", 14, 10, 1, new String[]{"Advance Dark Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP16"));
             p1SkillNames.add("darkLVL2");
-            p1Skills.put("windLVL2", new Skill("Spell", "Wind Slash Lvl 2", "spell_wind", 14, 6, 1, new String[]{"Advance Wind Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP15"));
+            p1Skills.put("windLVL2", new Skill("Spell", "Wind Swipe Lvl 2", "mwind", 14, 6, 1, new String[]{"Advance Wind Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP15"));
             p1SkillNames.add("windLVL2");
-            p1Skills.put("Spell15",new Skill("SpellPower","Spell15","spell",12,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP15"));
+            p1Skills.put("Spell15",new Skill("SpellPower","Spell15","strength",12,4,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP15"));
             p1SkillNames.add("Spell15");
-            p1Skills.put("Spell18",new Skill("SpellPower","Spell18","spell",14,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell15"));
+            p1Skills.put("Spell18",new Skill("SpellPower","Spell18","spell",14,4,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"Spell15"));
             p1SkillNames.add("Spell18");
-            p1Skills.put("rockLVL2", new Skill("Spell", "Rock Slam Lvl 2", "spell_rock", 16, 4, 1, new String[]{"Advance Rock Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell18"));
+            p1Skills.put("rockLVL2", new Skill("Spell", "Rock Swipe Lvl 2", "mrock", 16, 4, 1, new String[]{"Advance Rock Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell18"));
             p1SkillNames.add("rockLVL2");
-            p1Skills.put("lightningLVL2", new Skill("Spell", "Lightning Shock Lvl 2", "spell_lightning", 12, 2, 1, new String[]{"Advance Lightning Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell15"));
+            p1Skills.put("lightningLVL2", new Skill("Spell", "Lightning Swipe Lvl 2", "mlightning", 12, 2, 1, new String[]{"Advance Lightning Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell15"));
             p1SkillNames.add("lightningLVL2");
-            p1Skills.put("Spell16",new Skill("SpellPower","Spell14","spell",12,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP16"));
+            p1Skills.put("Spell16",new Skill("SpellPower","Spell14","strength",12,12,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP16"));
             p1SkillNames.add("Spell16");
-            p1Skills.put("waterLVL2", new Skill("Spell", "Water Lvl 2", "spell_water", 12, 14, 1, new String[]{"Advance Water Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell16"));
+            p1Skills.put("waterLVL2", new Skill("Spell", "Water Swipe Lvl 2", "mwater", 12, 14, 1, new String[]{"Advance Water Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell16"));
             p1SkillNames.add("waterLVL2");
-            p1Skills.put("Spell17",new Skill("SpellPower","Spell17","spell",14,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell16"));
+            p1Skills.put("Spell17",new Skill("SpellPower","Spell17","strength",14,12,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"Spell16"));
             p1SkillNames.add("Spell17");
-            p1Skills.put("lightLVL2", new Skill("Spell", "Light Impact Lvl 2", "spell_light", 16, 12, 1, new String[]{"Advance Water Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell17"));
+            p1Skills.put("lightLVL2", new Skill("Spell", "Light Swipe Lvl 2", "mlight", 16, 12, 1, new String[]{"Advance Water Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell17"));
             p1SkillNames.add("lightLVL2");
-            p1Skills.put("Spell14",new Skill("SpellPower","Spell14","spell",14,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP14"));
+            p1Skills.put("Spell14",new Skill("SpellPower","Spell14","strength",14,8,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP14"));
             p1SkillNames.add("Spell14");
-            p1Skills.put("fireLVL2", new Skill("Spell", "FireBall Lvl 2", "spell_fire", 16, 8, 1, new String[]{"Advance Fire Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell14"));
+            p1Skills.put("fireLVL2", new Skill("Spell", "Fire Swipe Lvl 2", "mfire", 16, 8, 1, new String[]{"Advance Fire Skill", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell14"));
             p1SkillNames.add("fireLVL2");
             p1Skills.put("HP17",new Skill("HP","HP17","hp",6,10,1,new String[]{"Health Up","Increases max health by: 22"},22,"windLVL1"));
             p1SkillNames.add("HP17");
@@ -3731,19 +3825,19 @@ class Map2{
             p1SkillNames.add("HP18");
             p1Skills.put("HP19",new Skill("HP","HP19","hp",10,10,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP18"));
             p1SkillNames.add("HP19");
-            p1Skills.put("Spell8",new Skill("SpellPower","Spell8","spell",4,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP9"));
+            p1Skills.put("Spell8",new Skill("SpellPower","Spell8","strength",4,8,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP9"));
             p1SkillNames.add("Spell8");
-            p1Skills.put("Spell9",new Skill("SpellPower","Spell9","spell",4,10,1,new String[]{"Spell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Power","Increases spell power by: 5"},5,"Spell8"));
+            p1Skills.put("Spell9",new Skill("SpellPower","Spell9","strength",4,10,1,new String[]{"Spell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Power","Increases spell power by: 5"},5,"Spell8"));
             p1SkillNames.add("Spell9");
             p1Skills.put("HP1",new Skill("HP","HP1","hp",2,2,1,new String[]{"Health Up","Increases max health by: 20"},20,"none"));
             p1SkillNames.add("HP1");
             p1Skills.put("HP2",new Skill("HP","HP2","hp",2,4,1,new String[]{"Health Up","Increases max health by: 20"},20,"HP1"));
             p1SkillNames.add("HP2");
-            p1Skills.put("Spell2",new Skill("SpellPower","Spell2","spell",2,6,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP2"));
+            p1Skills.put("Spell2",new Skill("SpellPower","Spell2","strength",2,6,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP2"));
             p1SkillNames.add("Spell2");
-            p1Skills.put("waterLVL1", new Skill("Spell", "Water Strike Lvl 1", "spell_water", 2, 8, 1, new String[]{"Basic Water Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell2"));
+            p1Skills.put("waterLVL1", new Skill("Spell", "Water Slash Lvl 1", "mwater", 2, 8, 1, new String[]{"Basic Water Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell2"));
             p1SkillNames.add("waterLVL1");
-            p1Skills.put("Spell3",new Skill("SpellPower","Spell3","spell",2,10,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP2"));
+            p1Skills.put("Spell3",new Skill("SpellPower","Spell3","strength",2,10,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP2"));
             p1SkillNames.add("Spell3");
             p1Skills.put("HP4",new Skill("HP","HP4","hp",2,12,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell3"));
             p1SkillNames.add("HP4");
@@ -3755,31 +3849,31 @@ class Map2{
             p1SkillNames.add("HP7");
             p1Skills.put("HP8",new Skill("HP","HP8","hp",8,12,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP7"));
             p1SkillNames.add("HP8");
-            p1Skills.put("Spell4",new Skill("SpellPower","Spell4","spell",10,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP8"));
+            p1Skills.put("Spell4",new Skill("SpellPower","Spell4","strength",10,12,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP8"));
             p1SkillNames.add("Spell4");
-            p1Skills.put("Spell5",new Skill("SpellPower","Spell5","spell",6,14,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP7"));
+            p1Skills.put("Spell5",new Skill("SpellPower","Spell5","strength",6,14,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"HP7"));
             p1SkillNames.add("Spell5");
-            p1Skills.put("Spell6",new Skill("SpellPower","Spell6","spell",10,14,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell4"));
+            p1Skills.put("Spell6",new Skill("SpellPower","Spell6","strength",10,14,1,new String[]{"Strength Boost","Increases strength by: 5"},5,"Spell4"));
             p1SkillNames.add("Spell6");
-            p1Skills.put("darkLVL1", new Skill("Spell", "Dark Impact Lvl 1", "spell_dark", 4, 14, 1, new String[]{"Basic Dark Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
+            p1Skills.put("darkLVL1", new Skill("Spell", "Dark Slash Lvl 1", "mdark", 4, 14, 1, new String[]{"Basic Dark Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
             p1SkillNames.add("darkLVL1");
-            p1Skills.put("lightLVL1", new Skill("Spell", "Light Impact Lvl 1", "spell_light", 8, 14, 1, new String[]{"Basic Light Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
+            p1Skills.put("lightLVL1", new Skill("Spell", "Light Slash Lvl 1", "mlight", 8, 14, 1, new String[]{"Basic Light Skill", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
             p1SkillNames.add("lightLVL1");
             p1Skills.put("HP3",new Skill("HP","HP3","hp",6,2,1,new String[]{"Health Up","Increases max health by: 22"},22,"fireLVL1"));
             p1SkillNames.add("HP3");
         }
         void setPlayer2Skills(){
-            p2Skills.put("fireLVL1", new Skill("Spell", "FireBall Lvl 1", "spell_fire", 4, 2, 1, new String[]{"Basic Fire Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP1"));
+            p2Skills.put("fireLVL1", new Skill("Spell", "Fire Arrow Lvl 1", "afire", 4, 2, 1, new String[]{"Basic Fire Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP1"));
             p2SkillNames.add("fireLVL1");
-            p2Skills.put("Spell7",new Skill("SpellPower","Spell7","spell",4,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"fireLVL1"));
+            p2Skills.put("Spell7",new Skill("SpellPower","Spell7","strength",4,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"fireLVL1"));
             p2SkillNames.add("Spell7");
-            p2Skills.put("Spell10",new Skill("SpellPower","Spell10","spell",6,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell7"));
+            p2Skills.put("Spell10",new Skill("SpellPower","Spell10","strength",6,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell7"));
             p2SkillNames.add("Spell10");
-            p2Skills.put("lightningLVL1", new Skill("Spell", "Lightning Lvl 1", "spell_lightning", 8, 4, 1, new String[]{"Basic Lightning Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell10"));
+            p2Skills.put("lightningLVL1", new Skill("strength", "Lightning Arrow Lvl 1", "alightning", 8, 4, 1, new String[]{"Basic Lightning Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell10"));
             p2SkillNames.add("lightningLVL1");
             p2Skills.put("HP10",new Skill("HP","HP10","hp",8,2,1,new String[]{"Health Up","Increases max health by: 22"},22,"lightningLVL1"));
             p2SkillNames.add("HP10");
-            p2Skills.put("Spell11",new Skill("SpellPower","Spell11","spell",10,2,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP10"));
+            p2Skills.put("Spell11",new Skill("SpellPower","Spell11","strength",10,2,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP10"));
             p2SkillNames.add("Spell11");
             p2Skills.put("HP11",new Skill("HP","HP11","hp",10,4,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell11"));
             p2SkillNames.add("HP11");
@@ -3789,13 +3883,13 @@ class Map2{
             p2SkillNames.add("HP9");
             p2Skills.put("HP13",new Skill("HP","HP13","hp",6,6,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP9"));
             p2SkillNames.add("HP13");
-            p2Skills.put("rockLVL1", new Skill("Spell", "Rock Lvl 1", "spell_rock", 8, 6, 1, new String[]{"Basic Rock Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
+            p2Skills.put("rockLVL1", new Skill("Spell", "Rock Arrow Lvl 1", "arock", 8, 6, 1, new String[]{"Basic Rock Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
             p2SkillNames.add("rockLVL1");
-            p2Skills.put("windLVL1", new Skill("Spell", "Wind Lvl 1", "spell_wind", 6, 8, 1, new String[]{"Basic Wind Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
+            p2Skills.put("windLVL1", new Skill("Spell", "Wind Arrow Lvl 1", "awind", 6, 8, 1, new String[]{"Basic Wind Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "HP13"));
             p2SkillNames.add("windLVL1");
-            p2Skills.put("Spell12",new Skill("SpellPower","Spell12","spell",8,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"windLVL1"));
+            p2Skills.put("Spell12",new Skill("SpellPower","Spell12","strength",8,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"windLVL1"));
             p2SkillNames.add("Spell12");
-            p2Skills.put("Spell13",new Skill("SpellPower","Spell13","spell",10,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell12"));
+            p2Skills.put("Spell13",new Skill("SpellPower","Spell13","strength",10,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell12"));
             p2SkillNames.add("Spell13");
             p2Skills.put("HP14",new Skill("HP","HP14","hp",12,8,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell13"));
             p2SkillNames.add("HP14");
@@ -3803,29 +3897,29 @@ class Map2{
             p2SkillNames.add("HP15");
             p2Skills.put("HP16",new Skill("HP","HP16","hp",12,10,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP14"));
             p2SkillNames.add("HP16");
-            p2Skills.put("darkLVL2", new Skill("Spell", "Dark Impact Lvl 2", "spell_dark", 14, 10, 1, new String[]{"Advance Dark Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP16"));
+            p2Skills.put("darkLVL2", new Skill("Spell", "Dark Snipe Lvl 2", "adark", 14, 10, 1, new String[]{"Advance Dark Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP16"));
             p2SkillNames.add("darkLVL2");
-            p2Skills.put("windLVL2", new Skill("Spell", "Wind Slash Lvl 2", "spell_wind", 14, 6, 1, new String[]{"Advance Wind Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP15"));
+            p2Skills.put("windLVL2", new Skill("Spell", "Wind Snipe Lvl 2", "awind", 14, 6, 1, new String[]{"Advance Wind Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "HP15"));
             p2SkillNames.add("windLVL2");
-            p2Skills.put("Spell15",new Skill("SpellPower","Spell15","spell",12,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP15"));
+            p2Skills.put("Spell15",new Skill("SpellPower","Spell15","strength",12,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP15"));
             p2SkillNames.add("Spell15");
-            p2Skills.put("Spell18",new Skill("SpellPower","Spell18","spell",14,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell15"));
+            p2Skills.put("Spell18",new Skill("SpellPower","Spell18","strength",14,4,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell15"));
             p2SkillNames.add("Spell18");
-            p2Skills.put("rockLVL2", new Skill("Spell", "Rock Slam Lvl 2", "spell_rock", 16, 4, 1, new String[]{"Advance Rock Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell18"));
+            p2Skills.put("rockLVL2", new Skill("Spell", "Rock Snipe Lvl 2", "arock", 16, 4, 1, new String[]{"Advance Rock Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell18"));
             p2SkillNames.add("rockLVL2");
-            p2Skills.put("lightningLVL2", new Skill("Spell", "Lightning Shock Lvl 2", "spell_lightning", 12, 2, 1, new String[]{"Advance Lightning Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell15"));
+            p2Skills.put("lightningLVL2", new Skill("Spell", "Lightning Snipe Lvl 2", "alightning", 12, 2, 1, new String[]{"Advance Lightning Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell15"));
             p2SkillNames.add("lightningLVL2");
-            p2Skills.put("Spell16",new Skill("SpellPower","Spell14","spell",12,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP16"));
+            p2Skills.put("Spell16",new Skill("SpellPower","Spell14","strength",12,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP16"));
             p2SkillNames.add("Spell16");
-            p2Skills.put("waterLVL2", new Skill("Spell", "Water Lvl 2", "spell_water", 12, 14, 1, new String[]{"Advance Water Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell16"));
+            p2Skills.put("waterLVL2", new Skill("Spell", "Water Snipe Lvl 2", "awater", 12, 14, 1, new String[]{"Advance Water Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell16"));
             p2SkillNames.add("waterLVL2");
-            p2Skills.put("Spell17",new Skill("SpellPower","Spell17","spell",14,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell16"));
+            p2Skills.put("Spell17",new Skill("SpellPower","Spell17","strength",14,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell16"));
             p2SkillNames.add("Spell17");
-            p2Skills.put("lightLVL2", new Skill("Spell", "Light Impact Lvl 2", "spell_light", 16, 12, 1, new String[]{"Advance Water Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell17"));
+            p2Skills.put("lightLVL2", new Skill("Spell", "Light Snipe Lvl 2", "alight", 16, 12, 1, new String[]{"Advance Water Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell17"));
             p2SkillNames.add("lightLVL2");
-            p2Skills.put("Spell14",new Skill("SpellPower","Spell14","spell",14,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP14"));
+            p2Skills.put("Spell14",new Skill("SpellPower","Spell14","strength",14,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP14"));
             p2SkillNames.add("Spell14");
-            p2Skills.put("fireLVL2", new Skill("Spell", "FireBall Lvl 2", "spell_fire", 16, 8, 1, new String[]{"Advance Fire Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell14"));
+            p2Skills.put("fireLVL2", new Skill("Spell", "Fire Snipe Lvl 2", "afire", 16, 8, 1, new String[]{"Advance Fire Spell", "High Damage", "Level: 2", "Base Damage: 40"}, 40, "Spell14"));
             p2SkillNames.add("fireLVL2");
             p2Skills.put("HP17",new Skill("HP","HP17","hp",6,10,1,new String[]{"Health Up","Increases max health by: 22"},22,"windLVL1"));
             p2SkillNames.add("HP17");
@@ -3833,19 +3927,19 @@ class Map2{
             p2SkillNames.add("HP18");
             p2Skills.put("HP19",new Skill("HP","HP19","hp",10,10,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP18"));
             p2SkillNames.add("HP19");
-            p2Skills.put("Spell8",new Skill("SpellPower","Spell8","spell",4,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP9"));
+            p2Skills.put("Spell8",new Skill("SpellPower","Spell8","strength",4,8,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP9"));
             p2SkillNames.add("Spell8");
-            p2Skills.put("Spell9",new Skill("SpellPower","Spell9","spell",4,10,1,new String[]{"Spell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Power","Increases spell power by: 5"},5,"Spell8"));
+            p2Skills.put("Spell9",new Skill("SpellPower","Spell9","strength",4,10,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell8"));
             p2SkillNames.add("Spell9");
             p2Skills.put("HP1",new Skill("HP","HP1","hp",2,2,1,new String[]{"Health Up","Increases max health by: 20"},20,"none"));
             p2SkillNames.add("HP1");
             p2Skills.put("HP2",new Skill("HP","HP2","hp",2,4,1,new String[]{"Health Up","Increases max health by: 20"},20,"HP1"));
             p2SkillNames.add("HP2");
-            p2Skills.put("Spell2",new Skill("SpellPower","Spell2","spell",2,6,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP2"));
+            p2Skills.put("Spell2",new Skill("SpellPower","Spell2","strength",2,6,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP2"));
             p2SkillNames.add("Spell2");
-            p2Skills.put("waterLVL1", new Skill("Spell", "Water Strike Lvl 1", "spell_water", 2, 8, 1, new String[]{"Basic Water Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell2"));
+            p2Skills.put("waterLVL1", new Skill("Spell", "Water Arrow Lvl 1", "awater", 2, 8, 1, new String[]{"Basic Water Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell2"));
             p2SkillNames.add("waterLVL1");
-            p2Skills.put("Spell3",new Skill("SpellPower","Spell3","spell",2,10,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP2"));
+            p2Skills.put("Spell3",new Skill("SpellPower","Spell3","strength",2,10,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP2"));
             p2SkillNames.add("Spell3");
             p2Skills.put("HP4",new Skill("HP","HP4","hp",2,12,1,new String[]{"Health Up","Increases max health by: 22"},22,"Spell3"));
             p2SkillNames.add("HP4");
@@ -3857,15 +3951,15 @@ class Map2{
             p2SkillNames.add("HP7");
             p2Skills.put("HP8",new Skill("HP","HP8","hp",8,12,1,new String[]{"Health Up","Increases max health by: 22"},22,"HP7"));
             p2SkillNames.add("HP8");
-            p2Skills.put("Spell4",new Skill("SpellPower","Spell4","spell",10,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP8"));
+            p2Skills.put("Spell4",new Skill("SpellPower","Spell4","strength",10,12,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP8"));
             p2SkillNames.add("Spell4");
-            p2Skills.put("Spell5",new Skill("SpellPower","Spell5","spell",6,14,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP7"));
+            p2Skills.put("Spell5",new Skill("SpellPower","Spell5","strength",6,14,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"HP7"));
             p2SkillNames.add("Spell5");
-            p2Skills.put("Spell6",new Skill("SpellPower","Spell6","spell",10,14,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell4"));
+            p2Skills.put("Spell6",new Skill("SpellPower","Spell6","strength",10,14,1,new String[]{"Spell Power","Increases spell power by: 5"},5,"Spell4"));
             p2SkillNames.add("Spell6");
-            p2Skills.put("darkLVL1", new Skill("Spell", "Dark Impact Lvl 1", "spell_dark", 4, 14, 1, new String[]{"Basic Dark Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
+            p2Skills.put("darkLVL1", new Skill("Spell", "Dark Arrow Lvl 1", "adark", 4, 14, 1, new String[]{"Basic Dark Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
             p2SkillNames.add("darkLVL1");
-            p2Skills.put("lightLVL1", new Skill("Spell", "Light Impact Lvl 1", "spell_light", 8, 14, 1, new String[]{"Basic Light Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
+            p2Skills.put("lightLVL1", new Skill("Spell", "Light Arrow Lvl 1", "alight", 8, 14, 1, new String[]{"Basic Light Spell", "Low Damage", "Level: 1", "Base Damage: 5"}, 5, "Spell5"));
             p2SkillNames.add("lightLVL1");
             p2Skills.put("HP3",new Skill("HP","HP3","hp",6,2,1,new String[]{"Health Up","Increases max health by: 22"},22,"fireLVL1"));
             p2SkillNames.add("HP3");
